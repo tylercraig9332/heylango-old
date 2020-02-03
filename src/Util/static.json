@@ -1,0 +1,103 @@
+{
+    "cascade": [
+        {
+            "value": "all",
+            "label": "All - N/A"
+        } , 
+        {
+            "value": "America",
+            "label": "American Languages",
+            "children": [
+                {
+                    "value": "en",
+                    "label": "English"
+                },
+                {
+                    "value": "es",
+                    "label": "Spanish"
+                },
+                {
+                    "value": "pt",
+                    "label": "Portuguese"
+                },
+                {
+                    "value": "na",
+                    "label": "Other"
+                }
+            ]
+        },
+        {
+            "value": "Europe",
+            "label": "European Languages",
+            "children": [
+                {
+                    "value": "es",
+                    "label": "Spanish"
+                },
+                {
+                    "value": "fr",
+                    "label": "French"
+                },
+                {
+                    "value": "de",
+                    "label": "German"
+                },
+                {
+                    "value": "it",
+                    "label": "Italian"
+                },
+                {
+                    "value": "pt",
+                    "label": "Portuguese"
+                },
+                {
+                    "value": "eu",
+                    "label": "Other"
+                }
+            ]
+        },
+        {
+            "value": "Asia",
+            "label": "Asian Languages",
+            "children": [
+                {
+                    "value": "ja",
+                    "label": "Japanese"
+                },
+                {
+                    "value": "China",
+                    "label": "Chinese",
+                    "children": [
+                        {
+                            "label": "Mandarin",
+                            "value": "zh-m"
+                        },
+                        {
+                            "label": "Cantonese",
+                            "value": "zh-c"
+                        }
+                    ]
+                },
+                {
+                    "value": "as",
+                    "label": "Other"
+                }
+            ]
+        },
+        {
+            "value" : "misc",
+            "label": "Other"
+        }
+    ],
+    "communities": [
+        "All",
+        "Spanish",
+        "French",
+        "German",
+        "Italian",
+        "Portuguese",
+        "Japanese",
+        "Mandarin",
+        "Cantonese"
+    ]
+}
