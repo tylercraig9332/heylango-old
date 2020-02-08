@@ -30,6 +30,14 @@ router.get('/id/:id', (req, res) => {
         res.status(400).send(err)
     })
 })
+.get('/:c', (req, res) => {
+    model.read({community: req.params.c}).then(posts => {
+        res.send(posts)
+    })
+    .catch((err) => {
+        res.status(400).send(err)
+    })
+})
 
 router.post('/', (req, res) => {
     if (req.session.user === undefined) {
@@ -37,7 +45,7 @@ router.post('/', (req, res) => {
     }
     req.body.author = req.session.user.id
     model.create(req.body).then(r => {
-        res.status(200).send('Post created!')
+        res.status(200).send(r)
     })
     .catch(err => {
         res.statusMessage = 'Something went wrong'

@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const PostScheme = mongoose.Schema({
     title: { type: String, required: true },
     content: { type: String, required: true },
-    community: { type: mongoose.Types.ObjectId },
+    community: { type: String, default: 'all'},
     image: { type: String, default: '/static/post' },
     author: { type: mongoose.Types.ObjectId, required: true }
 }, { timestamp: true })

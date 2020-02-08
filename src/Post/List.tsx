@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import Post from './Post'
-import { message } from 'antd'
+import { message, Button, Result, Icon, Empty } from 'antd'
 import Preview from '../Post/Preview'
 
 type ListProps = {
@@ -10,6 +11,8 @@ type ListProps = {
 export default function List(props : ListProps) {
 
     const [posts, setPosts] = useState<Post[]>()
+    const [refresh, setRefresh] = useState<boolean>()
+    const [loaded, setLoaded] = useState<boolean>(false)
 
     useEffect(() => {
         const reqHeaders = {
@@ -18,18 +21,30 @@ export default function List(props : ListProps) {
             },
             method: "GET"
         }
-        fetch('/p/all', reqHeaders).then(res => {
+        fetch(`/p/${props.by}`, reqHeaders).then(res => {
+            setLoaded(true)
             if (res.status === 400) message.error(res.statusText)
             else return res.json()
-        }).then(p => setPosts(p))
-    }, [])
+            }).then(p => {console.log(p); setPosts(p)})
+    }, [refresh])
 
+
+    if (!loaded) return (
+        <Result 
+                title={"Loading Posts"} 
+                subTitle={"If this takes too long then there may be an error :/"}
+                extra={<Button onClick={(() => setRefresh(!refresh))}>Refresh</Button>} 
+                icon={<Icon type="loading" />}
+        />)
     return (
         <div>
-            {(posts !== undefined && posts!.length > 1) ? posts.map((post) => {
-                // Change to component
+            {(posts !== undefined && posts!.length >= 1) ? posts.map((post) => {
                 return <Preview post={post} key={post.id}/>
-            }) : undefined }
+            }) : (
+            <Empty>
+                <Button type="primary"><Link to="/community/p/new">Create New Post</Link></Button>
+            </Empty>
+        ) }
         </div>
     )
 }

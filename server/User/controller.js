@@ -19,8 +19,7 @@ router.get('/loggedIn', (req, res) => {
     res.send(req.session.user)
 })
 .get('/:value', (req, res) => {
-    model.read(req.body.value).then((r) => {
-        console.log(r)
+    model.read(req.params.value).then((r) => {
         res.send(r)
     })
 })

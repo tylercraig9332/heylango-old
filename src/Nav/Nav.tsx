@@ -63,14 +63,16 @@ export default function Nav(props : any) {
     )
 
     return (
-        <Menu onClick={handleMenuChange} selectedKeys={[currentKey]} mode="horizontal" style={{borderTop: '2px solid #1890FF'}}>
-            <Item key="/"><Link to='/'><strong>Langu!</strong></Link></Item>
+        <div style={{zIndex: 5, position: 'relative'}}>
+        <Menu onClick={handleMenuChange} selectedKeys={[currentKey]} mode="horizontal" style={{borderTop: '2px solid #1890FF', zIndex: 5}}>
+            <Item key="/"><Link to='/'><strong>HeyLango!</strong></Link></Item>
             <Item key='/community/'><Link to='/community/'>Community</Link></Item>
-            <Item key='/dashboard/'><Link to='/dashboard/'>Dashboard</Link></Item>
+            <Item key='/learn/'><Link to='/learn/'>Apps</Link></Item>
             {
                 (logged) ? loggedTabs : unLoggedTabs
             }
         </Menu>
+        </div>
     )
 }
 

@@ -9,15 +9,15 @@ async function create(body) {
     return await _readByUsername(body.username)
 }
 
-function read(value) {
-    if (typeof Number(value) === 'number') return _readById(value)
-    else if (typeof value.toString() === 'string') return _readByUsername(value)
+async function read(value) {
+    if (!isNaN(Number(value))) return await _readById(value)
+    else if (typeof(value.toString()) === 'string') return await _readByUsername(value)
     else console.log("ERROR: unsupported read type")
 }
 
 async function _readByUsername(username) {
     let r = undefined
-    await User.find({username: username}, (err, user) => {
+    await User.findOne({username: username}, (err, user) => {
         if (err) console.log(err)
         console.log(user)
         r = {
@@ -25,7 +25,7 @@ async function _readByUsername(username) {
             id: user._id,
             email: user.email,
             meta: user.meta,
-            createdAt: user._id.getTimestamp()
+            //createdAt: user._id.getTimestamp()
         }
     })
     return r

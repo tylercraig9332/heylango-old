@@ -89,7 +89,7 @@
             "label": "Other"
         }
     ],
-    "communities": [
+    "languages": [
         "All",
         "Spanish",
         "French",
@@ -99,5 +99,73 @@
         "Japanese",
         "Mandarin",
         "Cantonese"
+    ],
+    "communities": [
+        {
+            "name": "All",
+            "imageUrl": "/static/comm/all_ri",
+            "code": "all",
+            "flag": "📚"
+        },
+        {
+            "name": "Spanish",
+            "imageUrl": "/static/comm/madrid_jg",
+            "code": "es",
+            "flag": "🇪🇸"
+        },
+        {
+            "name": "French",
+            "code": "fr",
+            "imageUrl": "/static/comm/paris_cm",
+            "flag": "🇫🇷"
+        },
+        {
+            "name": "German",
+            "code": "de",
+            "imageUrl": "/static/comm/german_em",
+            "flag": "🇩🇪"
+        },
+        {
+            "name": "Portuguese",
+            "code": "pt",
+            "imageUrl": "/static/comm/rio_ad",
+            "flag": "🇧🇷"
+        },
+        {
+            "name": "Italian",
+            "code": "it",
+            "imageUrl": "/static/comm/it_jw",
+            "flag": "🇮🇹"
+        },
+        {
+            "name": "Russian",
+            "code": "ru",
+            "imageUrl": "/static/comm/russia_nk",
+            "flag": "🇷🇺"
+        },
+        {
+            "name": "Japanese",
+            "code": "jp",
+            "imageUrl": "/static/comm/jp_b",
+            "flag": "🇯🇵"
+        },
+        {
+            "name": "Arabic",
+            "code": "ar",
+            "imageUrl": "/static/comm/taj_th",
+            "flag": "🇦🇪"
+        },
+        {
+            "name": "Chinese",
+            "code": "zh",
+            "imageUrl": "/static/comm/redTassel_as",
+            "flag": "🇨🇳"
+        },
+        {
+            "name": "Esperanto",
+            "code": "eo",
+            "imageUrl": "/static/comm/green_wz",
+            "flag": "💚"
+        }
     ]
 }

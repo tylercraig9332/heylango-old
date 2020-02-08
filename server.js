@@ -12,6 +12,7 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }))
+app.use('/static', express.static('./public'));
 
 const port = process.env.PORT || 8080
 

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import Post from './Post'
 import s from '../Util/static.json'
-
-import { Input, Row, Col, Upload, Button, Icon, Cascader } from 'antd'
+import { Link } from 'react-router-dom'
+import { Input, Row, Col, Upload, Button, Icon, Cascader, Result } from 'antd'
 
 import Editor from '../Draft/DraftEditor'
 
@@ -13,6 +13,8 @@ export default function Create() {
     const [rawContent, setRawContent] = useState<string>()
     const [community, setCommunity] = useState<string>()
 
+    const [success, pass] = useState<string[]>(['unposted', '']) // [status, result]
+
     React.useEffect(() => {
         // TODO: I am going to make a localSession save for the post in case something happends to the client.
         // The broswer will save the data
@@ -21,13 +23,47 @@ export default function Create() {
     function post() {
         const postData = {
             "title": title,
-            "image": image,
+            //"image": image,
             "content": rawContent,
             "community": community
         }
+        const reqHeaders = {
+            body: JSON.stringify(postData),
+            headers: {
+                "Content-Type": "application/json"
+            },
+            method: "POST"
+        }
+        fetch('/p/', reqHeaders).then(async (res) => {
+            if (res.status == 200) {
+                console.log("Success!")
+                alert("Success!")
+                let obj = await res.json()
+                console.log(obj)
+                pass(['success', obj[0].id])
+            } else {
+                console.log(res.statusText)
+                alert(res.statusText)
+                pass(['error', res.statusText])
+            }
+        })
         console.log(postData)
     }
 
+    if (success[0] === 'success') {
+        return (
+            <Result 
+                title="Post Created Successfully!" 
+                extra={<Link to={`/community/p/${success[1]}`}><Button type="primary">View Post</Button></Link>}
+            />
+        )
+    } else if (success[0] === 'error') {
+        return (
+        <Result
+            status="error"
+            title="Something went wrong"/>
+        )
+    }
 
     return (
         <div style={container}>
@@ -46,7 +82,7 @@ export default function Create() {
                         <Cascader 
                             options={s.cascade} placeholder="Select Language Community" 
                             style={{width: 275}} expandTrigger="hover"
-                            onChange={(e) => setCommunity(e.pop())}
+                            onChange={(e) => setCommunity(e[e.length - 1])}
                         />
                 </Col>
             </Row>

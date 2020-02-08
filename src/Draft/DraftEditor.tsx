@@ -1,13 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Editor, EditorState, convertToRaw, convertFromRaw } from 'draft-js'
 import './DraftEditorPlaceholder.css'
-
-type DraftEditorProps = {
-    placeholder: string | undefined,
-    readOnly?: boolean,
-    value?: string,
-    onChange?: any
-}
+import DraftEditorProps from './EditorProps'
 
 export default function DraftEditor(props : DraftEditorProps) {
 
@@ -44,8 +38,13 @@ export default function DraftEditor(props : DraftEditorProps) {
         }
     }, [focus])
 
+    let editorStyle = (focus || highlight) ? focused : styleWrap
+    if (props.readOnly) editorStyle = readOnlyStyle
+    if (props.readOnly && props.wrap) editorStyle = styleWrap
+
+    if (props.hidden) return <div style={{backgroundColor: '#1890ff', ...styleWrap, ...props.style}}></div>
     return (
-        <div style={(focus || highlight) ? focused : styleWrap} onClick={() => setFocus(true)} onBlur={() => setFocus(false)}
+        <div style={{...editorStyle, ...props.style}} onClick={() => setFocus(true)} onBlur={() => setFocus(false)}
             onMouseEnter={() => setHighlight(true)} onMouseLeave={() => setHighlight(false)}>
             <Editor
                 ref={editor}
@@ -58,19 +57,27 @@ export default function DraftEditor(props : DraftEditorProps) {
     )
 }
 
+const readOnlyStyle = {
+    paddingTop: '10px',
+    paddingBottom: '10px'
+}
+
+const cardStyle = {
+    transition: 'all 0.3s',
+    minHeight: 100,
+    padding: '10px'
+} as React.CSSProperties
+
 const styleWrap = {
     border: '1px solid #d9d9d9',
     borderRadius: '4px',
-    padding: '10px',
-    transition: 'all 0.3s',
-    minHeight: 100
+    ...cardStyle
+    
 } as React.CSSProperties
 
 const focused = {
     border: '1px solid #1890ff',
     borderRadius: '4px',
-    padding: '10px',
     boxShadow: '0 2px 8px fade(#1890ff, 20%)',
-    transition: 'all 0.3s',
-    minHeight: 100
+    ...cardStyle
 } as React.CSSProperties

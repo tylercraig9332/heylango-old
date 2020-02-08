@@ -114,8 +114,8 @@ export default function SignUp(props: any) {
     )
     return (
         <div style={pageStyle}>
-            <Row>
-              <Col span={6} offset={6}>
+            <Row style={rowStyle}>
+              <Col span={6} offset={6} style={colStyle}>
                 <h1 style={{color: 'dimgrey'}}>Sign Up</h1>
                 <div>{success ? <Success /> : undefined}</div>
                 <form onSubmit={handleSubmit}>
@@ -141,9 +141,27 @@ export default function SignUp(props: any) {
 // Component Style
 
 const pageStyle = {
-    marginTop: '2rem'
-}
+    backgroundImage: 'url(static/louis-pellissier-unsplash.jpg)',
+    top: 0,
+    left: 0,
+    position: 'fixed',
+    width: '100%',
+    height: '100%',
+    zIndex: 0,
+    backgroundSize: 'cover'
+} as React.CSSProperties
 
 const formStyle = {
-  marginTop: 10
-}
+  marginTop: 10,
+  zIndex: 1
+} as React.CSSProperties
+
+const colStyle = {
+  minWidth: 300, marginRight: 'auto', marginLeft: 'auto', padding: 30,
+  border: '1px', borderRadius: '4px', backgroundColor: 'white',
+  marginTop: 100, zIndex: 1
+} as React.CSSProperties
+
+const rowStyle = {
+  left: 0, display: 'flex', alignItems: 'center', zIndex: 1
+} as React.CSSProperties

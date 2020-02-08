@@ -1,14 +1,14 @@
 interface User {
-    id: String,
-    username: String,
+    id: string,
+    username: string,
     meta: UserMeta,
-    email: String,
+    email: string,
     createdAt: any // Todo: Identify this type
 }
 
 export type UserMeta = {
     ip : number | undefined,
-    role: String
+    role: string
 }
 
 export default User

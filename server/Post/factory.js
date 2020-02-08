@@ -8,10 +8,21 @@ async function create(post) {
 
 async function read(body) {
     let p = []
-    await Post.find(body, (err, docs) => {
+
+    async function _formatPosts(docs) {
+        let posts = []
+        await docs.map(async (post) => {
+            _formatPostObject(post).then(fp => {
+                posts.push(fp)
+            })
+        })
+        return posts
+    }
+
+    await Post.find(body, async (err, docs) => {
         if (err) throw new Error(err)
-        docs.map(post => {
-            p.push(_formatPostObject(post))
+        return await _formatPosts(docs).then((fp) => {
+            p = fp
         })
     })
     return p
@@ -35,14 +46,14 @@ function _delete() {
 
 }
 
-function _formatPostObject(p) {
+async function _formatPostObject(p) {
     return {
         id: p._id,
         title: p.title,
         content: p.content,
         community: p.community,
         image: p.image,
-        createdAt: p._id.getTimestamp(),
+        createdAt: await p._id.getTimestamp(),
         author: p.author
     }
 }
