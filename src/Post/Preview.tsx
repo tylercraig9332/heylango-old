@@ -12,7 +12,7 @@ type PostCardProps = {
 export default function Preview(props : PostCardProps) {
     const { post } = props
 
-    const toolbar = [<Like />, <Comment />, <Favorite />, <Share />, <User />]
+    const toolbar = [<Like postId={post.id}/>, <Comment />, <Favorite />, <Share />, <User author={post.author}/>]
 
     return (
         <div style={cardStyle} key={post.id}>

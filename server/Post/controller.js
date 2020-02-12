@@ -15,7 +15,7 @@ router.get('/id/:id', (req, res) => {
     /* Gets posts made by a user */
     // todo
     model.read({author: req.params.user}).then(posts => {
-        res.send(posts)
+        res.json(posts)
     }).catch(err => {
         console.log(err)
         res.status(400).send(err)
@@ -23,7 +23,7 @@ router.get('/id/:id', (req, res) => {
 })
 .get('/all', (req, res) => {
     model.read({}).then((posts) => {
-        res.send(posts)
+        res.json(posts)
     })
     .catch(err => {
         console.log(err)

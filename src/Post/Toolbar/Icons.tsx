@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Icon, Tooltip } from 'antd'
+import { Link } from 'react-router-dom'
 
 const iconStyle = {fontSize: 20}
 
@@ -9,10 +10,31 @@ export function Like(props : {postId? : string, onClick? : any}) {
 
     const [liked, like] = useState<boolean>(false)
 
+    // Load in inital like state from server
+    useEffect(() => {
+        const reqHeaders = {
+            //body: JSON.stringify(postData),
+            headers: {
+                "Content-Type": "application/json"
+            },
+            method: "GET"
+        }
+        fetch(`/i/${props.postId}`, reqHeaders).then(r => r.json()).then(l => {
+            like(l)
+        })  
+    }, [])
+
     function handleLike() {
+        // send or remove like to server
+        const reqHeaders = {
+            body: JSON.stringify({parent: props.postId}),
+            headers: {
+                "Content-Type": "application/json"
+            },
+            method: (!liked) ? "POST" : "DELETE"
+        }
+        fetch('/i/', reqHeaders).catch(err => console.error(err))
         like(!liked)
-        // TODO: make request to server and handle possible errors
-        props.onClick()
     }
 
     return (
@@ -46,10 +68,12 @@ export function Share() {
     )
 }
 
-export function User() {
+export function User(props: {author: string}) {
     return (
         <Tooltip title="View Author">
-            <Icon type="user" style={iconStyle}/>
+            <Link to={`/profile/${props.author}`}>
+                <Icon type="user" style={iconStyle}/>
+            </Link>
         </Tooltip>
     )
 }

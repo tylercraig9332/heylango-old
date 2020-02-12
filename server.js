@@ -19,10 +19,14 @@ const port = process.env.PORT || 8080
 const cRouter = require('./server/Community/controller')
 const pRouter = require('./server/Post/controller')
 const uRouter = require('./server/User/controller')
+const iRouter = require('./server/Interaction/controller')
+const lBiRouter = require('./server/Learning/BiLango/controller')
 
 app.use('/c', cRouter)
 app.use('/p', pRouter)
 app.use('/u', uRouter)
+app.use('/i', iRouter)
+app.use('/l/bi', lBiRouter)
 
 /* Logs when a user is undefined */
 const userAuthMiddleware = (req, res, next) => {

@@ -6,6 +6,11 @@ async function create(post) {
     return read(p._id)
 }
 
+/**
+ * Reads posts from the db dependent on the body object.
+ * @param {Object} body mongodb specs to specify the data by.
+ * @returns {Array.<Object>} formatted posts as an array of Objects
+ */
 async function read(body) {
     let p = []
 
@@ -19,20 +24,18 @@ async function read(body) {
         return posts
     }
 
-    await Post.find(body, async (err, docs) => {
+    let docs = await Post.find(body, async (err, docs) => {
         if (err) throw new Error(err)
-        return await _formatPosts(docs).then((fp) => {
-            p = fp
-        })
     })
-    return p
+    return await _formatPosts(docs)
 }
 
 async function readById(id) {
-    return await Post.findById(id, (err, p) => {
+    let p = await Post.findById(id, (err, p) => {
         if (err) throw new Error(err)
-        return _formatPostObject(p)
+        
     })
+    return _formatPostObject(p)
 }
 
 function update(from, body) {

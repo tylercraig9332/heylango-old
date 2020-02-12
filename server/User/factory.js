@@ -16,34 +16,29 @@ async function read(value) {
 }
 
 async function _readByUsername(username) {
-    let r = undefined
-    await User.findOne({username: username}, (err, user) => {
+    let user = await User.findOne({username: username}, (err, user) => {
         if (err) console.log(err)
-        console.log(user)
-        r = {
-            username: user.username,
-            id: user._id,
-            email: user.email,
-            meta: user.meta,
-            //createdAt: user._id.getTimestamp()
-        }
     })
-    return r
+    return {
+        username: user.username,
+        id: user._id,
+        email: user.email,
+        meta: user.meta,
+        createdAt: await user._id.getTimestamp()
+    }
 }
 
 async function _readById(_id) {
-    let r = undefined
-    await User.findById(_id, (err, user) => {
+    let user = await User.findById(_id, (err, user) => {
         if (err) console.log(err)
-        r = {
-            username: user.username,
-            id: user._id,
-            email: user.email,
-            meta: user.meta,
-            createdAt: user._id.getTimestamp()
-        }
     })
-    return r
+    return {
+        username: user.username,
+        id: user._id,
+        email: user.email,
+        meta: user.meta,
+        createdAt: await user._id.getTimestamp()
+    }
 }
 
 async function update() {

@@ -14,7 +14,7 @@ import cView from './Community/View'
 import pCreate from './Post/Create'
 import pView from './Post/View'
 import lHome from './Learning/Home'
-import biView from './Learning/BiLango/SheetView'
+import biView from './Learning/BiLango/View'
 import biCreate from './Learning/BiLango/Create'
 
 import Test from './pages/Test'

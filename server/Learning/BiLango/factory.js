@@ -1,15 +1,16 @@
 const BiSheet = require('./BiSheet')
 
-async function create(body) {
+function create(body) {
     let sheet = new BiSheet(body)
-    sheet.save()
+    return sheet.save()
 }
 
-function read(body) {
-    BiSheet.find(body, (err, docs) => {
+async function read(body) {
+    let doc = await BiSheet.find(body, (err, docs) => {
         console.log(docs)
-        // TODO: handle the response here...
+        if (err) throw new Error(err)
     })
+    return doc
 }
 
 function update() {
