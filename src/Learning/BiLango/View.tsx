@@ -1,7 +1,8 @@
 import React from 'react'
+import SheetView from './SheetView'
 
 export default function View() {
     return (
-        <div>BiLango Translation</div>
+        <SheetView id={window.location.pathname.split('/')[3]} readOnly/>
     )
 }

@@ -10,6 +10,23 @@ router.get('/', (req, res) => {
         res.status(400).send(err)
     })
 })
+.get('/all', (req, res) => {
+    factory.read({}).then(sheets => {
+        res.send(sheets)
+    }).catch(err => {
+        res.statusMessage = 'Error Occured'
+        res.status(400).send(err)
+    })
+})
+.get('/:id', (req, res) => {
+    if (req.params.id === undefined) res.status(200).send('sheet not found')
+    factory.read({_id: req.params.id}).then(sheet => {
+        res.send(sheet[0])
+    }).catch(err => {
+        res.statusMessage = 'Error Occured'
+        res.status(400).send(err)
+    })
+})
 
 router.post('/', (req, res) => {
     if (req.session.user === undefined) {

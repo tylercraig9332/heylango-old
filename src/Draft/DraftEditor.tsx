@@ -17,7 +17,7 @@ export default function DraftEditor(props : DraftEditorProps) {
             const contentState = convertFromRaw(JSON.parse(props.value))
             setEditorState(EditorState.createWithContent(contentState))
         }   
-    }, [])
+    }, [props.value])
 
     useEffect(() => {
         if (editorState != null && !props.readOnly) {

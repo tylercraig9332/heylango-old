@@ -15,6 +15,29 @@ export default function SheetView(props : {readOnly?: boolean, id?: string, send
     const [notesVisable, setNotesVisable] = useState<boolean>(true)
 
     useEffect(() => {
+        // TODO: inital load based on props.id id it exists
+        let id = props.id
+        if (props.id === undefined) { 
+            id = '0'
+        } 
+        const reqHeaders = {
+            headers: {
+                "Content-Type": "application/json"
+            },
+            method: "GET"
+        }
+        
+        fetch('/l/bi/' + props.id, reqHeaders).then(r => r.json())
+        .then(data => {
+            console.log(data)
+            setTitle(data.title)
+            setPrimary(data.primary)
+            setSecondary(data.secondary)
+            setNotes(data.notes)
+        })
+    }, [])
+
+    useEffect(() => {
         if (!props.readOnly && props.send != undefined) {
             props.send({
                 title: title,

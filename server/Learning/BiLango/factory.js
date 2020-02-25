@@ -10,6 +10,7 @@ async function read(body) {
         console.log(docs)
         if (err) throw new Error(err)
     })
+    .catch(err => {throw new Error(err)})
     return doc
 }
 

@@ -16,6 +16,8 @@ import pView from './Post/View'
 import lHome from './Learning/Home'
 import biView from './Learning/BiLango/View'
 import biCreate from './Learning/BiLango/Create'
+import biHome from './Learning/BiLango/Home'
+import vidView from './Learning/VidLango/View'
 
 import Test from './pages/Test'
 
@@ -42,7 +44,9 @@ export default function Routes() {
                         <Route path='/profile' component={Profile} />
                         <Route path='/test' component={Test} />
                         <Route exact path='/learn/bi/new' component={biCreate} />
+                        <Route exact path='/learn/bi/' component={biHome} />
                         <Route path='/learn/bi/' component={biView} />
+                        <Route path='/learn/vid/' component={vidView} />
                     </Switch>
                 </div>
             </div>

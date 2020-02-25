@@ -11,16 +11,19 @@ type CommentProps = {
     author? : string | Object, // id for the author of the component
     parent? : string // id for parent component (Post or other Comments, etc)
     onReply? : any,
-    comment?: IComment 
+    children?: IComment[] 
+    comment?: IComment
 }
 
 /* Comment Individual Component */
 export default function Component(props : CommentProps) {
-    let {author, onReply, content, parent, id} = props
+    // I want two ways for this component to work
+    let {author, onReply, content, parent, id, children} = props
     if (props.comment != undefined) {
          author = props.comment.author
          content = props.comment.content
          parent = props.comment.parent
+         children = props.comment.children
     }
 
     function handleLike() {
@@ -34,7 +37,7 @@ export default function Component(props : CommentProps) {
 
     return (
         <div key={id}>
-            <Comment author={<Link to={`/profile/${author}`}>{author}</Link>} avatar={<Avatar author={author}/>} content={<div>{content}</div>} actions={myActions}/>
+            <Comment author={<Link to={`/profile/${author}`}>{author}</Link>} avatar={<Avatar fetch_author={author}/>} content={<div>{content}</div>} actions={myActions}/>
         </div>
     )
 }

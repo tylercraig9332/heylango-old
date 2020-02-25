@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { Icon, Tooltip } from 'antd'
+import React, { useState, useEffect, useRef } from 'react'
+import { Icon, Tooltip, Modal, Input, message } from 'antd'
 import { Link } from 'react-router-dom'
 
 const iconStyle = {fontSize: 20}
@@ -60,10 +60,35 @@ export function Favorite() {
     )
 }
 
-export function Share() {
+export function Share(props: {postID?: string}) {
+    const inputRef = useRef<any>()
+    function info() {
+
+        const copyIcon = (
+            <Tooltip title="Copy Link"><Icon type="copy" onClick={() => {
+                inputRef.current.focus()
+                inputRef.current.select()
+                document.execCommand('copy')
+                message.success('Copied to clipboard!')
+                Modal.destroyAll()
+            }} /></Tooltip>
+        )
+
+        Modal.info({
+          title: 'Share Post',
+          content: (
+            <div>
+                <br></br>
+                <Input ref={inputRef} size="large" value={`www.heylango.com/community/p/${props.postID}`}addonAfter={copyIcon} readOnly/>
+            </div>
+          ),
+          onOk() {},
+          okText: 'Close'
+        });
+      }
     return (
         <Tooltip title="Share">
-            <Icon type="share-alt" style={iconStyle}/>
+            <Icon type="share-alt" style={iconStyle} onClick={info}/>
         </Tooltip>
     )
 }

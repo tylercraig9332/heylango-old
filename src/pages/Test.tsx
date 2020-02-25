@@ -6,8 +6,7 @@ import CreateBiSheet from '../Learning/BiLango/Create'
 export default function Test() {
     return (
         <div>
-            <CreateBiSheet/>
-            {/*<Engine />*/}
+            <Engine />
         </div>
     )
 }

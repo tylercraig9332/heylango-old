@@ -2,24 +2,33 @@ import React, { useState, useEffect } from 'react'
 import { Avatar, Tooltip } from 'antd'
 import User from './User'
 
-export default function UserAvatar(props : {author? : string | Object}) {
+export default function UserAvatar(props : {fetch_author? : string | Object, user?: User}) {
 
     const [aData, setData] = useState<string>('Anon')
     const [username, setUsername] = useState<string>('Anonymous')
 
     useEffect(() => {
+        if (props.fetch_author === undefined) return
         const headers = {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
             }
         }
-        fetch('/u/' + props.author, headers).then((res) => res.json()).then((user : User) => {
+        fetch('/u/' + props.fetch_author, headers).then((res) => res.json()).then((user : User) => {
             console.log(user)
             setData(user.username.charAt(0))
             setUsername(user.username)
         })
-    }, [])
+    }, [props.fetch_author])
+
+    useEffect(() => {
+        let u = 'Anon'
+        if (props.user !== undefined) {
+            u = props.user.username
+        }
+        setUsername(u)
+    }, [props.user])
 
     return (
         <Tooltip title={`${username}`}>

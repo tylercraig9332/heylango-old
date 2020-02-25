@@ -9,6 +9,8 @@ export default function Home() {
             <Link to='/learn/bi/new'>New BiLango</Link>
             <br></br>
             <Link to='/learn/bi/'>View BiLangos</Link>
+            <br></br>
+            <Link to='/learn/vid/'>Example VidLango</Link>
         </div>
     )
 }
