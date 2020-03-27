@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import {BiSheet} from './BiSheet'
+import Preview from './Preview'
 
 export default function Home() {
 
@@ -17,8 +19,24 @@ export default function Home() {
     }, [])
 
     return (
-        <div>{(sheets === undefined) ? null : sheets.map((sheet : any) => {
-            return <div><a href={`/learn/bi/${sheet._id}`}>{sheet.title}</a></div>
-        })}</div>
+        <div>
+            <div>
+                <h1>BiLango Sheets</h1>
+                <p style={{marginTop: -10}}>Short Bilingual Texts</p>
+            </div>
+            <hr></hr>
+            <div style={flexContainer}>
+                {(sheets !== undefined) ? sheets.map((s : any) => {
+                    return <Preview sheet={s} />
+                }) : undefined}
+            </div>
+        </div>
     )
 }
+
+const flexContainer = {
+    display: 'flex',
+    flexWrap: 'wrap',
+    //justifyContent: 'space-between',
+    alignItems: 'center',
+} as React.CSSProperties

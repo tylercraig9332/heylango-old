@@ -1,4 +1,9 @@
-interface BiSheet {
+export interface BiSheet {
     // TODO
-    title: string
+    title: string,
+    primary: string,
+    secondary: string,
+    notes?: string,
+    author: string,
+    audio?: any
 }

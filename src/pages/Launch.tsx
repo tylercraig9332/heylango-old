@@ -1,5 +1,5 @@
 import React from 'react' 
 
 export default function Launch() {
-    return (<h1>Hello World</h1>)
+    return (<h1>Welcome to HeyLango!</h1>)
 }

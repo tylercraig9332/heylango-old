@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import Editor from '../../Draft/DraftEditor'
+import PageToolbar from '../../Nav/PageToolbar'
 
 import { Row, Col, Button, Tooltip, Input } from 'antd'
 
-export default function SheetView(props : {readOnly?: boolean, id?: string, send?: (t : Object) => void}) {
+export default function SheetView(props : {readOnly?: boolean, id?: string, send?: (t : Object) => void, newSheet?: boolean}) {
 
     const [title, setTitle] = useState<string>()
     const [primary, setPrimary] = useState<string>()
@@ -15,10 +16,11 @@ export default function SheetView(props : {readOnly?: boolean, id?: string, send
     const [notesVisable, setNotesVisable] = useState<boolean>(true)
 
     useEffect(() => {
-        // TODO: inital load based on props.id id it exists
+        if (props.id == undefined) return
         let id = props.id
         if (props.id === undefined) { 
             id = '0'
+            return
         } 
         const reqHeaders = {
             headers: {
@@ -51,13 +53,21 @@ export default function SheetView(props : {readOnly?: boolean, id?: string, send
     return (
         <div style={containerStyle}>
             <div id="audioPlayer"></div>
-            <Row type="flex" justify="center" style={{marginBottom: 20 }}>
-                <h2>{props.readOnly ? title : <Input value={title} size='large' placeholder="Sheet Title" onChange={(e : any) => setTitle(e.target.value)}/>}</h2>
-            </Row>
+            {props.readOnly ? (
+                <div style={{width: '90%', marginLeft: '7%'}}>
+                    <PageToolbar title={title || 'Title'} /> 
+                    <br></br>
+                </div>
+            ) : (
+                <Row type="flex" justify="center" style={{marginBottom: 20 }}>
+                    <h2><Input value={title} size='large' placeholder="Sheet Title" onChange={(e : any) => setTitle(e.target.value)}/></h2>
+                </Row>
+            )
+            }
             <Row type="flex" justify="center">
                 <Col span={6}>
                     <div id="primary" >
-                        <h3>Target Text <HideSheetButton onClick={() => setPrimaryVisable(!primaryVisable)}/></h3>
+                        <h3>Target Text <HideSheetButton onClick={() => setPrimaryVisable(!primaryVisable)} hidden={!props.readOnly}/></h3>
                         <Editor value={primary} onChange={setPrimary} 
                             style={{height: 400}} readOnly={props.readOnly} hidden={!primaryVisable} wrap/>
                     </div>
@@ -65,7 +75,7 @@ export default function SheetView(props : {readOnly?: boolean, id?: string, send
                 <Col span={1}></Col>
                 <Col span={6}>
                     <div id="secondary" >
-                        <h3>Secondary Text <HideSheetButton onClick={() => setSecondaryVisable(!secondaryVisable)}/></h3> 
+                        <h3>Secondary Text <HideSheetButton onClick={() => setSecondaryVisable(!secondaryVisable)} hidden={!props.readOnly}/></h3> 
                         <Editor value={secondary} onChange={setSecondary} 
                         style={{height: 400}} readOnly={props.readOnly} hidden={!secondaryVisable} wrap/>
                     </div>
@@ -73,7 +83,7 @@ export default function SheetView(props : {readOnly?: boolean, id?: string, send
                 <Col span={1}></Col>
                 <Col span={6}>
                     <div id="notes" >
-                        <h3>Notes / Other <HideSheetButton onClick={() => setNotesVisable(!notesVisable)}/></h3>
+                        <h3>Notes / Other <HideSheetButton onClick={() => setNotesVisable(!notesVisable)} hidden={!props.readOnly}/></h3>
                         <Editor value={notes} onChange={setNotes} 
                         style={{height: 400}} readOnly={props.readOnly} hidden={!notesVisable} wrap/>
                     </div>
@@ -89,7 +99,8 @@ const containerStyle = {
 } as React.CSSProperties
 
 
-function HideSheetButton(props : {onClick?: any}) {
+function HideSheetButton(props : {onClick?: any, hidden?: boolean}) {
+    if (props.hidden) return null
     return (
         <Tooltip title="Hide">
                 <Button icon="eye-invisible" shape="circle" onClick={props.onClick}/>

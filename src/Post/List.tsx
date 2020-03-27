@@ -42,7 +42,7 @@ export default function List(props : ListProps) {
                 return <Preview post={post} key={post.id}/>
             }) : (
             <Empty>
-                <Button type="primary"><Link to="/community/p/new">Create New Post</Link></Button>
+                <Button type="primary" size="large"><Link to="/community/p/new">Create New Post</Link></Button>
             </Empty>
         ) }
         </div>

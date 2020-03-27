@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import SheetView from './SheetView'
-import { Button, Result } from 'antd'
+import { Button, Result, Upload, message } from 'antd'
 
 export default function Create() {
 
@@ -31,13 +31,42 @@ export default function Create() {
         setBiSheet(e)
     }
 
+    const uploadProps = {
+        name: 'file',
+        action: '/l/bi/audio',
+        headers: {
+          authorization: 'authorization-text',
+        },
+        accept:"audio/*",
+        onChange(info : any) {
+            console.log(info)
+            if (info.file.status !== 'uploading') {
+                console.log(info.file, info.fileList);
+            }
+            if (info.file.status === 'done') {
+                message.success(`${info.file.name} file uploaded successfully`);
+            } else if (info.file.status === 'error') {
+                message.error(`${info.file.name} file upload failed.`);
+            }
+        },
+      };
+
 if (success) return (<Result status="success" title={"BiLango Sheet Successfully Created!"} 
                                 extra={<Button type="primary"><Link to="todo">View</Link></Button>}/>)
     return (
         <div>
             <h1>Create New BiLango Sheet</h1>
             <SheetView send={extract} />
-            <Button type="primary" onClick={save} block>Save</Button>
+            <div style={{padding: 10, display: 'flex', justifyContent: 'center'}}>
+                <Upload {...uploadProps}>
+                    <Button>
+                    Upload Audio
+                    </Button>
+                </Upload>
+            </div>
+            <div style={{display: 'flex', justifyContent: 'center', padding: 20}}>
+                <Button type="primary" size="large" onClick={save} block style={{width: '80%'}}>Create New BiSheet</Button>
+            </div>
         </div>
     )
 }

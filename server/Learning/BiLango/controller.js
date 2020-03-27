@@ -19,7 +19,11 @@ router.get('/', (req, res) => {
     })
 })
 .get('/:id', (req, res) => {
-    if (req.params.id === undefined) res.status(200).send('sheet not found')
+    if (req.params.id == 'undefined') {
+        res.status(404).send('sheet not found')
+        return
+    }
+    console.log(req.params)
     factory.read({_id: req.params.id}).then(sheet => {
         res.send(sheet[0])
     }).catch(err => {
@@ -41,6 +45,9 @@ router.post('/', (req, res) => {
     .catch((err) => {
         res.status(400).send(err)
     })
+}).post('/audio', (req, res) => {
+    console.log(req)
+    res.send('test passed!')
 })
 
 router.put('/', (req, res) => {

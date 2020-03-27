@@ -3,6 +3,9 @@ import React, { useState, useEffect } from 'react'
 import Post from './Post'
 import DraftEditor from '../Draft/DraftEditor'
 import CommentEngine from '../Comment/Engine'
+import PageToolbar from '../Nav/PageToolbar'
+import { Like } from './Toolbar/Icons'
+import { Affix } from 'antd'
 
 export default function View(props : {post_id?: string}) {
 
@@ -32,13 +35,16 @@ export default function View(props : {post_id?: string}) {
     if (post === undefined) return <p>loading...</p>
     return (
         <div style={viewContainer}>
-            <h1>{post.title}</h1>
             <div>
+                    <PageToolbar title={post.title} extra={<Like postId={post.id}/>}/>
+            </div>
+            <div style={{padding: 10}}>
                 <DraftEditor value={post.content} readOnly/>
             </div>
             <div>
                 {/*<CommentEngine parent_id={props.post_id}/>*/}
             </div>
+            
         </div>
     )
 }
