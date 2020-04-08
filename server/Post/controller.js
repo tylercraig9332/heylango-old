@@ -30,6 +30,18 @@ router.get('/id/:id', (req, res) => {
         res.status(400).send(err)
     })
 })
+.get('/belongs/:id', (req, res) => { // returns a json of {author : string, belongs : bool}
+    model.readById(req.params.id).then((post) => {
+        let b = false 
+        // true if the author is the same and is not undefined
+        b = (req.session.user !== undefined && req.session.user.id == post.author)
+        const r = {
+            author: post.author,
+            belongs: b
+        }
+        res.send(r)
+    })
+})
 .get('/:c', (req, res) => {
     model.read({community: req.params.c}).then(posts => {
         res.send(posts)

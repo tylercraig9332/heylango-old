@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Icon, Tooltip, Modal, Input, message } from 'antd'
+import { Icon, Tooltip, Modal, Input, message, Menu, Dropdown } from 'antd'
 import { Link } from 'react-router-dom'
 
 const iconStyle = {fontSize: 20}
 
 const likedStyle = {fontSize: 20, color: '#1890ff'}
 
-export function Like(props : {postId? : string, onClick? : any}) {
+export function Like(props : {postID? : string, onClick? : any}) {
 
     const [liked, like] = useState<boolean>(false)
 
@@ -19,7 +19,7 @@ export function Like(props : {postId? : string, onClick? : any}) {
             },
             method: "GET"
         }
-        fetch(`/i/${props.postId}`, reqHeaders).then(r => r.json()).then(l => {
+        fetch(`/i/${props.postID}`, reqHeaders).then(r => r.json()).then(l => {
             like(l)
         })  
     }, [])
@@ -27,7 +27,7 @@ export function Like(props : {postId? : string, onClick? : any}) {
     function handleLike() {
         // send or remove like to server
         const reqHeaders = {
-            body: JSON.stringify({parent: props.postId}),
+            body: JSON.stringify({parent: props.postID}),
             headers: {
                 "Content-Type": "application/json"
             },
@@ -100,5 +100,78 @@ export function User(props: {author: string}) {
                 <Icon type="user" style={iconStyle}/>
             </Link>
         </Tooltip>
+    )
+}
+
+export function PostDropdown(props : {postID: string | undefined, author: string}) {
+
+    // TODO: View author if post doesn't belong to user; else have an option to edit
+    /*const menu = (
+        <Menu>
+            <Menu.Item key="author">
+                <Link to={'/profile'}>View Author</Link>
+            </Menu.Item>
+            <Menu.Item key="author">
+                <a onClick={(e) => {e.preventDefault(); props.setEdit()}}>Edit</a>
+            </Menu.Item>
+        </Menu>
+    )
+        */
+    return (
+        null
+        /*<Dropdown overlay={menu}>
+        </Dropdown>*/
+    )
+}
+
+export function EditOrUser(props: {handleEdit: any, postID?: string}) {
+
+    const [belongs, setBelongs] = useState<boolean>(false);
+    const [author, setAuthor] = useState<string>('')
+
+    useEffect(() => {
+        if (props.postID === undefined) return
+        // Figure out if author is viewing this event.
+        const reqHeaders = {
+            //body: JSON.stringify(postData),
+            headers: {
+                "Content-Type": "application/json"
+            },
+            method: "GET"
+        }
+        fetch(`/p/belongs/${props.postID}`, reqHeaders).then(r => r.json()).then(res => {
+            setBelongs(res.belongs)
+            setAuthor(res.author)
+        })  
+    }, [])
+
+    return belongs ? (
+        <Tooltip title="Edit">
+            <Icon type="edit" onClick={() => props.handleEdit()} style={iconStyle}/>
+        </Tooltip>
+    ) : (
+        <User author={author} />
+    )
+}
+
+export function IconRow(props : {children : React.ReactElement[]}) {
+
+    const rowStyle = {
+        marginLeft: 20
+    }
+
+    
+    const map = props.children.map((child : React.ReactChild, i : number) => {
+        return (
+            <span style={rowStyle} key={`icon-${i}`}>
+                {child}
+            </span>
+        )
+    })
+
+    return (
+        <div>
+            {map}
+        </div>
     )
 }
