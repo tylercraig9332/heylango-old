@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import User from './User'
 import Avatar from './Avatar'
 import Loading from '../Util/Loading'
+import ListPost from '../Post/List'
 
 import { message, Descriptions } from 'antd'
 
@@ -11,7 +12,7 @@ export default function Profile() {
     const [loaded, setLoaded] = useState<boolean>(false)
 
     useEffect(() => {
-        console.log(window.location.pathname.split('/')[2])
+        //console.log(window.location.pathname.split('/')[2])
         let p = window.location.pathname.split('/')[2]
         if (p === undefined) p = 'me'
         const reqHeaders = {
@@ -20,7 +21,6 @@ export default function Profile() {
           },
           method: "GET"
         }
-        console.log(p)
         fetch('/u/' + p, reqHeaders).then((res : Response) => {
             if (res.status === 400) throw new Error("User not logged in")
             return res.json()
@@ -51,10 +51,12 @@ export default function Profile() {
                 <Descriptions.Item label="Interaction Points (ip)">{user.meta.ip}</Descriptions.Item>
                 <Descriptions.Item label="Date Joined">{user.createdAt}</Descriptions.Item>
                 <Descriptions.Item label="Account Identifier">{user.id}</Descriptions.Item>
+                <Descriptions.Item label="User Role">{user.meta.role}</Descriptions.Item>
             </Descriptions>
+            <br></br>
             <hr></hr>
-            <h3><strong>Recent Activity:</strong></h3>
-            <p>TODO</p>
+            <h3><strong>Recent Posts:</strong></h3>
+            <ListPost by={`u/${user.id}`} />
         </div>
     )
 }

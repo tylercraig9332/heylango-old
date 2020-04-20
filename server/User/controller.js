@@ -18,8 +18,8 @@ router.get('/loggedIn', (req, res) => {
     }
     res.send(req.session.user)
 })
-.get('/:value', (req, res) => {
-    model.read(req.params.value).then((r) => {
+.get('/:id', (req, res) => {
+    model.read({_id: req.params.id}).then((r) => {
         res.send(r)
     })
 })

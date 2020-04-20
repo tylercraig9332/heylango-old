@@ -47,7 +47,7 @@ const loggerMiddleware = (req, res, next) => {
 app.use(userAuthMiddleware)
 app.use(loggerMiddleware)
 
-mongoose.connect('mongodb://localhost:27017/db', { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
+mongoose.connect('mongodb://localhost:27017/db', { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }).then(() => {
     console.log('mongodb connection established')
     app.listen(port, () => console.log(`server listening on port ${port}`))
 }).catch(() => {

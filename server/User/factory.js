@@ -9,10 +9,17 @@ async function create(body) {
     return await _readByUsername(body.username)
 }
 
-async function read(value) {
-    if (!isNaN(Number(value))) return await _readById(value)
-    else if (typeof(value.toString()) === 'string') return await _readByUsername(value)
-    else console.log("ERROR: unsupported read type")
+async function read(body) {
+    let user = await User.findOne(body, (err, user) => {
+        if (err) console.log(err)
+    })
+    return {
+        username: user.username,
+        id: user._id,
+        email: user.email,
+        meta: user.meta,
+        createdAt: await user._id.getTimestamp()
+    }
 }
 
 async function _readByUsername(username) {

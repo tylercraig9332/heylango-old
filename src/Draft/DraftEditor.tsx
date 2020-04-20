@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Editor, EditorState, convertToRaw, convertFromRaw } from 'draft-js'
+import EditToolbar from './Toolbar/EditToolbar'
 import './DraftEditorPlaceholder.css'
 import DraftEditorProps from './EditorProps'
 
@@ -46,6 +47,7 @@ export default function DraftEditor(props : DraftEditorProps) {
     return (
         <div style={{...editorStyle, ...props.style}} onClick={() => setFocus(true)} onBlur={() => setFocus(false)}
             onMouseEnter={() => setHighlight(true)} onMouseLeave={() => setHighlight(false)}>
+            {((focus || highlight) && !props.readOnly) ? <EditToolbar setEditorState={setEditorState} getEditorState={() => editorState}/>  : null}
             <Editor
                 ref={editor}
                 editorState={editorState} 

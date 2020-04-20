@@ -38,11 +38,12 @@ async function readById(id) {
     return _formatPostObject(p)
 }
 
-function update(from, body) {
-    Post.findOneAndUpdate(from, body, (err, doc) => {
+async function update(from, body) {
+    let d = Post.findOneAndUpdate(from, body, (err, doc) => {
         if (err) throw new Error(err)
         return doc
     })
+    return await d
 }
 
 function _delete() {

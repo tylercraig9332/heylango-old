@@ -79,7 +79,7 @@ export function Share(props: {postID?: string}) {
           content: (
             <div>
                 <br></br>
-                <Input ref={inputRef} size="large" value={`www.heylango.com/community/p/${props.postID}`}addonAfter={copyIcon} readOnly/>
+                <Input ref={inputRef} size="large" value={`${window.location.host}/community/p/${props.postID}`}addonAfter={copyIcon} readOnly/>
             </div>
           ),
           onOk() {},
@@ -96,7 +96,7 @@ export function Share(props: {postID?: string}) {
 export function User(props: {author: string}) {
     return (
         <Tooltip title="View Author">
-            <Link to={`/profile/${props.author}`}>
+            <Link to={`/profile/${props.author}`} style={{ color: 'inherit' }}>
                 <Icon type="user" style={iconStyle}/>
             </Link>
         </Tooltip>
@@ -124,7 +124,7 @@ export function PostDropdown(props : {postID: string | undefined, author: string
     )
 }
 
-export function EditOrUser(props: {handleEdit: any, postID?: string}) {
+export function EditOrUser(props: {handleEdit: any, postID?: string, editView?: boolean}) {
 
     const [belongs, setBelongs] = useState<boolean>(false);
     const [author, setAuthor] = useState<string>('')
@@ -146,11 +146,22 @@ export function EditOrUser(props: {handleEdit: any, postID?: string}) {
     }, [])
 
     return belongs ? (
-        <Tooltip title="Edit">
-            <Icon type="edit" onClick={() => props.handleEdit()} style={iconStyle}/>
+        <Tooltip title={props.editView ? "Close Edit" : "Edit"}>
+            {(!props.editView) ? 
+                <Icon type="edit" onClick={() => props.handleEdit()} style={iconStyle}/>  : 
+                <Icon type="check-circle" style={{color: 'green', ...iconStyle}} onClick={() => props.handleEdit()} /> 
+            }
         </Tooltip>
     ) : (
         <User author={author} />
+    )
+}
+
+export function Admin(props: any) {
+    return (
+        <Tooltip title={"Admin / Report"}>
+            <Icon type="safety" style={iconStyle}/>
+        </Tooltip>
     )
 }
 

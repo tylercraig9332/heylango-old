@@ -65,8 +65,8 @@ router.post('/', (req, res) => {
     })
 })
 
-router.put('/:id', (req, res) => {
-    model.update({_id: req.params.id}, req.body).then((r) => res.status(200).send('Updated')).catch(err => res.status(400).send(err))
+router.patch('/id/:id', (req, res) => {
+    model.update({_id: req.params.id}, req.body).then((r) => res.status(200).send('Post Updated')).catch(err => res.status(400).send(err))
 })
 
 module.exports = router
