@@ -37,7 +37,6 @@ export default function Create() {
         fetch('/p/', reqHeaders).then(async (res) => {
             if (res.status == 200) {
                 console.log("Success!")
-                alert("Success!")
                 let obj = await res.json()
                 console.log(obj)
                 pass(['success', obj[0].id])

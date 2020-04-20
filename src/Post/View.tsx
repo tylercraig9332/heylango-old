@@ -36,7 +36,6 @@ export default function View(props : {post_id?: string}) {
 
     useEffect(() => {
         if (post !== undefined && post.content !== editContent) {
-            console.log("False")
             const reqHeader = {
                 method: "PATCH",
                 headers: {

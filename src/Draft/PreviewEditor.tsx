@@ -14,7 +14,7 @@ export default function PreviewEditor(props : EditorProps) {
     }, [])
 
     return (
-        <div style={wrapStyle}>
+        <div style={{...props.style, ...wrapStyle}}>
             <Editor editorState={eState} onChange={setEState} readOnly/>
         </div>
     )
