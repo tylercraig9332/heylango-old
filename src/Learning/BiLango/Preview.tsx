@@ -22,5 +22,7 @@ const cardStyle = {
     width: 400,
     height: 300,
     padding: 10,
-    margin: 15
+    margin: 15,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
 } as React.CSSProperties

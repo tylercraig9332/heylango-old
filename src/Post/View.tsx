@@ -63,7 +63,7 @@ export default function View(props : {post_id?: string}) {
             <div>
                     <PageToolbar title={post.title} extra={
                         <IconRow>
-                            <Admin />
+                            <Admin parent={post.id} parentType='post'/>
                             <EditOrUser postID={post.id} handleEdit={() => setEditView(!editView)} editView={editView}/>
                             <Like postID={post.id} />
                         </IconRow>
@@ -72,8 +72,9 @@ export default function View(props : {post_id?: string}) {
             <div style={{padding: 10}}>
                 <DraftEditor value={post.content} readOnly={!editView} onChange={(c : string) => {setContent(c)}}/>
             </div>
+            <br></br>
             <div>
-                {/*<CommentEngine parent_id={props.post_id}/>*/}
+                <CommentEngine parent_id={props.post_id}/>
             </div>
             
         </div>

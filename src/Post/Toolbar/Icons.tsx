@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import AdminPanel from './AdminPanel'
 import { Icon, Tooltip, Modal, Input, message, Menu, Dropdown } from 'antd'
 import { Link } from 'react-router-dom'
 
@@ -158,9 +159,13 @@ export function EditOrUser(props: {handleEdit: any, postID?: string, editView?: 
 }
 
 export function Admin(props: any) {
+
+    const [open, setModal] = useState<boolean>(false)
+
     return (
         <Tooltip title={"Admin / Report"}>
-            <Icon type="safety" style={iconStyle}/>
+            <AdminPanel show={open} setShow={setModal} parent={props.parent} parentType={props.parentType}/>
+            <Icon type="safety" style={iconStyle} onClick={() => setModal(!open)}/>
         </Tooltip>
     )
 }

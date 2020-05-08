@@ -3,5 +3,6 @@ export default interface Comment {
     content: string,
     parent: string,
     id: string,
-    children?: Comment[]
+    children?: Comment[],
+    createdAt: string | Object
 }

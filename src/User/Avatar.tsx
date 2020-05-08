@@ -8,14 +8,17 @@ export default function UserAvatar(props : {fetch_author? : string | Object, use
     const [username, setUsername] = useState<string>('Anonymous')
 
     useEffect(() => {
-        if (props.fetch_author === undefined) return
+        let f = props.fetch_author
+        if (props.fetch_author === undefined) {
+            f = 'me'
+        }
         const headers = {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
             }
         }
-        fetch('/u/' + props.fetch_author, headers).then((res) => res.json()).then((user : User) => {
+        fetch('/u/' + f, headers).then((res) => res.json()).then((user : User) => {
             console.log(user)
             setData(user.username.charAt(0))
             setUsername(user.username)

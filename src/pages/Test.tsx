@@ -1,12 +1,16 @@
 import React from 'react'
 
 import Engine from '../Comment/Engine'
-import CreateBiSheet from '../Learning/BiLango/Create'
+import Comment from '../Comment/Component'
+
 
 export default function Test() {
+
+    const [commentValue, setComment] = React.useState<string | undefined>('')
+
     return (
         <div>
-            <Engine />
+            <Engine parent_id={'none'}/>
         </div>
     )
 }

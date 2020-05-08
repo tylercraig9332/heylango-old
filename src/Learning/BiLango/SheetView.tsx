@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Editor from '../../Draft/DraftEditor'
 import PageToolbar from '../../Nav/PageToolbar'
 
-import { Row, Col, Button, Tooltip, Input } from 'antd'
+import { Row, Col, Button, Tooltip, Input, Affix } from 'antd'
 
 export default function SheetView(props : {readOnly?: boolean, id?: string, send?: (t : Object) => void, newSheet?: boolean}) {
 
@@ -54,7 +54,7 @@ export default function SheetView(props : {readOnly?: boolean, id?: string, send
         <div style={containerStyle}>
             <div id="audioPlayer"></div>
             {props.readOnly ? (
-                <div style={{width: '90%', marginLeft: '7%'}}>
+                <div style={{width: '97%', marginLeft: '1%'}}>
                     <PageToolbar title={title || 'Title'} /> 
                     <br></br>
                 </div>
@@ -65,25 +65,25 @@ export default function SheetView(props : {readOnly?: boolean, id?: string, send
             )
             }
             <Row type="flex" justify="center">
-                <Col span={6}>
+                <Col span={7}>
                     <div id="primary" >
-                        <h3>Target Text <HideSheetButton onClick={() => setPrimaryVisable(!primaryVisable)} hidden={!props.readOnly}/></h3>
+                        <h3 style={{display: 'flex'}}>Target Text <HideSheetButton onClick={() => setPrimaryVisable(!primaryVisable)} hidden={!props.readOnly}/></h3>
                         <Editor value={primary} onChange={setPrimary} 
-                            style={{height: 400}} readOnly={props.readOnly} hidden={!primaryVisable} wrap/>
+                            style={{minHeight: 400}} readOnly={props.readOnly} hidden={!primaryVisable} wrap/>
                     </div>
                 </Col>
                 <Col span={1}></Col>
-                <Col span={6}>
+                <Col span={7}>
                     <div id="secondary" >
-                        <h3>Secondary Text <HideSheetButton onClick={() => setSecondaryVisable(!secondaryVisable)} hidden={!props.readOnly}/></h3> 
+                        <h3 style={{display: 'flex'}}>Secondary Text <HideSheetButton onClick={() => setSecondaryVisable(!secondaryVisable)} hidden={!props.readOnly}/></h3> 
                         <Editor value={secondary} onChange={setSecondary} 
-                        style={{height: 400}} readOnly={props.readOnly} hidden={!secondaryVisable} wrap/>
+                        style={{minHeight: 400}} readOnly={props.readOnly} hidden={!secondaryVisable} wrap/>
                     </div>
                 </Col>
                 <Col span={1}></Col>
-                <Col span={6}>
+                <Col span={7}>
                     <div id="notes" >
-                        <h3>Notes / Other <HideSheetButton onClick={() => setNotesVisable(!notesVisable)} hidden={!props.readOnly}/></h3>
+                        <h3 style={{display: 'flex'}}>Notes / Other <HideSheetButton onClick={() => setNotesVisable(!notesVisable)} hidden={!props.readOnly}/></h3>
                         <Editor value={notes} onChange={setNotes} 
                         style={{height: 400}} readOnly={props.readOnly} hidden={!notesVisable} wrap/>
                     </div>
@@ -102,8 +102,12 @@ const containerStyle = {
 function HideSheetButton(props : {onClick?: any, hidden?: boolean}) {
     if (props.hidden) return null
     return (
-        <Tooltip title="Hide">
-                <Button icon="eye-invisible" shape="circle" onClick={props.onClick}/>
-        </Tooltip>
+        <div style={{marginLeft: 10}}>
+            <Affix offsetTop={20}>
+                <Tooltip title="Hide">
+                        <Button icon="eye-invisible" shape="circle" onClick={props.onClick}/>
+                </Tooltip>
+            </Affix>
+        </div>
     )
 }
