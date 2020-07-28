@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import {BiSheet} from './BiSheet'
 import Preview from './Preview'
+import {Link} from 'react-router-dom'
+import {Button} from 'antd'
 
 export default function Home() {
 
@@ -23,6 +25,7 @@ export default function Home() {
             <div>
                 <h1>BiLango Sheets</h1>
                 <p style={{marginTop: -10}}>Short Bilingual Texts</p>
+                <Link to="/learn/bi/new"><Button>Create New Sheet</Button></Link>
             </div>
             <hr></hr>
             <div style={flexContainer}>

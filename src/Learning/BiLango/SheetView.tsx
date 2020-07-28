@@ -69,7 +69,7 @@ export default function SheetView(props : {readOnly?: boolean, id?: string, send
                     <div id="primary" >
                         <h3 style={{display: 'flex'}}>Target Text <HideSheetButton onClick={() => setPrimaryVisable(!primaryVisable)} hidden={!props.readOnly}/></h3>
                         <Editor value={primary} onChange={setPrimary} 
-                            style={{minHeight: 400}} readOnly={props.readOnly} hidden={!primaryVisable} wrap/>
+                            style={{minHeight: 400}} readOnly={props.readOnly} hidden={!primaryVisable} wordLearner wrap/>
                     </div>
                 </Col>
                 <Col span={1}></Col>
@@ -77,7 +77,7 @@ export default function SheetView(props : {readOnly?: boolean, id?: string, send
                     <div id="secondary" >
                         <h3 style={{display: 'flex'}}>Secondary Text <HideSheetButton onClick={() => setSecondaryVisable(!secondaryVisable)} hidden={!props.readOnly}/></h3> 
                         <Editor value={secondary} onChange={setSecondary} 
-                        style={{minHeight: 400}} readOnly={props.readOnly} hidden={!secondaryVisable} wrap/>
+                        style={{minHeight: 400}} readOnly={props.readOnly} hidden={!secondaryVisable} wordLearner wrap/>
                     </div>
                 </Col>
                 <Col span={1}></Col>

@@ -33,7 +33,6 @@ export default function Routes() {
                 <div className="pageContainer">
                     <Switch>
                         <Route exact path='/' component={Launch} />
-                        <Route exact path='/learn/' component={lHome} />
                         <Route exact path='/community/' component={cHome} />
                         <Route path='/community/p/new/' component={pCreate} />
                         <Route path='/community/p/' component={pView} />
@@ -43,6 +42,7 @@ export default function Routes() {
                         <Route path='/logout' component={Logout} />
                         <Route path='/profile' component={Profile} />
                         <Route path='/test' component={Test} />
+                        <Route exact path='/learn/' component={lHome} />
                         <Route exact path='/learn/bi/new' component={biCreate} />
                         <Route exact path='/learn/bi/' component={biHome} />
                         <Route path='/learn/bi/' component={biView} />

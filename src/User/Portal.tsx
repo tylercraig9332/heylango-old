@@ -28,14 +28,21 @@ export default function Portal(props: any) {
           method: "POST"
       }
       fetch('/u/login/', reqHeaders)
-      .then( res => {
+      .then(async (res)  => {
+          //window.sessionStorage.setItem('username', res.)
            setSuccess(res.status === 200) 
            if (res.status === 200) {
+              await res.json().then((user) => {
+                window.sessionStorage.setItem('username', user.username)
+                window.sessionStorage.setItem('userId', user.id)
+                window.sessionStorage.setItem('userRole', user.meta.role)
+              })
                window.location.href = '/community/'
            }
            else {
             message.error(res.statusText)
            }
+           
         })
       .catch(error=>console.error(error))
     }

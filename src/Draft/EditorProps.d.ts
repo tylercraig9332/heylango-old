@@ -5,7 +5,8 @@ interface DraftEditorProps {
     onChange?: any,
     style?: React.CSSProperties,
     hidden? : boolean,
-    wrap?: boolean
+    wrap?: boolean,
+    wordLearner?: boolean
 }
 
 export default DraftEditorProps

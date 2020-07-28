@@ -17,6 +17,9 @@ export default function Logout() {
             method: "GET"
         }
         fetch('/u/logout', reqHeaders).then((res) => {
+            window.sessionStorage.removeItem('userId')
+            window.sessionStorage.removeItem('username')
+            window.sessionStorage.removeItem('userRole')
             setSuccess(res.status === 200)
             setError(res.status === 400)
         })

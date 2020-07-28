@@ -1,16 +1,15 @@
 import React from 'react'
-
-import Engine from '../Comment/Engine'
-import Comment from '../Comment/Component'
-
+import Editor from '../Draft/DraftEditor'
 
 export default function Test() {
+    // Language Les is whst you makeit
 
-    const [commentValue, setComment] = React.useState<string | undefined>('')
+    const [text, setText] = React.useState<string>()
 
     return (
         <div>
-            <Engine parent_id={'none'}/>
+            <h1>This is a test</h1>
+            <Editor value={text} onChange={setText} wordLearner/>
         </div>
     )
 }

@@ -3,10 +3,11 @@ import { Editor, EditorState, convertToRaw, convertFromRaw } from 'draft-js'
 import EditToolbar from './Toolbar/EditToolbar'
 import './DraftEditorPlaceholder.css'
 import DraftEditorProps from './EditorProps'
+import wordDecorator from './WordLearner/WordDecorator'
 
 export default function DraftEditor(props : DraftEditorProps) {
 
-    const [editorState, setEditorState] = useState<EditorState>(EditorState.createEmpty())
+    const [editorState, setEditorState] = useState<EditorState>(EditorState.createEmpty(props.wordLearner ? wordDecorator : undefined))
 
     const editor = useRef<any>(null)
 
@@ -14,9 +15,9 @@ export default function DraftEditor(props : DraftEditorProps) {
     const [highlight, setHighlight] = useState<boolean>(false)
 
     useEffect(() => {
-        if (props.value !== undefined) {
+        if (props.value !== undefined && props.value.length > 0) {
             const contentState = convertFromRaw(JSON.parse(props.value))
-            setEditorState(EditorState.createWithContent(contentState))
+            setEditorState(EditorState.createWithContent(contentState, props.wordLearner ? wordDecorator : undefined))
         }   
     }, [props.value])
 

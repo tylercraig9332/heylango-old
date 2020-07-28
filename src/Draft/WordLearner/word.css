@@ -1,0 +1,10 @@
+.word {
+    padding: 2px;
+}
+
+.word:hover {
+    text-decoration: underline;
+    text-decoration-color: cadetblue;
+    cursor: pointer;
+    background-color: azure;
+}
