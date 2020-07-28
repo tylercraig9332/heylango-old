@@ -6,7 +6,9 @@ Online language learning platform and community
 Created by Tyler Craig for his computer science capstone project
 Developed in React Typescript, and node.js/Express, using Mongodb
 
-  
+Demo video is viewable at https://drive.google.com/file/d/1kVNuI4tQOrOwKmIeHmwJRSMjbiE8igyS/view?usp=sharing
+
+
   
 
 ##  Available Scripts / Installation
