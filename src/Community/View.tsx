@@ -11,7 +11,7 @@ export default function View() {
     return (
         <div>
             <div style={flexContainer}>
-            <h1>{parseLanguageCode(langCode)}</h1>
+            <h1>{parseLanguageCode(langCode)} Community</h1>
                 <Button type="primary" style={post}><Link to={`/community/p/new/${langCode}`}>Create New Post</Link></Button>
             </div>
             <hr></hr>

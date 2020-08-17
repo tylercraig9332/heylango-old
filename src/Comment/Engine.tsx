@@ -7,79 +7,107 @@ import IComment from './Comment'
 /** This component manages comments based on a parent element such as a post
     and handles the rendering of all comments 
 */
-export default function Engine(props : {parent_id? : string}) {
+export default function Engine(props : {parent_id : string}) {
 
     const [comments, setComments] = useState<IComment[]>([])
     const [reply, setReply] = useState<string>('')
 
     useEffect(() => {
-        // TODO: Load all comments based on a parent id.
-        /*let id = (props.parent_id === undefined) ? 'engine' : props.parent_id
-        const hardCode : (IComment[] | any[]) = [
-            {
-                author: 'craigta1',
-                content: 'hello world',
-                parent: id,
-                id: '1',
-                createdAt: new Date().toDateString()          
+        const reqHeaders = {
+            headers: {
+                "Content-Type": "application/json"
             },
-            {
-                author: 'craigta1',
-                content: 'How are you today...',
-                parent: '1',
-                id: '2',
-                createdAt: new Date().toDateString()           
-            },
-            {
-                author: 'john',
-                content: 'haha',
-                parent: id,
-                id: '4',
-                createdAt: new Date().toDateString()  
-            },
-            {
-                author: 'craigta1',
-                content: 'I am good!!!',
-                parent: '2',
-                id: '3',
-                createdAt: new Date().toDateString()         
-            },
-        ]
-        setComments(hardCode)*/
+            method: "GET"
+        }
+        fetch('/com/post/' + props.parent_id, reqHeaders).then((res : Response) => {
+            if (res.status === 200) {
+                console.log('loaded comments')
+                return res.json()
+            }
+            else {
+                console.log('failed to load comments', res) 
+                return []
+            }
+        }).then(comments => {
+            console.log(comments)
+            setComments(comments)
+        })
     }, [])
 
-    function handleReply(parent? : string, content?: string, author?: string) {
-        console.log(reply)
+    function handleEdit(comment_id: string, content : string) {
+        console.log(comment_id, content)
+        // TODO: update the index of the comment with this id with the value
         let c = [...comments]
-        const now = new Date().toDateString()
+        c.forEach(comment => {
+            if (comment._id === comment_id) {
+                comment.content = content
+            }
+        });
+        setComments(c)
+
+        //TODO: run patch to update the comment
+        const reqHeaders = {
+            body: JSON.stringify({content: content}),
+            headers: {
+                "Content-Type": "application/json"
+            },
+            method: "PATCH"
+        }
+
+        fetch('/com/' + comment_id, reqHeaders).then( res => console.log(res.statusText))
+    }
+
+    function handleReply(parent? : string, content?: string) {
+        let c = [...comments]
+        const now = new Date() // todo: identify proper date format
         let p = props.parent_id
-        let a = 'Anon'
+        let a = window.sessionStorage.getItem('userId')
         let con = reply
-        if (parent !== undefined && author != undefined && content != undefined) {
-            // TODO: I need to better write this. However if one of these is defined then the rest should be as well
-            // THis is bad code regardless :( but it'll do for now.
-            console.log("triggered")
+        console.log(p)
+        if (parent !== undefined) {
             p = parent
-            a = author
+        }
+
+        if (content !== undefined) {
             con = content
         }
-        else {
-            p = '-1'
+
+        if (a === null) {
+            alert('You must be logged in to make a comment')
+            return 
         }
-        c.push({
+
+        const newComment = {
             author: a,
             content: con,
             parent: p,
             createdAt: now,
-            id: '-1'
-        })
+            _id: '-1'
+        }
+        // Update local state 
+        c.push(newComment)
         setReply('')
         setComments(c)
+
+        // Send to the back end
+        console.log(newComment)
+        const reqHeaders = {
+            body: JSON.stringify(newComment),
+            headers: {
+                "Content-Type": "application/json"
+            },
+            method: "POST"
+        }
+        console.log(newComment)
+        fetch('/com/', reqHeaders).then((res : Response) => {
+            if (res.status === 200) console.log('comment saved')
+            else console.log('comment failed to send', res)
+        })
     }
     let cs = [<div key="header">No Comments Yet!</div>]
     if (comments !== undefined && comments.length >= 1) {
         cs = comments.map(( c : IComment, i : number)=> {
-            return <Comment key={c.id + `-${i}`} comment={c} handleReply={handleReply}/>
+            return <Comment key={c._id + `-${i}`} comment={c} handleReply={handleReply} handleEdit={handleEdit}/>
         })
         cs.unshift(<div key="header">Comments</div>)
     }

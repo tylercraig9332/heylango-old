@@ -1,8 +1,8 @@
 export default interface Comment {
-    author: string | Object,
+    author: string,
     content: string,
     parent: string,
-    id: string,
+    _id: string,
     children?: Comment[],
     createdAt: string | Object
 }

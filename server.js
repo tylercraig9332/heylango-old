@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const session = require('express-session')
+const mongodb = require('./mongodb.json')
 
 const app = new express()
 
@@ -21,12 +22,14 @@ const pRouter = require('./server/Post/controller')
 const uRouter = require('./server/User/controller')
 const iRouter = require('./server/Interaction/controller')
 const lBiRouter = require('./server/Learning/BiLango/controller')
+const comRouter = require('./server/Comment/controller')
 
 app.use('/c', cRouter)
 app.use('/p', pRouter)
 app.use('/u', uRouter)
 app.use('/i', iRouter)
 app.use('/l/bi', lBiRouter)
+app.use('/com', comRouter)
 
 /* Logs when a user is undefined */
 const userAuthMiddleware = (req, res, next) => {
@@ -47,7 +50,7 @@ const loggerMiddleware = (req, res, next) => {
 app.use(userAuthMiddleware)
 app.use(loggerMiddleware)
 
-mongoose.connect('mongodb://localhost:27017/db', { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }).then(() => {
+mongoose.connect(mongodb.authString, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }).then(() => {
     console.log('mongodb connection established')
     app.listen(port, () => console.log(`server listening on port ${port}`))
 }).catch(() => {

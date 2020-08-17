@@ -20,6 +20,7 @@ export default function Logout() {
             window.sessionStorage.removeItem('userId')
             window.sessionStorage.removeItem('username')
             window.sessionStorage.removeItem('userRole')
+            window.sessionStorage.removeItem('logged')
             setSuccess(res.status === 200)
             setError(res.status === 400)
         })

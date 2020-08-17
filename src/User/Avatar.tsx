@@ -19,7 +19,7 @@ export default function UserAvatar(props : {fetch_author? : string | Object, use
             }
         }
         fetch('/u/' + f, headers).then((res) => res.json()).then((user : User) => {
-            console.log(user)
+            //console.log(user)
             setData(user.username.charAt(0))
             setUsername(user.username)
         })

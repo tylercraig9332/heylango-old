@@ -7,7 +7,7 @@ import PageToolbar from '../Nav/PageToolbar'
 import { IconRow, Like, EditOrUser, Admin } from './Toolbar/Icons'
 import { message } from 'antd'
 
-export default function View(props : {post_id?: string}) {
+export default function View(props : {post_id: string}) {
 
     const [post, setPost] = useState<Post>()
     const [editView, setEditView] = useState<boolean>()
@@ -58,6 +58,7 @@ export default function View(props : {post_id?: string}) {
     }, [editContent])
     
     if (post === undefined) return <p>loading...</p>
+    if (post.id === undefined) return <p>failed to load</p>
     return (
         <div style={viewContainer}>
             <div>
@@ -70,11 +71,11 @@ export default function View(props : {post_id?: string}) {
                     }/>
             </div>
             <div style={{padding: 10}}>
-                <DraftEditor value={post.content} readOnly={!editView} onChange={(c : string) => {setContent(c)}}/>
+                <DraftEditor value={post.content} readOnly={!editView} onChange={(c : string) => {setContent(c)}} hidden={false}/>
             </div>
             <br></br>
             <div>
-                <CommentEngine parent_id={props.post_id}/>
+                <CommentEngine parent_id={post.id}/>
             </div>
             
         </div>

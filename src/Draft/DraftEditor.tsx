@@ -15,19 +15,37 @@ export default function DraftEditor(props : DraftEditorProps) {
     const [highlight, setHighlight] = useState<boolean>(false)
 
     useEffect(() => {
-        if (props.value !== undefined && props.value.length > 0) {
-            const contentState = convertFromRaw(JSON.parse(props.value))
-            setEditorState(EditorState.createWithContent(contentState, props.wordLearner ? wordDecorator : undefined))
-        }   
-    }, [props.value])
+        let decorator = (props.wordLearner) ? wordDecorator : undefined
+        let contentState = EditorState.createEmpty(decorator).getCurrentContent()
+        if (props.value !== undefined) {
+            //console.log("props.value", props.value)
+            contentState = convertFromRaw(JSON.parse(props.value))
+            //console.log("content value", JSON.stringify(convertToRaw(contentState)))
+        }
+        //setEditorState(EditorState.createWithContent(contentState, decorator))
+        const t = EditorState.push(editorState, contentState, 'change-block-data')
+        setEditorState(t)
+    }, [])
 
     useEffect(() => {
+        //console.log(JSON.stringify(convertToRaw(editorState.getCurrentContent())))
         if (editorState != null && !props.readOnly) {
+            // Saves the current content and passes it up through the onChange prop
             const contentState = editorState.getCurrentContent()
             const rawContent = JSON.stringify(convertToRaw(contentState))
             props.onChange(rawContent)
         }
     }, [editorState])
+
+    useEffect(() => {
+        // This allows the props.wordLearner to be changed after the parent component has been mounted.
+        
+        if (props.wordLearner === false || props.wordLearner === undefined) return
+        //console.log('this has been ran', props.wordLearner)
+        let d = (props.wordLearner) ? wordDecorator : undefined
+        const eState = EditorState.set(editorState, {decorator : d});
+        setEditorState(eState)
+    }, [props.wordLearner])
 
     useEffect(() => {
         /* Anytime one clicks within the box focus will be applied */
@@ -48,14 +66,15 @@ export default function DraftEditor(props : DraftEditorProps) {
     return (
         <div style={{...editorStyle, ...props.style}} onClick={() => setFocus(true)} onBlur={() => setFocus(false)}
             onMouseEnter={() => setHighlight(true)} onMouseLeave={() => setHighlight(false)}>
-            {((focus || highlight) && !props.readOnly) ? <EditToolbar setEditorState={setEditorState} getEditorState={() => editorState}/>  : null}
             <Editor
                 ref={editor}
+                key={props.value}
                 editorState={editorState} 
                 onChange={setEditorState} 
                 placeholder={props.placeholder} 
                 readOnly={props.readOnly}
                 />
+            {((focus || highlight) && !props.readOnly) ? <EditToolbar setEditorState={setEditorState} getEditorState={() => editorState}/>  : null}
         </div>
     )
 }
@@ -68,7 +87,7 @@ const readOnlyStyle = {
 const cardStyle = {
     transition: 'all 0.3s',
     minHeight: 100,
-    padding: '10px'
+    padding: '10px',
 } as React.CSSProperties
 
 const styleWrap = {

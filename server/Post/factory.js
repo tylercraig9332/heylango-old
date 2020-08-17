@@ -24,9 +24,13 @@ async function read(body) {
         return posts
     }
 
-    let docs = await Post.find(body, async (err, docs) => {
+    let docs = await Post.find(body, null, {sort: '-_id', limit: 25}, async (err, d) => {
         if (err) throw new Error(err)
+        //console.log(d)
+        return d
     })
+    console.log(docs)
+    //console.log(docs)
     return await _formatPosts(docs)
 }
 

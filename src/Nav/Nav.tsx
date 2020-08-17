@@ -21,7 +21,14 @@ export default function Nav(props : any) {
         }
         fetch('/u/loggedIn', reqHeaders)
         .then(res => {
-            setLogged(res.status === 200)
+            let l = (res.status === 200)
+            if (!l) {
+                // If the backend server goes down, I wanna ensure that the session is cleared.
+                window.sessionStorage.setItem('userId', '')
+                window.sessionStorage.setItem('logged', 'false')
+                window.sessionStorage.setItem('username', '')
+            }
+            setLogged(l)
         })
     }, [props.useLocation().pathname])
 
@@ -67,10 +74,11 @@ export default function Nav(props : any) {
         <Menu onClick={handleMenuChange} selectedKeys={[currentKey]} mode="horizontal" style={{borderTop: '2px solid #1890FF', zIndex: 5}}>
             <Item key="/"><Link to='/'><strong>HeyLango!</strong></Link></Item>
             <Item key='/community/'><Link to='/community/'>Community</Link></Item>
-            <Item key='/learn/'><Link to='/learn/'>Apps</Link></Item>
+            <Item key='/learn/'><Link to='/learn/'>Learning Library</Link></Item>
             {
-                (logged) ? loggedTabs : unLoggedTabs
+                (logged) ? (loggedTabs) : unLoggedTabs
             }
+            {(logged) ? <Item key='/decks/' style={{float: 'right'}}><Link to='/learn/decks'>Decks</Link></Item> : null}
         </Menu>
         </div>
     )

@@ -102,7 +102,7 @@
     ],
     "communities": [
         {
-            "name": "All",
+            "name": "All / General",
             "imageUrl": "/static/comm/all_ri",
             "code": "all",
             "flag": "📚"
@@ -128,7 +128,7 @@
         {
             "name": "Portuguese",
             "code": "pt",
-            "imageUrl": "/static/comm/rio_ad",
+            "imageUrl": "/static/comm/redeem_al.jpg",
             "flag": "🇧🇷"
         },
         {
@@ -156,7 +156,7 @@
             "flag": "🇦🇪"
         },
         {
-            "name": "Chinese",
+            "name": "Chinese Languages",
             "code": "zh",
             "imageUrl": "/static/comm/redTassel_as",
             "flag": "🇨🇳"

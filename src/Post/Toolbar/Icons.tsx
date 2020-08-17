@@ -158,6 +158,29 @@ export function EditOrUser(props: {handleEdit: any, postID?: string, editView?: 
     )
 }
 
+export function EditOrAdmin(props : {handleEdit : any, editView?: boolean, parent?: string, parentAuthor?: string}) {
+    const [belongs, setBelongs] = useState<boolean>(false)
+
+    useEffect(() => {
+        const loggedUserId = window.sessionStorage.getItem('userId')
+        let b = false
+        if (loggedUserId != null && loggedUserId === props.parentAuthor) {
+            b = true
+        }
+        setBelongs(b)
+    })
+    return belongs ? (
+        <Tooltip title={props.editView ? "Close Edit" : "Edit"}>
+            {(!props.editView) ? 
+                <Icon type="edit" onClick={() => props.handleEdit()} style={iconStyle}/>  : 
+                <Icon type="check-circle" style={{color: 'green', ...iconStyle}} onClick={() => props.handleEdit()} /> 
+            }
+        </Tooltip>
+    ) : (
+        <Admin parent={props.parent} parentType='Comment' />
+    )
+}
+
 export function Admin(props: any) {
 
     const [open, setModal] = useState<boolean>(false)

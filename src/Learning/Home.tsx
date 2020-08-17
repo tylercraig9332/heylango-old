@@ -10,7 +10,7 @@ export default function Home() {
             <hr></hr>
             <h3>Learning</h3>
             <div style={appContainerStyle}>
-                <AppPreview title="TBTLango" description="Native Learning Sheets" icon="read" path="/learn/m"/>
+                <AppPreview title="Lango" description="Native Learning Sheets" icon="read" path="/learn/m"/>
                 <AppPreview title="BiLango" description="Bilingual Learning Sheets" icon="read" path="/learn/bi"/>
                 <AppPreview title="VidLango" description="Interactive Learning Videos" icon="youtube" path="/learn/vid"/>
             </div>

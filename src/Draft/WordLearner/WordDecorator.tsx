@@ -26,7 +26,7 @@ function PopoverContent(props: any) {
     const word = props.children[0].props.text
     return (
         <div style={{width: 350}}>
-            <h2>{word}:</h2>
+            <h2>{word}</h2>
             <Button type="primary" style={popButtonStyle} block>
                 Translate
             </Button>

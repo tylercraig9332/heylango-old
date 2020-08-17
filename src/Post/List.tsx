@@ -25,7 +25,7 @@ export default function List(props : ListProps) {
             setLoaded(true)
             if (res.status === 400) message.error(res.statusText)
             else return res.json()
-            }).then(p => {console.log(p); setPosts(p)})
+            }).then(p => setPosts(p))
     }, [refresh])
 
 

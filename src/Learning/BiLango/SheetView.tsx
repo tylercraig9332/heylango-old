@@ -6,6 +6,8 @@ import { Row, Col, Button, Tooltip, Input, Affix } from 'antd'
 
 export default function SheetView(props : {readOnly?: boolean, id?: string, send?: (t : Object) => void, newSheet?: boolean}) {
 
+    const [loaded, setLoaded] = useState<boolean>(false)
+    
     const [title, setTitle] = useState<string>()
     const [primary, setPrimary] = useState<string>()
     const [secondary, setSecondary] = useState<string>()
@@ -32,6 +34,7 @@ export default function SheetView(props : {readOnly?: boolean, id?: string, send
         fetch('/l/bi/' + props.id, reqHeaders).then(r => r.json())
         .then(data => {
             console.log(data)
+            setLoaded(true)
             setTitle(data.title)
             setPrimary(data.primary)
             setSecondary(data.secondary)
@@ -50,6 +53,7 @@ export default function SheetView(props : {readOnly?: boolean, id?: string, send
         }
     }, [title, primary, secondary, notes])
 
+    if (!loaded) return <div>Loading...</div>
     return (
         <div style={containerStyle}>
             <div id="audioPlayer"></div>
@@ -68,7 +72,7 @@ export default function SheetView(props : {readOnly?: boolean, id?: string, send
                 <Col span={7}>
                     <div id="primary" >
                         <h3 style={{display: 'flex'}}>Target Text <HideSheetButton onClick={() => setPrimaryVisable(!primaryVisable)} hidden={!props.readOnly}/></h3>
-                        <Editor value={primary} onChange={setPrimary} 
+                        <Editor key={primary} value={primary} onChange={setPrimary} 
                             style={{minHeight: 400}} readOnly={props.readOnly} hidden={!primaryVisable} wordLearner wrap/>
                     </div>
                 </Col>
@@ -76,7 +80,7 @@ export default function SheetView(props : {readOnly?: boolean, id?: string, send
                 <Col span={7}>
                     <div id="secondary" >
                         <h3 style={{display: 'flex'}}>Secondary Text <HideSheetButton onClick={() => setSecondaryVisable(!secondaryVisable)} hidden={!props.readOnly}/></h3> 
-                        <Editor value={secondary} onChange={setSecondary} 
+                        <Editor key={secondary} value={secondary} onChange={setSecondary} 
                         style={{minHeight: 400}} readOnly={props.readOnly} hidden={!secondaryVisable} wordLearner wrap/>
                     </div>
                 </Col>
@@ -84,7 +88,7 @@ export default function SheetView(props : {readOnly?: boolean, id?: string, send
                 <Col span={7}>
                     <div id="notes" >
                         <h3 style={{display: 'flex'}}>Notes / Other <HideSheetButton onClick={() => setNotesVisable(!notesVisable)} hidden={!props.readOnly}/></h3>
-                        <Editor value={notes} onChange={setNotes} 
+                        <Editor key={notes} value={notes} onChange={setNotes} 
                         style={{height: 400}} readOnly={props.readOnly} hidden={!notesVisable} wrap/>
                     </div>
                 </Col>

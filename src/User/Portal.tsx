@@ -33,6 +33,7 @@ export default function Portal(props: any) {
            setSuccess(res.status === 200) 
            if (res.status === 200) {
               await res.json().then((user) => {
+                window.sessionStorage.setItem('logged', 'true')
                 window.sessionStorage.setItem('username', user.username)
                 window.sessionStorage.setItem('userId', user.id)
                 window.sessionStorage.setItem('userRole', user.meta.role)
