@@ -1,17 +1,32 @@
 const Like = require('./Like')
+const Save = require('./Save')
 
-function create(body) {
+function create_like(body) {
     // New Like
     let l = new Like(body)
     l.save()
 }
 
-async function read(body) {
+function create_save(body) {
+    // new Save
+    let s = new Save(body)
+    s.save()
+}
+
+async function read_like(body) {
     let l = []
     l = await Like.find(body, (err, likes) => {
         if (err) throw new Error(err)
     })
     return l
+}
+
+async function read_save(body) {
+    let s = []
+    s = await Save.find(body, (err, docs) => {
+        if (err) throw new Error(err)
+    })
+    return s
 }
 
 async function readOne(body) {
@@ -28,8 +43,10 @@ function _delete(body) {
 }
 
 module.exports = {
-    create,
-    read,
+    create_save,
+    create_like,
+    read_like,
+    read_save,
     readOne,
     delete: _delete
 }

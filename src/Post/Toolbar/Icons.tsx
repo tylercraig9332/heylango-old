@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import AdminPanel from './AdminPanel'
-import { Icon, Tooltip, Modal, Input, message, Menu, Dropdown } from 'antd'
+import { Icon, Tooltip, Modal, Input, message, Menu, Dropdown, Popover } from 'antd'
 import { Link } from 'react-router-dom'
 
 const iconStyle = {fontSize: 20}
@@ -53,10 +53,39 @@ export function Comment(props: {reply?: boolean, onClick?: any}) {
     )
 }
 
-export function Favorite() {
+export function Save(props : {parent_id : string | undefined, parentType: string}) { // Note: parent_id should never be undefined TODO: need to fix so Post.d.ts doesn't have undefined type
+
+    const [saved, setSaved] = useState<boolean>(false)
+
+    // Load in inital save state from server
+    useEffect(() => {
+        const reqHeaders = {
+            headers: {
+                "Content-Type": "application/json"
+            },
+            method: "GET"
+        }
+        fetch(`/i/s/${props.parent_id}`, reqHeaders).then(r => r.json()).then((s : boolean) => {
+            setSaved(s)
+        })  
+    }, [])
+
+    function handleSave() {
+        // send or remove like to server
+        const reqHeaders = {
+            body: JSON.stringify({parent: props.parent_id, parentType: props.parentType}),
+            headers: {
+                "Content-Type": "application/json"
+            },
+            method: (!saved) ? "POST" : "DELETE"
+        }
+        fetch('/i/s/', reqHeaders).catch(err => console.error(err))
+        setSaved(!saved)
+    }
+
     return (
-        <Tooltip title="Favorite">
-            <Icon type="star" style={iconStyle}/>
+        <Tooltip title={(saved) ? 'Unsave' : 'Save'}>
+            <Icon key={props.parent_id} type="save" style={iconStyle} theme={(saved) ? 'twoTone' : 'outlined'} onClick={handleSave}/>
         </Tooltip>
     )
 }
@@ -158,7 +187,7 @@ export function EditOrUser(props: {handleEdit: any, postID?: string, editView?: 
     )
 }
 
-export function EditOrAdmin(props : {handleEdit : any, editView?: boolean, parent?: string, parentAuthor?: string}) {
+export function EditOrAdmin(props : {handleEdit : any, editView?: boolean, parent?: string, parentAuthor?: string, parentType?: string}) {
     const [belongs, setBelongs] = useState<boolean>(false)
 
     useEffect(() => {
@@ -177,7 +206,7 @@ export function EditOrAdmin(props : {handleEdit : any, editView?: boolean, paren
             }
         </Tooltip>
     ) : (
-        <Admin parent={props.parent} parentType='Comment' />
+        <Admin parent={props.parent} parentType={props.parentType} />
     )
 }
 
@@ -190,6 +219,14 @@ export function Admin(props: any) {
             <AdminPanel show={open} setShow={setModal} parent={props.parent} parentType={props.parentType}/>
             <Icon type="safety" style={iconStyle} onClick={() => setModal(!open)}/>
         </Tooltip>
+    )
+}
+
+export function Info(props : { title: string, description : string}) {
+    return (
+        <Popover title={props.title} content={<p>{props.description}</p>}>
+            <Icon type="info-circle" style={iconStyle} />
+        </Popover>
     )
 }
 

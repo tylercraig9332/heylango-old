@@ -1,4 +1,4 @@
-import s from './static.json'
+import s from './language.json'
 export function parseLanguageCode(code : string) {
     for (let c of s.communities) {
         if (c.code === code) {

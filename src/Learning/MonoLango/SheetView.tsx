@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Editor from '../../Draft/DraftEditor'
+import LanguageSelect from '../../Util/LanguageSelect'
 import {Row, Col, Button, Input} from 'antd'
 
 export default function SheetView(props :  {readOnly?: boolean, send? : any, id?: string}) {
@@ -10,25 +11,34 @@ export default function SheetView(props :  {readOnly?: boolean, send? : any, id?
     const [content, setContent] = useState<string>()
     const [title, setTitle] = useState<string>()
     const [description, setDescription] = useState<string>()
+    const [language, setLanguage] = useState<string>()
 
     useEffect(() => {
         if (!props.readOnly && props.send != undefined) {
             props.send({
                 title: title,
                 content: content,
-                description: description
+                description: description,
+                language: language
             })
         }
-    }, [content, title, description])
+    }, [content, title, description, language])
 
     return (
-        <div style={containerStyle}>
+        <div>
             <Row type="flex" justify="start" align="bottom">
-                <Input value={title} size='large' placeholder="Title" onChange={(e : any) => setTitle(e.target.value)}/>
+                <span style={{color: 'darkgray'}}>Title</span>
+                <Input value={title} size='large' onChange={(e : any) => setTitle(e.target.value)}/>
                 <span style={{margin: 5}}></span>
             </Row>
             <Row type="flex" justify="start">
-                <Input.TextArea value={description} placeholder="Description" onChange={(e : any) => setDescription(e.target.value)}/>
+                <span style={{color: 'darkgray'}}>Description</span>
+                <Input.TextArea value={description} onChange={(e : any) => setDescription(e.target.value)}/>
+                <span style={{margin: 5}}></span>
+            </Row>
+            <Row type="flex" justify="start">
+                <span style={{color: 'darkgray'}}>Language</span>
+                <LanguageSelect value={language} onChange={setLanguage} />
             </Row>
             <hr></hr>
             <Row type="flex" justify="start">
@@ -47,11 +57,7 @@ export default function SheetView(props :  {readOnly?: boolean, send? : any, id?
     )
 }
 
-const containerStyle = {
-    width: '70%',
-    marginRight: 'auto',
-    marginLeft: 'auto'
-} as React.CSSProperties
+
 
 const editorStyle = {
     width: '100%',

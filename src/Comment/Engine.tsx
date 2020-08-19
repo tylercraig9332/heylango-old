@@ -29,7 +29,6 @@ export default function Engine(props : {parent_id : string}) {
                 return []
             }
         }).then(comments => {
-            console.log(comments)
             setComments(comments)
         })
     }, [])

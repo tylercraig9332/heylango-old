@@ -75,10 +75,10 @@ export default function Nav(props : any) {
             <Item key="/"><Link to='/'><strong>HeyLango!</strong></Link></Item>
             <Item key='/community/'><Link to='/community/'>Community</Link></Item>
             <Item key='/learn/'><Link to='/learn/'>Learning Library</Link></Item>
+            <Item key='/decks/'><Link to='/learn/decks'>Decks</Link></Item>
             {
                 (logged) ? (loggedTabs) : unLoggedTabs
             }
-            {(logged) ? <Item key='/decks/' style={{float: 'right'}}><Link to='/learn/decks'>Decks</Link></Item> : null}
         </Menu>
         </div>
     )

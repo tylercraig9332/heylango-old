@@ -1,7 +1,22 @@
-import React from 'react'
-import {Icon, Spin} from 'antd'
+import React, { useEffect, useState } from 'react'
+import {Icon, Spin, message} from 'antd'
 
 export default function Loading(props : {message?: string | React.ReactElement}) {
+
+    const [longTime, setLongTime] = useState<boolean>(false)
+
+    useEffect(() => {
+        const timeout = window.setTimeout(() => {
+            //message.warning(`This item is taking a while to load. Please try refreshing`)
+            setLongTime(true)
+        }, 5000)
+        return function onReturn() {
+            window.clearTimeout(timeout)
+            return;
+        }
+    } ,[])
+
+    if (longTime) return <div style={pageWrap}><p style={breakStyle}>This item has taken a while to load. Please try refreshing</p></div>
     return (
         <div style={pageWrap}>
             <Spin indicator={<Icon type="loading" style={{fontSize: 48}} spin/>}/>

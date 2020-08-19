@@ -1,7 +1,7 @@
 import React from 'react'
 import List from '../Post/List'
 import Card from './Card'
-import s from '../Util/static.json'
+import language from '../Util/language.json'
 
 import { Button } from 'antd'
 import { Link } from 'react-router-dom'
@@ -16,7 +16,7 @@ export default function Home() {
             </div>
             <hr></hr>
             <div style={commContainer}>
-                {s.communities.map((c : any) => {
+                {language.communities.map((c : any) => {
                     return <Card key={c.code} name={c.name} imageUrl={c.imageUrl} flag={c.flag} code={c.code}/>
                 })
                 }

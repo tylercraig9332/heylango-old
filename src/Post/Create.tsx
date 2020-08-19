@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Post from './Post'
-import s from '../Util/static.json'
+import language from '../Util/language.json'
 import { Link } from 'react-router-dom'
 import { Input, Row, Col, Upload, Button, Icon, Cascader, Result } from 'antd'
 
@@ -79,7 +79,7 @@ export default function Create() {
                 </Col>
                 <Col> 
                         <Cascader 
-                            options={s.cascade} placeholder="Select Language Community" 
+                            options={language.cascade} placeholder="Select Language Community" 
                             style={{width: 275}} expandTrigger="hover"
                             onChange={(e) => setCommunity(e[e.length - 1])}
                         />

@@ -7,28 +7,32 @@ import wordDecorator from './WordLearner/WordDecorator'
 
 export default function DraftEditor(props : DraftEditorProps) {
 
-    const [editorState, setEditorState] = useState<EditorState>(EditorState.createEmpty(props.wordLearner ? wordDecorator : undefined))
+    const [editorState, setEditorState] = useState<EditorState>(() => EditorState.createEmpty())
 
     const editor = useRef<any>(null)
 
     const [focus, setFocus] = useState<boolean>(false)
     const [highlight, setHighlight] = useState<boolean>(false)
+    const [mounted, setMounted] = useState<boolean>(false) // Prevents a bug where if wordLearner on load then overwrites editorState
 
     useEffect(() => {
         let decorator = (props.wordLearner) ? wordDecorator : undefined
-        let contentState = EditorState.createEmpty(decorator).getCurrentContent()
-        if (props.value !== undefined) {
-            //console.log("props.value", props.value)
-            contentState = convertFromRaw(JSON.parse(props.value))
-            //console.log("content value", JSON.stringify(convertToRaw(contentState)))
-        }
-        //setEditorState(EditorState.createWithContent(contentState, decorator))
-        const t = EditorState.push(editorState, contentState, 'change-block-data')
-        setEditorState(t)
-    }, [])
+        let contentState = (props.value === undefined) ?
+            EditorState.createEmpty(decorator).getCurrentContent() 
+                :
+            convertFromRaw(JSON.parse(props.value))
 
+        //console.log("props.value", props.value)
+
+        //console.log("content value", JSON.stringify(convertToRaw(contentState)))
+        const es = EditorState.createWithContent(contentState, decorator)
+        //setEditorState(EditorState.push(es, contentState, 'change-block-data'))
+        setEditorState(es)
+        setMounted(true)
+    }, [])
+    
     useEffect(() => {
-        //console.log(JSON.stringify(convertToRaw(editorState.getCurrentContent())))
+        //console.log('edit change', JSON.stringify(convertToRaw(editorState.getCurrentContent())))
         if (editorState != null && !props.readOnly) {
             // Saves the current content and passes it up through the onChange prop
             const contentState = editorState.getCurrentContent()
@@ -36,11 +40,12 @@ export default function DraftEditor(props : DraftEditorProps) {
             props.onChange(rawContent)
         }
     }, [editorState])
+    
 
     useEffect(() => {
         // This allows the props.wordLearner to be changed after the parent component has been mounted.
         
-        if (props.wordLearner === false || props.wordLearner === undefined) return
+        if (props.wordLearner === false || props.wordLearner === undefined || !mounted) return
         //console.log('this has been ran', props.wordLearner)
         let d = (props.wordLearner) ? wordDecorator : undefined
         const eState = EditorState.set(editorState, {decorator : d});

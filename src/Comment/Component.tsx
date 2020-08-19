@@ -44,7 +44,7 @@ export default function Component(props : CommentComponentProps) {
     }
 
     function handleReply() {
-        console.log(reply)
+        //console.log(reply)
         props.handleReply(props.comment.parent, reply, props.comment.author)
         setShowReply(false)
         setReply('')
@@ -59,7 +59,9 @@ export default function Component(props : CommentComponentProps) {
     const title = <div><Link to={`/profile/${props.comment.author}`}>{username}</Link> {timeSince(dateToString(props.comment.createdAt))} ago</div> 
 
     const commentBody = (editView) ? (
-        <TextArea value={props.comment.content} onChange={(e : any) => props.handleEdit(props.comment._id, e.currentTarget.value)}/>
+        <div style={{maxWidth: 500}}>
+            <TextArea value={props.comment.content} onChange={(e : any) => props.handleEdit(props.comment._id, e.currentTarget.value)}/>
+        </div>
     ) : (
     <div>{props.comment.content}</div>
     )

@@ -22,6 +22,7 @@ const pRouter = require('./server/Post/controller')
 const uRouter = require('./server/User/controller')
 const iRouter = require('./server/Interaction/controller')
 const lBiRouter = require('./server/Learning/BiLango/controller')
+const lMRouter = require('./server/Learning/Lango/controller')
 const comRouter = require('./server/Comment/controller')
 
 app.use('/c', cRouter)
@@ -29,6 +30,7 @@ app.use('/p', pRouter)
 app.use('/u', uRouter)
 app.use('/i', iRouter)
 app.use('/l/bi', lBiRouter)
+app.use('/l/m', lMRouter)
 app.use('/com', comRouter)
 
 /* Logs when a user is undefined */

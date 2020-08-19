@@ -13,8 +13,8 @@ export default function Create() {
 
     function save() {
         // send sheet to server and handle response / success
-        console.log(langoSheet)
-        /*const reqHeaders = {
+        //console.log(langoSheet)
+        const reqHeaders = {
             body: JSON.stringify(langoSheet),
             headers: {
                 "Content-Type": "application/json"
@@ -23,9 +23,10 @@ export default function Create() {
         }
         fetch('/l/m/', reqHeaders).then(res => {
             // todo: get it from res and set it so result button can use it.
-            setSuccessLink(`/learn/m/${res.id}`)
+            //setSuccessLink(`/learn/m/${res.id}`)
             setSuccess(res.status === 200)
-        })*/
+            return res.json()
+        }).then(lango => {console.log(lango);setSuccessLink(`/learn/m/${lango._id}`)})
     }
 
     /** This function will be called by subcomponents when it updates itself so this component will be updated.
@@ -59,9 +60,9 @@ export default function Create() {
       };
 
 if (success) return (<Result status="success" title={"Lango Sheet Successfully Created!"} 
-                                extra={<Button type="primary"><Link to="todo">View</Link></Button>}/>)
+                                extra={<Button type="primary"><Link to={successLink}>View</Link></Button>}/>)
     return (
-        <div>
+        <div style={containerStyle}>
             <h1>Create New Lango Sheet</h1>
             <SheetView send={extract} />
             <div style={{padding: 10, display: 'flex', justifyContent: 'center'}}>
@@ -125,3 +126,10 @@ export function CompanionVideo() {
         </Col>
     )
 }
+
+
+const containerStyle = {
+    width: '70%',
+    marginRight: 'auto',
+    marginLeft: 'auto'
+} as React.CSSProperties
