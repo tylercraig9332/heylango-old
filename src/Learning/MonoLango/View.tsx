@@ -1,11 +1,9 @@
-import React, { useState, useEffect, ReactElement } from 'react'
-import SheetView from './SheetView'
+import React, { useState, useEffect } from 'react'
 import Lango from './Lango'
 import Loading from '../../Util/Loading'
 import Editor from '../../Draft/DraftEditor'
-import { EditOrAdmin, Info } from '../../Post/Toolbar/Icons'
+import { EditOrAdmin, Info } from '../../Toolbar/Icons'
 import CommentEngine from '../../Comment/Engine'
-import { OmitProps } from 'antd/lib/transfer/renderListBody'
 import { message } from 'antd'
 
 export default function View() {
@@ -89,5 +87,5 @@ const titleStyle = {
 
 const langoBody = {
     overflow: 'auto',
-    maxHeight: '700px',
+    maxHeight: '500px'
 } as React.CSSProperties

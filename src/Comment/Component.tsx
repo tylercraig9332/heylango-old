@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Comment, Input } from 'antd'
 import { Link } from 'react-router-dom'
 import ReplyEditor from './ReplyEditor'
-import { Like, EditOrAdmin, Comment as Reply} from '../Post/Toolbar/Icons'
+import { Like, EditOrAdmin, Comment as Reply} from '../Toolbar/Icons'
 import Avatar from '../User/Avatar'
 import IComment from './Comment'
 import { timeSince } from '../Util/functions'
@@ -51,7 +51,7 @@ export default function Component(props : CommentComponentProps) {
     }
 
     const myActions = [
-        <div style={actionStyle}><Like postID={props.comment.parent}/></div>,
+        <div style={actionStyle}><Like parent_id={props.comment.parent}/></div>,
         <div style={actionStyle}><EditOrAdmin parent={props.comment.parent} parentAuthor={props.comment.author} handleEdit={() => setEditView(!editView)} editView={editView}/></div>,
         <div style={actionStyle}><Reply onClick={() => setShowReply(!showReply)} reply/></div>
     ]

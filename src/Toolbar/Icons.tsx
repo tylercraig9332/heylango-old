@@ -7,7 +7,7 @@ const iconStyle = {fontSize: 20}
 
 const likedStyle = {fontSize: 20, color: '#1890ff'}
 
-export function Like(props : {postID? : string, onClick? : any}) {
+export function Like(props : {parent_id? : string, onClick? : any}) {
 
     const [liked, like] = useState<boolean>(false)
 
@@ -20,7 +20,7 @@ export function Like(props : {postID? : string, onClick? : any}) {
             },
             method: "GET"
         }
-        fetch(`/i/${props.postID}`, reqHeaders).then(r => r.json()).then(l => {
+        fetch(`/i/${props.parent_id}`, reqHeaders).then(r => r.json()).then(l => {
             like(l)
         })  
     }, [])
@@ -28,7 +28,7 @@ export function Like(props : {postID? : string, onClick? : any}) {
     function handleLike() {
         // send or remove like to server
         const reqHeaders = {
-            body: JSON.stringify({parent: props.postID}),
+            body: JSON.stringify({parent: props.parent_id}),
             headers: {
                 "Content-Type": "application/json"
             },
@@ -169,6 +169,7 @@ export function EditOrUser(props: {handleEdit: any, postID?: string, editView?: 
             },
             method: "GET"
         }
+        // TODO: adapt to parent_id and parentType
         fetch(`/p/belongs/${props.postID}`, reqHeaders).then(r => r.json()).then(res => {
             setBelongs(res.belongs)
             setAuthor(res.author)

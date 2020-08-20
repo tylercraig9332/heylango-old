@@ -3,7 +3,7 @@ import Post from './Post'
 import PreviewContent from '../Draft/PreviewEditor'
 import {Link} from 'react-router-dom'
 import { Card, Icon } from 'antd'
-import { Like, Comment, Save, Share, EditOrUser } from './Toolbar/Icons'
+import { Like, Comment, Save, Share, EditOrUser } from '../Toolbar/Icons'
 import { timeSince } from '../Util/functions'
 
 type PostCardProps = {
@@ -14,7 +14,7 @@ export default function Preview(props : PostCardProps) {
     const { post } = props
 
     const toolbar = [
-        <Like postID={post.id}/>, <Comment />,
+        <Like parent_id={post.id}/>, <Comment />,
         <Save parent_id={post.id} parentType={'post'} />, <Share postID={post.id}/>, 
         <EditOrUser postID={post.id} handleEdit={() => {
             window.location.href = `/community/p/${post.id}`}

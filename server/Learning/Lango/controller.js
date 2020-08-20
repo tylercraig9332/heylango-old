@@ -8,6 +8,23 @@ router.get('/', (req, res) => {
     .then(langos => res.staus(200).send(langos))
     .catch( err => res.status(400).send(err))
 })
+.get('/list/:by', (req, res) => {
+    let body = undefined
+    switch (req.params.by) {
+        case 'oldest':
+            // TODO:
+            break
+        case 'all':
+        default:
+            body = {}
+    }
+    if (body === undefined) return
+    factory.read(body).then((langos) => res.status(200).send(langos))
+    .catch(err => {
+        console.log(err)
+        res.status(400).send(err)
+    })
+})
 .get('/:id', (req, res) => {
     factory.readOne({_id: req.params.id})
     .then(lango => res.status(200).send(lango))

@@ -8,6 +8,7 @@ interface Lango {
     alternateContent?: string
     audio?: any,
     videoId?: any,
+    imgSrc? : string
 }
 
 export default Lango

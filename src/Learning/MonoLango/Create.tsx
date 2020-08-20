@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import SheetView from './SheetView'
 import VideoPlayer from '../VidLango/VideoPlayer'
-import { Button, Result, Upload, message, Row, Col, Modal, Input } from 'antd'
+import { Button, Result, Upload, message, Row, Col, Modal, Input, Icon } from 'antd'
 
 export default function Create() {
 
@@ -71,7 +71,7 @@ if (success) return (<Result status="success" title={"Lango Sheet Successfully C
                     <Col span={3}>
                         <Upload {...uploadProps}>
                             <Button>
-                            Upload Audio
+                            Upload Audio <Icon type="upload" />
                             </Button>
                         </Upload>
                     </Col>
@@ -122,14 +122,15 @@ export function CompanionVideo() {
                 <Input value={videoUrl} onChange={(e) => setUrl(e.target.value)}/>
                 (Only YouTube is currently supported)
             </Modal>
-            <Button onClick={() => setVideoModal(!videoModal)}>Add Companion Video</Button>
+            <Button onClick={() => setVideoModal(!videoModal)}>Add Companion Video <Icon type="youtube" /></Button>
         </Col>
     )
 }
 
 
 const containerStyle = {
-    width: '70%',
+    width: '95%',
+    maxWidth: '800px',
     marginRight: 'auto',
     marginLeft: 'auto'
 } as React.CSSProperties

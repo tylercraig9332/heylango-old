@@ -4,7 +4,7 @@ import Post from './Post'
 import DraftEditor from '../Draft/DraftEditor'
 import CommentEngine from '../Comment/Engine'
 import PageToolbar from '../Nav/PageToolbar'
-import { IconRow, Like, EditOrUser, Admin } from './Toolbar/Icons'
+import { IconRow, Like, EditOrUser, Admin } from '../Toolbar/Icons'
 import { message } from 'antd'
 
 export default function View(props : {post_id: string}) {
@@ -66,7 +66,7 @@ export default function View(props : {post_id: string}) {
                         <IconRow>
                             <Admin parent={post.id} parentType='post'/>
                             <EditOrUser postID={post.id} handleEdit={() => setEditView(!editView)} editView={editView}/>
-                            <Like postID={post.id} />
+                            <Like parent_id={post.id} />
                         </IconRow>
                     }/>
             </div>
