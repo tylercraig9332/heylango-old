@@ -25,7 +25,7 @@ export default function Launch() {
             <Row style={rowStyle}>
                 <Col span={6} offset={6} style={colStyle}>
                     <h1 style={{color: 'dimgray'}}>Welcome to HeyLango!</h1>
-                    <p>Learn a new language today!</p>
+                    <p>Time to Get Fluent</p>
                     {loggedIn ? null : portalButtons}
                 </Col>
             </Row>

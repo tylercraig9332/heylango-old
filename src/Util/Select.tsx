@@ -4,13 +4,33 @@ import language from './language.json'
 
 const { Option } = Select
 
-type LSelectProps = {
+type SelectProps = {
     value? : string,
     onChange : any,
     type? : string
 }
 
-export default function LanguageSelect(props : LSelectProps) {
+export function CEFRSelect(props : SelectProps) {
+    return (
+        <Select
+            mode="default"
+            onChange={props.onChange}
+            style={{width: '100%'}}
+        >
+            {
+                language.CEFR.map((d : any) => {
+                    return (
+                        <Option value={d.name} key={d.name}>
+                            {d.name} | {d.description}
+                        </Option>
+                    )
+                })
+            }
+        </Select>
+    )
+}
+
+export function LanguageSelect(props : SelectProps) {
     return (
         <Select
             mode="default"

@@ -1,15 +1,21 @@
-import React from 'react'
-import Editor from '../Draft/DraftEditor'
+import React, { useEffect } from 'react'
+import WordLearner from '../Draft/WordLearner/WordLearner'
 
 export default function Test() {
     // Language Les is whst you makeit
+
+    useEffect(() => {
+        const dummyText = "Cras tempus arcu nullam curabitur tempor, class. Varius senectus bibendum, aptent, mauris odio elementum lectus pharetra pede mattis consectetuer rutrum dictumst tellus auctor volutpat sociosqu suscipit, quam molestie pulvinar sollicitudin tempus class. Nostra at sem volutpat turpis class dignissim quis morbi quis feugiat pulvinar etiam hac torquent, eleifend primis gravida ridiculus curae; tortor quisque amet viverra sociosqu. Fames tincidunt blandit augue netus sodales pulvinar maecenas sociis facilisi mi pretium molestie cubilia quisque augue primis sollicitudin etiam euismod luctus. Sociis taciti nullam orci senectus sem. Fermentum fringilla pretium nec vulputate pharetra lectus. Molestie. Tempor in rhoncus. Maecenas. Enim commodo vehicula sociosqu."
+        const dummyText2 = "Sagittis a adipiscing class taciti molestie curabitur justo ornare porta rutrum habitasse tristique non. Mattis sodales, elit massa metus ornare litora consectetuer diam enim amet velit volutpat. Mus purus odio nullam sodales laoreet tempus rhoncus quam donec molestie at curabitur augue nulla mus pede erat morbi platea dis. Sagittis aenean senectus praesent duis cras eu volutpat donec, facilisi suscipit porta montes nunc vel egestas dictumst. Sem suscipit, donec condimentum platea elementum nibh nulla enim risus scelerisque tempor magna congue mauris egestas Auctor mauris, pulvinar conubia morbi eros consequat per in ridiculus. Nascetur habitasse id leo facilisis magnis. Sollicitudin ultricies ornare sit tincidunt risus tellus adipiscing felis ac. Cras. Accumsan dictumst habitasse feugiat nibh natoque, aliquet fusce phasellus posuere penatibus est pulvinar tincidunt fusce fermentum nonummy ridiculus dictum quam felis. Hendrerit nonummy mus nulla sem porta torquent vehicula. Quisque maecenas porttitor placerat sapien nonummy varius nam. Magnis. Netus ut duis purus non sem adipiscing cras sit dignissim magna mollis eu faucibus litora pretium nonummy ante ridiculus rhoncus dictumst ultricies curae; eget mus suscipit fames non magnis natoque congue ultricies dignissim curae; iaculis nec gravida consectetuer at vel sodales sit et faucibus mus cras molestie ipsum integer tincidunt urna laoreet vel, id hac. Duis hendrerit. Purus. Luctus placerat erat volutpat fames vel odio ultrices nascetur nascetur risus ultricies semper curae; proin, tristique hac magna egestas. Odio cum lacinia pretium sed scelerisque facilisis hendrerit nulla dis. Erat natoque placerat habitasse vitae elit conubia parturient elementum hac odio congue sem a mauris scelerisque consequat tempus habitant mus fringilla rutrum neque tortor odio mollis viverra, aenean a magna curae; nisl, sapien molestie dictumst nostra iaculis Massa ultricies placerat suscipit massa torquent, aliquet curae; etiam leo sociosqu. Faucibus vestibulum cras mi nonummy, id sit egestas. Parturient volutpat dictumst elit aenean cursus neque porta pretium natoque taciti. Arcu faucibus facilisi conubia, tempus montes sociis cubilia eros. Amet at, nunc lectus penatibus, elit bibendum tincidunt ornare fermentum ultrices. Integer augue pellentesque augue, praesent nunc, per sed molestie consequat gravida aliquet non semper sem bibendum maecenas. Viverra ultricies. Habitasse, dignissim. Est maecenas leo hendrerit ipsum dictumst dui potenti vestibulum proin dui a. Diam Eleifend nullam id fames sed. Fringilla mauris sodales morbi porta tellus. Tempus sem ipsum commodo porttitor dignissim. Pharetra, curabitur. Auctor turpis fermentum non mi tempor. Dictumst congue vehicula. Nunc elementum pellentesque. Adipiscing venenatis metus maecenas hac. Pede suscipit. Nibh nam ultrices urna dignissim gravida dapibus aliquam."
+        setText(dummyText2 + dummyText2 + dummyText2)
+    })
 
     const [text, setText] = React.useState<string>()
 
     return (
         <div>
             <h1>This is a test</h1>
-            <Editor value={text} onChange={setText} wordLearner/>
+            <WordLearner value={text} onChange={setText} readOnly/>
         </div>
     )
 }

@@ -247,5 +247,35 @@
             "code": "eo",
             "flag": "💚"
         }
+    ],
+    "CEFR" : [
+        {
+            "name": "A0",
+            "description" : "New Learner"
+        },
+        {
+            "name": "A1",
+            "description" : "Beginner"
+        },
+        {
+            "name": "A2",
+            "description" : "Upper Beginner or Elementary"
+        },
+        {
+            "name": "B1",
+            "description" : "Intermediate"
+        },
+        {
+            "name": "B2",
+            "description" : "Upper Intermediate"
+        },
+        {
+            "name": "C1",
+            "description" : "Advanced"
+        },
+        {
+            "name": "C2",
+            "description" : "Proficient"
+        }
     ]
 }

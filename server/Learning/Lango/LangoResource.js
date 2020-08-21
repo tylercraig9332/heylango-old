@@ -9,7 +9,8 @@ const LangoScheme = mongoose.Schema({
     imageSrc: {type: String, default: ''},
     alternateContent: {type: String},
     audio: {type: Buffer},
-    videoId: {type: String}
+    videoId: {type: String},
+    difficulty: {type: String, default: 'A0'}
 }, { timestamp: true })
 
 module.exports = mongoose.model('Lango', LangoScheme)

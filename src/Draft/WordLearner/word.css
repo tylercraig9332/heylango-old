@@ -1,6 +1,3 @@
-.word {
-    padding: 2px;
-}
 
 .word:hover {
     text-decoration: underline;
@@ -8,3 +5,13 @@
     cursor: pointer;
     background-color: azure;
 }
+
+.icon {
+    font-size: 75px;
+    color: #d3d3d3;
+}
+
+.icon:hover {
+    color: #1890ff;
+}
+

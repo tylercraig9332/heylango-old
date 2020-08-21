@@ -1,8 +1,29 @@
 import React, { useState, useEffect } from 'react'
-import Editor from '../../Draft/DraftEditor'
-import LanguageSelect from '../../Util/LanguageSelect'
-import {Row, Col, Button, Input, Icon, Modal} from 'antd'
+import Editor from '../../Draft/WordLearner/WordLearner'
+import {LanguageSelect, CEFRSelect} from '../../Util/Select'
+import {Row, Col, Button, Input, Icon, Modal, Upload, message} from 'antd'
 import PreviewImage from '../../Util/ResourcePreviewImage'
+import CompanionVideo from '../VidLango/CompanionVideo'
+
+const uploadProps = {
+    name: 'file',
+    action: '/l/bi/audio',
+    headers: {
+      authorization: 'authorization-text',
+    },
+    accept:"audio/*",
+    onChange(info : any) {
+        console.log(info)
+        if (info.file.status !== 'uploading') {
+            console.log(info.file, info.fileList);
+        }
+        if (info.file.status === 'done') {
+            message.success(`${info.file.name} file uploaded successfully`);
+        } else if (info.file.status === 'error') {
+            message.error(`${info.file.name} file upload failed.`);
+        }
+    },
+  };
 
 export default function SheetView(props :  {readOnly?: boolean, send? : any, id?: string}) {
 
@@ -15,6 +36,7 @@ export default function SheetView(props :  {readOnly?: boolean, send? : any, id?
     const [title, setTitle] = useState<string>()
     const [description, setDescription] = useState<string>()
     const [language, setLanguage] = useState<string>()
+    const [difficulty, setDifficulty] = useState<string>()
     const [imgSrc, setImgSrc] = useState<string>()
 
     useEffect(() => {
@@ -23,10 +45,11 @@ export default function SheetView(props :  {readOnly?: boolean, send? : any, id?
                 title: title,
                 content: content,
                 description: description,
-                language: language
+                language: language,
+                difficulty: difficulty
             })
         }
-    }, [content, title, description, language])
+    }, [content, title, description, language, difficulty])
 
 
     const previewImageModal = (
@@ -69,25 +92,48 @@ export default function SheetView(props :  {readOnly?: boolean, send? : any, id?
             <Row type="flex" justify="start">
                 <span style={{color: 'darkgray'}}>Description</span>
                 <Input.TextArea value={description} rows={1} autoSize={true} onChange={(e : any) => setDescription(e.target.value)}/>
-                <span style={{margin: 5}}></span>
             </Row>
             <Row type="flex" justify="start">
                 <span style={{color: 'darkgray'}}>Language</span>
                 <LanguageSelect value={language} onChange={setLanguage} />
+            </Row>
+            <Row type="flex" justify="start">
+                <span style={{color: 'darkgray'}}>Difficulty <a href="https://en.wikipedia.org/wiki/Common_European_Framework_of_Reference_for_Languages">(CEFR)</a></span>
+                <CEFRSelect value={difficulty} onChange={setDifficulty} />
             </Row>
             <hr></hr>
             <Row type="flex" justify="start">
                 <span style={{color: 'darkgray'}}>Content</span>
                     <Editor value={content} onChange={setContent} 
                         readOnly={enablePreview}
-                        wordLearner={enablePreview}
                         style={editorStyle}
-                        wrap />
+                        wordsPerPage={40}
+                        lineHeight={'60px'}
+                        fontSize={'25px'}
+                    />
                 
             </Row>
-            <Row type="flex" justify="center">
-                <Col><Button type="primary" onClick={() => setPreview(!enablePreview)}>Preview Word Learner</Button></Col>
+            <Row type="flex" justify="end">
+                <Col style={{marginTop: '5px'}}><Button type="primary" onClick={() => setPreview(!enablePreview)}>Preview Word Learner</Button></Col>
             </Row>
+            <span style={{color: 'darkgray'}}>Audio / Video</span>
+            <div style={{paddingRight: 10, display: 'flex', justifyContent: 'start'}}>
+                <Row type="flex" justify="start" align="middle">
+                    <Col span={14}>
+                        <CompanionVideo />
+                    </Col>
+                    <Col span={2}>
+                        Or
+                    </Col>
+                    <Col span={7}>
+                        <Upload {...uploadProps}>
+                            <Button>
+                            Upload Audio <Icon type="upload" />
+                            </Button>
+                        </Upload>
+                    </Col>
+                </Row>
+            </div>
             {previewImageModal}
         </div>
     )
@@ -99,5 +145,5 @@ const editorStyle = {
     width: '100%',
     marginBottom: 20,
     fontSize: 20,
-    height: 300
+    minHeight: 300
 } as React.CSSProperties

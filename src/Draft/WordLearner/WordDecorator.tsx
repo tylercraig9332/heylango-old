@@ -41,7 +41,8 @@ function PopoverContent(props: any) {
 }
 
 const wordStyle = {
-    fontSize: 20,
+    marginTop: 5,
+    marginBottom: 5,
     direction: 'ltr',
     unicodeBidi: 'bidi-override',
 } as React.CSSProperties

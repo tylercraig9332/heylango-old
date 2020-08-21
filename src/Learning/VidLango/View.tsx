@@ -8,7 +8,7 @@ export default function View() {
             <h1>VidLango</h1>
             <hr></hr>
             <div style={videoStyleWrap}>
-                <VideoPlayer videoID="OM5WiuSCxwk" visible/>
+                <VideoPlayer video_id="OM5WiuSCxwk" visible/>
                 <p>This is a test... I would like to put subtitle translations here and other tools to help parse videos</p>
             </div>
         </div>

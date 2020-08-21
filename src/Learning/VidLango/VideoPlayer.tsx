@@ -1,7 +1,7 @@
 import React from 'react'
 
 type VPProps = {
-    videoID : string,
+    video_id : string,
     visible? : boolean
 }
 
@@ -25,7 +25,7 @@ export default function VideoPlayer(props : VPProps) {
                     width: "100%",
                     height: "100%"
                     }}
-                    src={`https://www.youtube.com/embed/${props.videoID}`}
+                    src={`https://www.youtube.com/embed/${props.video_id}`}
                     frameBorder="0"
                 />
             </div>

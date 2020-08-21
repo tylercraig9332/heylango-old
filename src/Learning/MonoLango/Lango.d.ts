@@ -7,7 +7,7 @@ interface Lango {
     author: string,
     alternateContent?: string
     audio?: any,
-    videoId?: any,
+    video_id?: string,
     imgSrc? : string
 }
 
