@@ -75,7 +75,7 @@ export default function Nav(props : any) {
             <Item key="/"><Link to='/'><strong>HeyLango!</strong></Link></Item>
             <Item key='/community/'><Link to='/community/'>Community</Link></Item>
             <Item key='/learn/'><Link to='/learn/'>Learning Library</Link></Item>
-            <Item key='/decks/'><Link to='/study/decks'>Study Library</Link></Item>
+            <Item key='/study/'><Link to='/study/saved'>Study Library</Link></Item>
             {
                 (logged) ? (loggedTabs) : unLoggedTabs
             }

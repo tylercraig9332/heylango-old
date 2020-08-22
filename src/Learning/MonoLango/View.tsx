@@ -25,8 +25,9 @@ export default function View() {
             return
         }
         fetch('/l/m/' + l_id, reqHeader).then((res : Response) => (res.status === 200) ? res.json() : '')
-        .then((langoSheet : Lango | undefined) => {
+        .then((langoSheet : Lango) => {
             setLango(langoSheet)
+            window.sessionStorage.setItem('LangoLanguage', langoSheet.language)
         })
         .catch(err => console.log(err))
     }, [])

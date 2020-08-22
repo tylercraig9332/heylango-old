@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {CompositeDecorator} from 'draft-js'
 import findWithRegex from '../findWithRegex'
-import {Popover, Button} from 'antd'
+import {Popover, Button, message} from 'antd'
 import './word.css'
 
 const ButtonGroup = Button.Group
@@ -24,14 +24,36 @@ const WordWrap = (props : any) =>  {
 
 function PopoverContent(props: any) {
     const word = props.children[0].props.text
+
+    const [success, setSuccess] = useState<boolean>(false)
+
+    function saveWord() {
+        const lCode = window.sessionStorage.getItem('LangoLanguage')
+        if (lCode === undefined) {
+            message.error('Unable to load language. Please refresh the page')
+            return
+        }
+        const reqHeaders = {
+            body: JSON.stringify({value: word, language: lCode}),
+            headers: {
+                "Content-Type": "application/json"
+            },
+            method: "POST"
+        }
+        fetch('/s/ex/', reqHeaders).then(res => {
+            // todo: get it from res and set it so result button can use it.
+            setSuccess(res.status === 200)
+            message.success('Word Saved!')
+        })
+    }
+
     return (
         <div style={{width: 350}}>
             <h2>{word}</h2>
             <Button type="primary" style={popButtonStyle} block>
                 Translate
             </Button>
-
-            <Button type="primary" style={popButtonStyle} block>
+            <Button type="primary" style={popButtonStyle} onClick={saveWord} block>
                 Save Word
             </Button>
             

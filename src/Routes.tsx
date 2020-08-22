@@ -22,6 +22,7 @@ import mHome from './Learning/MonoLango/Home'
 import mCreate from './Learning/MonoLango/Create'
 import mView from './Learning/MonoLango/View'
 import dHome from './Study/Decks/Home'
+import eHome from './Study/Expression/Home'
 
 import Test from './pages/Test'
 
@@ -55,6 +56,7 @@ export default function Routes() {
                         <Route path='/learn/m/create' component={mCreate} />
                         <Route path='/learn/m/' component={mView} />
                         <Route exact path='/study/decks/' component={dHome} />
+                        <Route exact path='/study/saved/' component={eHome} />
                     </Switch>
                 </div>
             </div>

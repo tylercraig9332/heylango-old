@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Editor, EditorState, convertToRaw, convertFromRaw, ContentState } from 'draft-js'
 import WordLearnerProps from './WordLearnerProps' 
 import WordDecorator from './WordDecorator'
-import { Icon, Tooltip, Steps, Modal, Slider } from 'antd'
+import { Icon, Tooltip, Steps, Modal, Slider, Card, Button } from 'antd'
+import SelectContextMenu from './SelectContextMenu'
 
 const { Step } = Steps
 
@@ -23,7 +24,9 @@ export default function WordLearner(props : WordLearnerProps) {
     const editor = useRef<any>(null)
     const [focus, setFocus] = useState<boolean>(false)
     const [highlight, setHighlight] = useState<boolean>(false)
-    
+
+    const [mouseupevent, setMouseupevent] = useState<any>()
+
     useEffect(() => {
         if (props.lineHeight === undefined) return 
         setLineHeight(props.lineHeight)
@@ -192,6 +195,7 @@ export default function WordLearner(props : WordLearnerProps) {
     }
     return (
         <div>
+            <SelectContextMenu event={mouseupevent}/>
             {settingsModal}
             <div style={stepStyle}>
                 <Steps current={batchNumber}>
@@ -216,10 +220,11 @@ export default function WordLearner(props : WordLearnerProps) {
                     </Tooltip>
                 </div>
                 <div 
-                    className="editor" 
+                    className="editor" id="editor"
                     style={{...editorFocusStyle, ...editorStyle, fontSize: fontSize, lineHeight: lineHeight }}
                     onClick={() => setFocus(true)} onBlur={() => setFocus(false)}
                     onMouseEnter={() => setHighlight(true)} onMouseLeave={() => setHighlight(false)}
+                    onMouseUp={(e) => {e.persist(); setMouseupevent(e)}}
                 >
                     <Editor editorState={editorState} onChange={setEditorState} readOnly={props.readOnly} />
                 </div>
