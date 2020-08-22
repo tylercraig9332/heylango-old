@@ -62,6 +62,9 @@ export default function Nav(props : any) {
                     <Link to="/settings">Settings <Icon type="setting" style={{ fontSize: '16px', position: 'relative'}}/></Link>
                 </Item>
                 <Divider/>
+                <Item key="/info">
+                    <Link to="/info">FAQ / Site Info <Icon type="info-circle" style={{ fontSize: '16px', position: 'relative'}}/></Link>
+                </Item>
                 <Item key="/logout">
                     <Link to="/logout">Log Out <Icon type="logout" style={{ fontSize: '16px', position: 'relative'}}/></Link> 
                 </Item>

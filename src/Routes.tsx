@@ -24,6 +24,10 @@ import mView from './Learning/MonoLango/View'
 import dHome from './Study/Decks/Home'
 import eHome from './Study/Expression/Home'
 
+import iHome from './pages/Info/Home'
+import iLango from './pages/Info/Lango'
+import iInteraction from './pages/Info/Interaction'
+
 import Test from './pages/Test'
 
 import 'antd/dist/antd.css';
@@ -57,6 +61,9 @@ export default function Routes() {
                         <Route path='/learn/m/' component={mView} />
                         <Route exact path='/study/decks/' component={dHome} />
                         <Route exact path='/study/saved/' component={eHome} />
+                        <Route exact path='/info' component={iHome} />
+                        <Route exact path='/info/lango' component={iLango} />
+                        <Route exact path='/info/ip' component={iInteraction} />
                     </Switch>
                 </div>
             </div>

@@ -21,27 +21,30 @@ export default function Launch() {
     )
 
     return (
-        <div style={pageStyle}>
-            <Row style={rowStyle}>
-                <Col span={6} offset={6} style={colStyle}>
-                    <h1 style={{color: 'dimgray'}}>Welcome to HeyLango!</h1>
-                    <p>It's Time to Get Fluent</p>
-                    {loggedIn ? null : portalButtons}
-                </Col>
-            </Row>
+        <div>
+            <div style={page1Style}>
+                <Row style={rowStyle}>
+                    <Col span={6} offset={6} style={colStyle}>
+                        <h1>Welcome to HeyLango!</h1>
+                        <p>It's Time to Get Fluent</p>
+                        {loggedIn ? null : portalButtons}
+                    </Col>
+                </Row>
+            </div>
         </div>
     )
 }
 
-const pageStyle = {
-    backgroundImage: 'url(static/louis-pellissier-unsplash.jpg)',
+const page1Style = {
+    backgroundImage: 'url(/static/louis-pellissier-unsplash.jpg)',
     top: 0,
     left: 0,
     position: 'fixed',
     width: '100%',
     height: '100%',
     zIndex: 0,
-    backgroundSize: 'cover'
+    backgroundSize: 'cover',
+    overflow: 'auto'
 } as React.CSSProperties
 
 const rowStyle = {
