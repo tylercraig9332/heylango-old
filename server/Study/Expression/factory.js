@@ -14,12 +14,20 @@ async function read(body) {
     return docs
 }
 
-function update(body) {
-
+async function update(from, body) {
+    let d = Resource.findOneAndUpdate(from, body, (err, doc) => {
+        if (err) throw new Error(err)
+        return doc
+    })
+    return await d
 }
 
-function _delete(_id) {
-
+async function _delete(_id) {
+    let r = Resource.findByIdAndDelete(_id).then((err, doc) => {
+        if (err) return false
+        return true
+    })
+    return await d
 }
 
 

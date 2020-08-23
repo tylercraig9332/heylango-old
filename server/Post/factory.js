@@ -29,7 +29,6 @@ async function read(body) {
         //console.log(d)
         return d
     })
-    console.log(docs)
     //console.log(docs)
     return await _formatPosts(docs)
 }

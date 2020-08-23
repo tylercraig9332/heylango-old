@@ -7,7 +7,6 @@ function create(body) {
 
 async function read(body) {
     let docs = await Resource.find(body, (err, docs) => {
-        console.log(docs)
         if (err) throw new Error(err)
         return docs
     })

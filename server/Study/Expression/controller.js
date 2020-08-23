@@ -20,5 +20,30 @@ router.post('/', (req, res) => {
     factory.create(req.body).then(r => res.send(r)).catch(err => res.status(400).send(err))
 })
 
+router.patch('/:id', (req, res) => {
+    if (req.session.user === undefined) {
+        res.status(400).send('User need to be logged in to perform this action')
+        return
+    }
+    req.body.author = req.session.user.id
+    console.log(req.body)
+    factory.update({_id: req.params.id}, req.body).then((d) => {
+        res.status(200).send('Saved!')
+    })
+    .catch(err => {
+        console.log(err)
+        res.statusMessage = 'Something went wrong :('
+        res.status(400).send(err.toString())
+    })
+})
+
+router.delete('/:id', (req, res) => {
+    if (req.session.user === undefined) {
+        res.status(400).send('User need to be logged in to perform this action')
+        return
+    }
+    factory.delete(req.params.id).then(r => res.send(r))
+})
+
 
 module.exports = router
