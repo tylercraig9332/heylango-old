@@ -29,6 +29,7 @@ import iLango from './pages/Info/Lango'
 import iInteraction from './pages/Info/Interaction'
 
 import Test from './pages/Test'
+import Support from './pages/Support'
 
 import 'antd/dist/antd.css';
 import './styles/global.css'
@@ -51,6 +52,7 @@ export default function Routes() {
                         <Route path='/logout' component={Logout} />
                         <Route path='/profile' component={Profile} />
                         <Route path='/test' component={Test} />
+                        <Route exact path='/support' component={Support} />
                         <Route exact path='/learn/' component={lHome} />
                         <Route exact path='/learn/bi/new' component={biCreate} />
                         <Route exact path='/learn/bi/' component={biHome} />

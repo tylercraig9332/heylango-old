@@ -1,7 +1,7 @@
 
 .word:hover {
     text-decoration: underline;
-    text-decoration-color: cadetblue;
+    text-decoration-color: #1890ff;
     cursor: pointer;
     background-color: azure;
 }
@@ -9,7 +9,7 @@
 ::selection {
     text-decoration-line: underline;
     text-decoration-color: cadetblue;
-    background-color: azure;
+    background-color: #1890ff;
     color: rgba(0, 0, 0, 0.65);
 }
 

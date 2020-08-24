@@ -41,7 +41,7 @@ export default function List() {
                 })
             setExpressions(tableData)
         })
-    }, [setEditModal])
+    })
 
     const actionComponent = (expression : any) => {
         return (
