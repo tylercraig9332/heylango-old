@@ -10,7 +10,8 @@ export default function SelectContextMenu(props : {event : any}) {
     const [contextX, setContextX] = useState<number>(0)
     const [contextY, setContextY] = useState<number>(0)
     const [selectedText, setSelectedText] = useState<string>('')
-
+    const [translations, setTranslations] = useState<string[]>([])
+        
     useEffect(() => {
         let s = ''
         let ws = window.getSelection()
@@ -24,6 +25,26 @@ export default function SelectContextMenu(props : {event : any}) {
         }
         const x = props.event.pageX
         const y = props.event.pageY
+
+        const lCode = window.sessionStorage.getItem('LangoLanguage')
+        if (lCode === undefined) {
+            message.error('Unable to load language. Please refresh the page')
+            return
+        }
+        if (s.length >= 100) {
+            message.error('Please make a shorter selection for translation')
+            return
+        }
+        const reqHeaders = {
+            headers: {
+                "Content-Type": "application/json"
+            },
+            method: "GET"
+        }
+        fetch('/s/ex/t/' + escape(s) + '/to/' + lCode, reqHeaders).then(r => r.json()).then(t => {
+            setTranslations(t)
+        })
+
         setContextX(x)
         setContextY(y)
         setContexMenuView(true)
@@ -31,13 +52,23 @@ export default function SelectContextMenu(props : {event : any}) {
     }, [props.event])
 
     function saveExpression() {
+        const logged = (window.sessionStorage.getItem('logged') == 'true')
+        if (!logged) {
+            message.error('You need to be logged in to save expressions!')
+            return
+        }
         const lCode = window.sessionStorage.getItem('LangoLanguage')
         if (lCode === undefined) {
             message.error('Unable to load language. Please refresh the page')
             return
         }
+        let t = ''
+        translations.map((translation : string, i : number) => {
+            let preAppendValue = (i === 0) ? '' : ', '
+            t += preAppendValue + translation
+        })
         const reqHeaders = {
-            body: JSON.stringify({value: selectedText, language: lCode}),
+            body: JSON.stringify({value: selectedText, language: lCode, translation: t}),
             headers: {
                 "Content-Type": "application/json"
             },
@@ -64,6 +95,7 @@ export default function SelectContextMenu(props : {event : any}) {
                     }}/>
                     </div>
                 <h2>{selectedText}</h2>
+                {translations.map(t => {return <p key={t}>{t}</p>})}
                 <Button type="primary" onClick={saveExpression} block>
                     Save Expression
                 </Button>

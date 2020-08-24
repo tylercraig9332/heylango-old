@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 const factory = require('./factory')
+const translateText = require('../../Util/translate.js')
 
 router.get('/', (req, res) => {
     if (req.session.user === undefined) {
@@ -9,6 +10,20 @@ router.get('/', (req, res) => {
         return
     }
     factory.read({author: req.session.user.id}).then(exps => res.send(exps))
+})
+.get('/t/:text/to/:to', (req, res) => {
+    // Instantiates a client
+    //console.log(gcloud)
+    console.log('translating...')
+    const text = req.params.text
+    const target = req.params.to
+    
+    translateText(text, target).then(result => {
+        res.send(result)
+    }).catch(err => {
+        res.status(400).send(err)
+    })
+    
 })
 
 router.post('/', (req, res) => {

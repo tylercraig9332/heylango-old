@@ -26,6 +26,7 @@ function PopoverContent(props: any) {
     const word = props.children[0].props.text
 
     const [success, setSuccess] = useState<boolean>(false)
+    const [translations, setTranslations] = useState<string[]>([])
 
     useEffect(() => {
         const lCode = window.sessionStorage.getItem('LangoLanguage')
@@ -33,49 +34,35 @@ function PopoverContent(props: any) {
             message.error('Unable to load language. Please refresh the page')
             return
         }
-
-    
-        const location = 'global';
-
-        // Imports the Google Cloud Translation library
-       /* const {TranslationServiceClient} = require('@google-cloud/translate');
-        const gcloud = require('./gcloud.json')
-        const options = {keyFilename: './gcloud.json'}
-        // Instantiates a client
-        const translationClient = new TranslationServiceClient(options);
-        async function translateText() {
-        // Construct request
-        const request = {
-            parent: `projects/${gcloud.project_id}/locations/${location}`,
-            contents: [word],
-            mimeType: 'text/plain', // mime types: text/plain, text/html
-            sourceLanguageCode: lCode,
-            targetLanguageCode: 'en', // TODO: enable support for multiple languages
-        };
-
-        try {
-            // Run request
-            const [response] = await translationClient.translateText(request);
-
-            for (const translation of response.translations) {
-            console.log(`Translation: ${translation.translatedText}`);
-            }
-        } catch (error) {
-            console.error(error.details);
+        const reqHeaders = {
+            headers: {
+                "Content-Type": "application/json"
+            },
+            method: "GET"
         }
-        }
-
-        translateText();*/
+        fetch('/s/ex/t/' + word + '/to/' + lCode, reqHeaders).then(r => r.json()).then(t => {
+            setTranslations(t)
+        })
     }, [])
 
     function saveWord() {
+        const logged = (window.sessionStorage.getItem('logged') == 'true')
+        if (!logged) {
+            message.error('You need to be logged in to save words!')
+            return
+        }
         const lCode = window.sessionStorage.getItem('LangoLanguage')
         if (lCode === undefined) {
             message.error('Unable to load language. Please refresh the page')
             return
         }
+        let t = ''
+        translations.map((translation : string, i : number) => {
+            let preAppendValue = (i === 0) ? '' : ', '
+            t += preAppendValue + translation
+        })
         const reqHeaders = {
-            body: JSON.stringify({value: word, language: lCode}),
+            body: JSON.stringify({value: word, language: lCode, translation: t}),
             headers: {
                 "Content-Type": "application/json"
             },
@@ -91,9 +78,11 @@ function PopoverContent(props: any) {
     return (
         <div style={{width: 350}}>
             <h2>{word}</h2>
-            <Button type="primary" style={popButtonStyle} block>
-                Translate
-            </Button>
+            {
+                translations.map((t) => {
+                    return <p key={t}>{t}</p>
+                })
+            }
             <Button type="primary" style={popButtonStyle} onClick={saveWord} block>
                 Save Word
             </Button>
