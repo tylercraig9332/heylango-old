@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
 .get('/t/:text/to/:to', (req, res) => {
     // Instantiates a client
     //console.log(gcloud)
-    console.log('translating...')
+    //console.log('translating...')
     const text = req.params.text
     const target = req.params.to
     

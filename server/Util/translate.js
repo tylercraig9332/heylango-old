@@ -20,7 +20,7 @@ async function translateText(text, targetCode) {
         const [response] = await translationClient.translateText(request);
         
         for (const translation of response.translations) {
-            console.log(`Translation: ${translation.translatedText}`);
+            //console.log(`Translation: ${translation.translatedText}`);
             translations.push(translation.translatedText)
         }
     } catch (error) {
