@@ -9,6 +9,7 @@ export default function List() {
 
     const [expressions, setExpressions] = useState<Expression[]>([])
     const [editModal, setEditModal] = useState<boolean>(false)
+    const [expressRefresh, setExpressRefresh] = useState<boolean>(true)
 
     const [editExpression, setEditExpression] = useState<any>()
     const [editValue, setEditValue] = useState<string>('')
@@ -17,10 +18,7 @@ export default function List() {
     const [edit_id, setEdit_id] = useState<string>('')
 
     useEffect(() => {
-        console.log('from onChange', editExpression)
-    }, [editExpression])
-
-    useEffect(() => {
+        if (expressRefresh === false) return
         const reqHeaders = {
             headers: {
                 "Content-Type": "application/json"
@@ -40,8 +38,9 @@ export default function List() {
                     }
                 })
             setExpressions(tableData)
+            setExpressRefresh(false)
         })
-    })
+    }, [expressRefresh])
 
     const actionComponent = (expression : any) => {
         return (
@@ -102,6 +101,7 @@ export default function List() {
             setEditLanguage('')
             setEditTranslation('')
             setEdit_id('')
+            setExpressRefresh(true)
         })
         .catch((err) => {
             console.error(err)
@@ -126,6 +126,7 @@ export default function List() {
             setEditLanguage('')
             setEditTranslation('')
             setEdit_id('')
+            setExpressRefresh(true)
         })
     }
 
