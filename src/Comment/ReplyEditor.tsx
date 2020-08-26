@@ -12,7 +12,7 @@ export default function ReplyEditor(props : {onChange : any | undefined, value: 
     }
 
     function triggerDemo() {
-        notification.info({message: 'Beta Feature', description: 'The comment section has still yet to be fully implemented, please understand that this is a workable demo.'})
+        //notification.info({message: 'Beta Feature', description: 'The comment section has still yet to be fully implemented, please understand that this is a workable demo.'})
     }
 
 

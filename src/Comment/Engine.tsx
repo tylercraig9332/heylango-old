@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { List } from 'antd'
+import { List, message } from 'antd'
 import Comment from './Component'
 import ReplyEditor from './ReplyEditor'
 import IComment from './Comment'
@@ -21,7 +21,7 @@ export default function Engine(props : {parent_id : string}) {
         }
         fetch('/com/post/' + props.parent_id, reqHeaders).then((res : Response) => {
             if (res.status === 200) {
-                console.log('loaded comments')
+                //console.log('loaded comments')
                 return res.json()
             }
             else {
@@ -29,6 +29,7 @@ export default function Engine(props : {parent_id : string}) {
                 return []
             }
         }).then(comments => {
+            console.log(comments)
             setComments(comments)
         })
     }, [])
@@ -58,7 +59,7 @@ export default function Engine(props : {parent_id : string}) {
 
     function handleReply(parent? : string, content?: string) {
         let c = [...comments]
-        const now = new Date() // todo: identify proper date format
+        //const now = new Date() // todo: identify proper date format
         let p = props.parent_id
         let a = window.sessionStorage.getItem('userId')
         let con = reply
@@ -71,25 +72,19 @@ export default function Engine(props : {parent_id : string}) {
             con = content
         }
 
-        if (a === null) {
-            alert('You must be logged in to make a comment')
+        if (a === '' || a === null) {
+            message.info('You must be logged in to make a comment')
             return 
         }
-
-        const newComment = {
+        const newComment : any = {
             author: a,
             content: con,
-            parent: p,
-            createdAt: now,
-            _id: '-1'
+            parent: p
         }
         // Update local state 
-        c.push(newComment)
-        setReply('')
-        setComments(c)
+        
 
         // Send to the back end
-        console.log(newComment)
         const reqHeaders = {
             body: JSON.stringify(newComment),
             headers: {
@@ -99,9 +94,17 @@ export default function Engine(props : {parent_id : string}) {
         }
         console.log(newComment)
         fetch('/com/', reqHeaders).then((res : Response) => {
-            if (res.status === 200) console.log('comment saved')
-            else console.log('comment failed to send', res)
+            if (res.status === 200) return res.json()
+            else  {
+                console.log('comment failed to send', res)
+                throw new Error(res.statusText)
+            }
+        }).then((comment : any) => {
+            c.push({...comment, createdAt: new Date()})
+            setReply('')
+            setComments(c) 
         })
+        .catch(err => console.log(err))
     }
     let cs = [<div key="header">No Comments Yet!</div>]
     if (comments !== undefined && comments.length >= 1) {

@@ -11,12 +11,26 @@ router.get('/post/:id', (req, res) => {
 })
 
 router.post('/', (req, res) => {
+    if (req.session.user === undefined) {
+        res.statusMessage = 'Must be logged in to preform this action'
+        res.status(400).send('Must be logged in to preform this action')
+        return
+    }
     model.create(req.body).then(r => {
-        res.status(200).send(true)
+        res.status(200).send(r)
+    })
+    .catch(err => {
+        console.error(err)
+        res.status(400).send(err)
     })
 })
 
 router.patch('/:id', (req, res) => {
+    if (req.session.user === undefined) {
+        res.statusMessage = 'Must be logged in to preform this action'
+        res.status(400).send(false)
+        return
+    }
     model.update({_id: req.params.id}, req.body)
     res.status(200).send(true)
 })

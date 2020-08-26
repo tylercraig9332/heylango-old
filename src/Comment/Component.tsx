@@ -51,9 +51,9 @@ export default function Component(props : CommentComponentProps) {
     }
 
     const myActions = [
-        <div style={actionStyle}><Like parent_id={props.comment.parent}/></div>,
+        <div style={actionStyle}><Like parent_id={props.comment._id}/></div>,
         <div style={actionStyle}><EditOrAdmin parent={props.comment.parent} parentAuthor={props.comment.author} handleEdit={() => setEditView(!editView)} editView={editView}/></div>,
-        <div style={actionStyle}><Reply onClick={() => setShowReply(!showReply)} reply/></div>
+        //<div style={actionStyle}><Reply onClick={() => setShowReply(!showReply)} reply/></div>
     ]
 
     const title = <div><Link to={`/profile/${props.comment.author}`}>{username}</Link> {timeSince(dateToString(props.comment.createdAt))} ago</div> 
