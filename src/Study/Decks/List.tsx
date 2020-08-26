@@ -3,6 +3,7 @@ import IDeck from './Deck'
 import Loading from '../../Util/Loading'
 import CardButton from '../../Util/CardButton'
 import { message } from 'antd'
+import { Link } from 'react-router-dom'
 
 export default function List() {
 
@@ -29,10 +30,12 @@ export default function List() {
         <div style={{display: 'flex'}}>
             {decks.map((deck : IDeck) => {
                 return (
-                    <CardButton icon="select">
-                        {deck.title}
-                        <p style={{fontSize: 20}}>{deck.description}</p>
-                    </CardButton>
+                    <Link to={"/study/decks/" + deck._id}>
+                        <CardButton icon="select">
+                            {deck.title}
+                            <p style={{fontSize: 20}}>{deck.description}</p>
+                        </CardButton>
+                    </Link>
                 )
             })}
         </div>
