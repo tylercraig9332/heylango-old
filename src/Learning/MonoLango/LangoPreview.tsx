@@ -13,9 +13,12 @@ export default function LangoPreview(props : {lango : Lango}) {
         <Save parent_id={props.lango._id} parentType='lango' />
     ]
 
+    React.useEffect(() => {
+        console.log(props.lango)
+    }, [])
+
     return (
         <div style={wrapStyle}>
-            
                 <Card 
                     actions={toolbar}
                     hoverable
@@ -30,7 +33,7 @@ export default function LangoPreview(props : {lango : Lango}) {
                                 <h1>{props.lango.title}</h1>
                             </Row>
                             <Row>
-                                <p>{props.lango.description}</p>
+                                {/**<p>{props.lango.description}</p>*/}
                             </Row>
                         </Col>
                     </Row>

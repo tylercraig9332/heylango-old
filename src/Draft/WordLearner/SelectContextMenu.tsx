@@ -41,7 +41,7 @@ export default function SelectContextMenu(props : {event : any}) {
             },
             method: "GET"
         }
-        fetch('/s/ex/t/' + escape(s) + '/to/' + lCode, reqHeaders).then(r => r.json()).then(t => {
+        fetch('/s/ex/t/' + encodeURI(s) + '/to/' + lCode, reqHeaders).then(r => r.json()).then(t => {
             setTranslations(t)
         })
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Expression from './Expression'
-import { message, Table, Button, Modal, Icon, Input, Popconfirm } from 'antd'
+import { message, Table, Button, Modal, Icon, Input, Popconfirm, Tooltip } from 'antd'
 import {parseLanguageCode} from '../../Util/functions'
 
 import ButtonGroup from 'antd/lib/button/button-group'
@@ -45,14 +45,16 @@ export default function List() {
 
     const actionComponent = (expression : any) => {
         return (
-            <Button onClick={() => {
-                console.log(expression)
-                setEditModal(true)
-                setEditValue(expression.expression)
-                setEditLanguage(expression.language)
-                setEditTranslation(expression.translation)
-                setEdit_id(expression.key)     
-            }}><Icon type="edit" /></Button>
+            <Tooltip title="Edit">
+                <Button onClick={() => {
+                    console.log(expression)
+                    setEditModal(true)
+                    setEditValue(expression.expression)
+                    setEditLanguage(expression.language)
+                    setEditTranslation(expression.translation)
+                    setEdit_id(expression.key)     
+                }}><Icon type="edit" /></Button>
+            </Tooltip>
 
     )}
 

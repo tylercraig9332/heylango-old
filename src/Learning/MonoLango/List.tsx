@@ -30,7 +30,9 @@ export default function List(props : {by? : string}) {
         <div>
             {langos.map((l : Lango) => {
                 return (
-                    <LangoPreview lango={l} />
+                    <div key={l._id}>
+                        <LangoPreview lango={l} />
+                    </div>
                 )
             })}
         </div>
