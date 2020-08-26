@@ -25,6 +25,7 @@ const lBiRouter = require('./server/Learning/BiLango/controller')
 const lMRouter = require('./server/Learning/Lango/controller')
 const comRouter = require('./server/Comment/controller')
 const sExpRouter = require('./server/Study/Expression/controller')
+const adminRouter = require('./server/Admin/controller')
 
 app.use('/c', cRouter)
 app.use('/p', pRouter)
@@ -34,6 +35,7 @@ app.use('/l/bi', lBiRouter)
 app.use('/l/m', lMRouter)
 app.use('/com', comRouter)
 app.use('/s/ex', sExpRouter)
+app.use('/admin', adminRouter)
 
 /* Logs when a user is undefined */
 const userAuthMiddleware = (req, res, next) => {

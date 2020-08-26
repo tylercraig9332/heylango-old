@@ -15,11 +15,12 @@ export default function LangoPreview(props : {lango : Lango}) {
 
     return (
         <div style={wrapStyle}>
-            <Link to={`/learn/m/${props.lango._id}`}>
+            
                 <Card 
                     actions={toolbar}
                     hoverable
                 >
+                    <Link to={`/learn/m/${props.lango._id}`} style={{color: 'inherit'}}>
                     <Row type="flex">
                         <Col span={3}>
                             <PreviewImage src={props.lango.imgSrc} />
@@ -33,8 +34,8 @@ export default function LangoPreview(props : {lango : Lango}) {
                             </Row>
                         </Col>
                     </Row>
+                    </Link>
                 </Card>
-            </Link>
         </div>
     )
 }
