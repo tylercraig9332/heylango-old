@@ -27,6 +27,7 @@ const comRouter = require('./server/Comment/controller')
 const sExpRouter = require('./server/Study/Expression/controller')
 const sDeckRouter = require('./server/Study/Decks/controller')
 const adminRouter = require('./server/Admin/controller')
+const badgeRouter = require('./server/Badge/controller')
 
 app.use('/c', cRouter)
 app.use('/p', pRouter)
@@ -38,6 +39,7 @@ app.use('/com', comRouter)
 app.use('/s/ex', sExpRouter)
 app.use('/s/deck', sDeckRouter)
 app.use('/admin', adminRouter)
+app.use('/b', badgeRouter)
 
 /* Logs when a user is undefined */
 const userAuthMiddleware = (req, res, next) => {

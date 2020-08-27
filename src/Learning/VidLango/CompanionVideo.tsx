@@ -1,12 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import VideoPlayer from './VideoPlayer'
 import {Modal, Col, Input, Button, message, Icon} from 'antd'
 
-export default function CompanionVideo() {
+export default function CompanionVideo(props : {onChange: any}) {
 
     const [videoModal, setVideoModal] = useState<boolean>(false)
     const [videoUrl, setUrl] = useState<string>('')
     const [videoId, setVideoId] = useState<string>('')
+
+    useEffect(() => {
+        props.onChange(videoId)
+    }, [videoId])
 
     function parseVideoID(url : string) {
         let video_id = url.split('v=')[1];

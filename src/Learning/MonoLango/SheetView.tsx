@@ -37,6 +37,7 @@ export default function SheetView(props :  {readOnly?: boolean, send? : any, id?
     const [description, setDescription] = useState<string>()
     const [language, setLanguage] = useState<string>()
     const [difficulty, setDifficulty] = useState<string>()
+    const [video_id, setVideo_id] = useState<string>()
     const [imgSrc, setImgSrc] = useState<string>()
 
     useEffect(() => {
@@ -46,10 +47,11 @@ export default function SheetView(props :  {readOnly?: boolean, send? : any, id?
                 content: content,
                 description: description,
                 language: language,
-                difficulty: difficulty
+                difficulty: difficulty,
+                video_id: video_id
             })
         }
-    }, [content, title, description, language, difficulty])
+    }, [content, title, description, language, difficulty, video_id])
 
 
     const previewImageModal = (
@@ -120,9 +122,9 @@ export default function SheetView(props :  {readOnly?: boolean, send? : any, id?
             <div style={{paddingRight: 10, display: 'flex', justifyContent: 'start'}}>
                 <Row type="flex" justify="start" align="middle">
                     <Col span={14}>
-                        <CompanionVideo />
+                        <CompanionVideo onChange={setVideo_id}/>
                     </Col>
-                    <Col span={2}>
+                    {/*<Col span={2}>
                         Or
                     </Col>
                     <Col span={7}>
@@ -131,7 +133,7 @@ export default function SheetView(props :  {readOnly?: boolean, send? : any, id?
                             Upload Audio <Icon type="upload" />
                             </Button>
                         </Upload>
-                    </Col>
+                    </Col>*/}
                 </Row>
             </div>
             {previewImageModal}

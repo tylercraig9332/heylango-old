@@ -38,7 +38,7 @@ export default function List(props : {refresh?: boolean, setRefresh?: any}) {
 
     if (decks === undefined) return <Loading message="Loading Saved Decks" />
     return (
-        <div style={{display: 'flex'}}>
+        <div style={{display: 'flex', overflow: 'auto'}}>
             {decks.map((deck : IDeck) => {
                 return (
                     <Link to={"/study/decks/" + deck._id} key={deck._id}>

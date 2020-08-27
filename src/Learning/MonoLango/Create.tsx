@@ -35,7 +35,6 @@ export default function Create() {
         // saves the local object to prepare it for the save
         // I also might want to make a handler to save this object to the local session
         setlangoSheet(e)
-        //console.log(e)
     }
 
 if (success) return (<Result status="success" title={"Lango Sheet Successfully Created!"} 

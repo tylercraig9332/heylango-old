@@ -39,7 +39,8 @@ router.post('/', (req, res) => {
     }
     req.body.author = req.session.user.id
     factory.create(req.body).then((r) => {
-        console.log(r)
+        //console.log(r)
+        BadgeFactory.create('contributor', req.session.user.id)
         res.send(200)
     })
     .catch((err) => {

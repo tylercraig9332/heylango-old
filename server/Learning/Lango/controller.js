@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const factory = require('./factory')
+const BadgeFactory = require('../../Badge/factory')
 
 router.get('/', (req, res) => {
     // Reads data from the database depending on the body's request.
@@ -41,6 +42,7 @@ router.post('/', (req, res) => {
     }
     req.body.author = req.session.user.id
     factory.create(req.body).then(response => {
+        BadgeFactory.create('contributor', req.session.user.id)
         res.status(200).send(response)
     })
     .catch(err => res.status(400).send(err))

@@ -3,6 +3,8 @@ import User from './User'
 import Avatar from './Avatar'
 import Loading from '../Util/Loading'
 import ListPost from '../Post/List'
+import IBadge from './Badge/IBadge'
+import BadgePanel from './Badge/Panel'
 
 import { message, Descriptions } from 'antd'
 
@@ -10,6 +12,7 @@ export default function Profile() {
 
     const [user, setUser] = useState<User>()
     const [loaded, setLoaded] = useState<boolean>(false)
+    const [badges, setBadges] = useState<IBadge[]>()
 
     useEffect(() => {
         //console.log(window.location.pathname.split('/')[2])
@@ -36,6 +39,12 @@ export default function Profile() {
             message.error(e.toString())
             setLoaded(true)
         })
+        fetch('/b/' + p, reqHeaders).then(res => {
+            if (res.status === 400) console.log(res)
+            return res.json()
+        }).then(b => {
+            setBadges(b)
+        })
     }, [])
 
     // TODO: handle loading and other possible error views
@@ -43,7 +52,7 @@ export default function Profile() {
     if (user === undefined) return (<div><h1>Profile</h1></div>)
     return (
         <div>
-            <h1><Avatar user={user} /> {user.username}</h1>
+            <h1>{/*<Avatar user={user} />*/} {user.username} <span style={{padding: 5}}></span><BadgePanel badges={badges} /></h1>
             <hr></hr>
             <Descriptions bordered title="Profile Details:">
                 <Descriptions.Item label="Username">{user.username}</Descriptions.Item>
