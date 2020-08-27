@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Expression from './Expression'
 import { message, Table, Button, Modal, Icon, Input, Popconfirm, Tooltip } from 'antd'
 import {parseLanguageCode} from '../../Util/functions'
-
-import ButtonGroup from 'antd/lib/button/button-group'
+import DeckModal from './DeckModal'
 
 export default function List() {
 
@@ -16,6 +15,10 @@ export default function List() {
     const [editTranslation, setEditTranslation] = useState<string>('')
     const [editLanguage, setEditLanguage] = useState<string>('')
     const [edit_id, setEdit_id] = useState<string>('')
+
+    const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([])
+    const [deckModalView, setDeckModalView] = useState<boolean>(false)
+
 
     useEffect(() => {
         if (expressRefresh === false) return
@@ -59,12 +62,6 @@ export default function List() {
 
     const tableHeaders = [
         {
-            dataIndex: '',
-            key: 'edit',
-            width: '20px',
-            render: (t : any) =>  <div>{actionComponent(t)}</div>
-        },
-        {
             title: 'Word / Expression',
             dataIndex: 'expression',
             key: 'expression'
@@ -73,6 +70,13 @@ export default function List() {
             title: 'Meaning / Translation',
             dataIndex: 'translation',
             key: 'translation'
+        },
+        {
+            dataIndex: '',
+            title: 'Edit',
+            key: 'edit',
+            width: '20px',
+            render: (t : any) =>  <div>{actionComponent(t)}</div>
         },
         {
             title: 'Language',
@@ -130,12 +134,30 @@ export default function List() {
         })
     }
 
+    function onSelectChange(srq : any) {
+        //console.log(srq)
+        setSelectedRowKeys(srq)
+    }
+
+    const rowSelection = {
+        selectedRowKeys,
+        onChange: onSelectChange
+    }
+
     
 
     return (
         <div>
             <h2>Saved Words and Expressions</h2>
-            <Table dataSource={expressions} columns={tableHeaders} bordered/>
+            <hr></hr>
+            <div style={{display: 'flex', marginBottom: '10px'}}>
+                <Button onClick={() => setDeckModalView(true)}>Add Selected to Flashcard Deck</Button>
+            </div>
+           
+            <Table dataSource={expressions} columns={tableHeaders} rowSelection={rowSelection} bordered/>
+            <div style={{display: 'flex', marginTop: '-50px'}}>
+                <Button onClick={() => setDeckModalView(true)}>Add Selected to Flashcard Deck</Button>
+            </div>
             <Modal title="Edit Word / Expression" visible={editModal} onOk={() => saveWord()} onCancel={() => setEditModal(false)} okText={'Save'}>
                 <div style={{color: 'spacegray'}}>Word or Phrase</div>
                 <Input key={'value'} value={editValue} onChange={(e : any) => {setEditValue(e.currentTarget.value)}} />
@@ -149,8 +171,17 @@ export default function List() {
                 >
                     <Button type="danger" >Delete Word / Phrase</Button>
                 </Popconfirm>
-                
             </Modal>
+            <DeckModal 
+                visible={deckModalView} 
+                onCancel={() => setDeckModalView(false)} 
+                selected={selectedRowKeys} 
+                onOk={() => {
+                    setDeckModalView(false)
+                    setSelectedRowKeys([])
+                }}
+
+            />
         </div>
     )
 }

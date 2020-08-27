@@ -5,11 +5,22 @@ import CardButton from '../../Util/CardButton'
 import { message } from 'antd'
 import { Link } from 'react-router-dom'
 
-export default function List() {
+export default function List(props : {refresh?: boolean, setRefresh?: any}) {
 
     const [decks, setDecks] = useState<IDeck[]>()
+    
 
     useEffect(() => {
+        fetchDecks()
+    }, [])
+
+    useEffect(() => {
+        if (!props.refresh) return
+        props.setRefresh(false)
+        fetchDecks()
+    }, [props.refresh])
+
+    function fetchDecks() {
         // TODO: Fetch decks based on user
         const reqHeaders = {
             headers: {
@@ -23,14 +34,14 @@ export default function List() {
         }).then(decks => {
             setDecks(decks)
         })
-    }, [])
+    }
 
     if (decks === undefined) return <Loading message="Loading Saved Decks" />
     return (
         <div style={{display: 'flex'}}>
             {decks.map((deck : IDeck) => {
                 return (
-                    <Link to={"/study/decks/" + deck._id}>
+                    <Link to={"/study/decks/" + deck._id} key={deck._id}>
                         <CardButton icon="select">
                             {deck.title}
                             <p style={{fontSize: 20}}>{deck.description}</p>

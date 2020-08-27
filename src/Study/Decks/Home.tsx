@@ -8,6 +8,7 @@ export default function Home() {
 
     const [newDeckTitle, setNewDeckTitle] = useState<string>('')
     const [newDeckDescription, setNewDeckDescription] = useState<string>('')
+    const [decksRefresh, setDecksRefresh] = useState<boolean>(true)
 
     function newDeck() {
         const deckData = {
@@ -30,6 +31,7 @@ export default function Home() {
             setNewDeckView(false)
             setNewDeckDescription('')
             setNewDeckTitle('')
+            setDecksRefresh(true)
         })
     }
 
@@ -38,6 +40,7 @@ export default function Home() {
             <h1>Decks</h1>
             <p>Flash card decks</p>
             <hr></hr>
+            <h3>Create New Deck</h3>
             <CardButton icon='plus-square' onClick={() => setNewDeckView(true)}>
                 New Deck
             </CardButton>
@@ -48,7 +51,7 @@ export default function Home() {
                 <Input.TextArea value={newDeckDescription} onChange={(e) => setNewDeckDescription(e.currentTarget.value)}/>
             </Modal>
             <h3>Your Decks</h3>
-            <List />
+            <List refresh={decksRefresh} setRefresh={setDecksRefresh}/>
         </div>
     )
 }
