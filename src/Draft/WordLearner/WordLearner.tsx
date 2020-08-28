@@ -110,7 +110,7 @@ export default function WordLearner(props : WordLearnerProps) {
     }, [focus])
 
     useEffect(() => {
-        if (pausePlay) pausePlayVideo(highlight)
+        if (pausePlay && mouseupevent === undefined) pausePlayVideo(highlight)
     }, [highlight])
 
     /** Takes in text and seperated it into blocks based on wordsPerBlock */
@@ -214,7 +214,7 @@ export default function WordLearner(props : WordLearnerProps) {
     }
     return (
         <div>
-            <SelectContextMenu event={mouseupevent}/>
+            <SelectContextMenu event={mouseupevent} clearEvent={() => setMouseupevent(undefined)}/>
             {settingsModal}
             <div style={stepStyle}>
                 <Steps current={batchNumber}>

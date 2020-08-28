@@ -4,7 +4,7 @@ import {Card, Button, Icon, message} from 'antd'
 /** Select context menu that appears on the mouseup event 
  *  I had a plethera of problems with typeing so I have it all set to any
  */
-export default function SelectContextMenu(props : {event : any}) {
+export default function SelectContextMenu(props : {event : any, clearEvent: any}) {
 
     const [contextMenuView, setContexMenuView] = useState<boolean>()
     const [contextX, setContextX] = useState<number>(0)
@@ -21,6 +21,7 @@ export default function SelectContextMenu(props : {event : any}) {
         if (s.length === 0) {
             setSelectedText('')
             setContexMenuView(false)
+            props.clearEvent()
             return
         }
         const x = props.event.pageX
@@ -77,6 +78,7 @@ export default function SelectContextMenu(props : {event : any}) {
         fetch('/s/ex/', reqHeaders).then(res => {
             // todo: get it from res and set it so result button can use it.
             message.success('Expression Saved!')
+            props.clearEvent()
             setContexMenuView(false)
             setSelectedText('')
         })
@@ -91,6 +93,7 @@ export default function SelectContextMenu(props : {event : any}) {
                 <div style={{display: 'flex', justifyContent: 'end'}}>
                     <Icon style={closeStyle} type="close-circle" onClick={() => {
                         setSelectedText('')
+                        props.clearEvent()
                         setContexMenuView(false)
                     }}/>
                     </div>
