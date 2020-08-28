@@ -21,6 +21,8 @@ import vidView from './Learning/VidLango/View'
 import mHome from './Learning/MonoLango/Home'
 import mCreate from './Learning/MonoLango/Create'
 import mView from './Learning/MonoLango/View'
+
+import sHome from './Study/Home'
 import dHome from './Study/Decks/Home'
 import eHome from './Study/Expression/Home'
 
@@ -61,6 +63,7 @@ export default function Routes() {
                         <Route exact path='/learn/m/home/' component={mHome} />
                         <Route path='/learn/m/create' component={mCreate} />
                         <Route path='/learn/m/' component={mView} />
+                        <Route exact path='/study/' component={sHome} />
                         <Route exact path='/study/decks/' component={dHome} />
                         <Route exact path='/study/saved/' component={eHome} />
                         <Route exact path='/info' component={iHome} />

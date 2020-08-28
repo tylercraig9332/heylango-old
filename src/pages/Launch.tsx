@@ -25,7 +25,7 @@ export default function Launch() {
             <div style={page1Style}>
                 <Row style={rowStyle}>
                     <Col span={6} offset={6} style={colStyle}>
-                        <h1>Welcome to HeyLango!</h1>
+                        <h1>Welcome to <img src="/static/HeyLangoT1.png" height={'auto'} width={200}/></h1>
                         <p>It's Time to Get Fluent</p>
                         {loggedIn ? null : portalButtons}
                     </Col>

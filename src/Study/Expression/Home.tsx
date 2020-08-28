@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import List from './List'
 import {Link} from 'react-router-dom'
-import DeckHome from '../Decks/Home'
 import { message, Result, Button } from 'antd'
 
 export default function Home() {
@@ -33,8 +32,6 @@ export default function Home() {
             <p>Words saved from Langos will appear here</p>
             <hr></hr>
             <List />
-            <hr></hr>
-            <DeckHome />
         </div>
     )
 }
