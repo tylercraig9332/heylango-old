@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Menu, Icon } from 'antd'
+import { Menu, Icon, Tag } from 'antd'
 
 const { Item, SubMenu, Divider } = Menu
 
@@ -89,7 +89,7 @@ export default function Nav(props : any) {
     return (
         <div style={{zIndex: 5, position: 'relative'}}>
         <Menu onClick={handleMenuChange} selectedKeys={[currentKey]} mode="horizontal" style={{borderTop: '2px solid #1890FF', zIndex: 5}}>
-            <Item key="/"><Link to='/'><img src="/static/HeyLangoT1.png" width="90" height={'auto'}/></Link></Item>
+            <Item key="/"><Link to='/'><img src="/static/HeyLangoT1.png" width="90" height={'auto'}/> <Tag color="blue">Beta</Tag></Link></Item>
             <Item key='/community/'><Link to='/community/'>Community</Link></Item>
             {learnTab}
             {reviewTab}

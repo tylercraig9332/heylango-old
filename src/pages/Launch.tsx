@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { Row, Col, Button } from 'antd'
+import { Row, Col, Button, Tag } from 'antd'
 import { Link } from 'react-router-dom'
+import './launch.css'
 
 export default function Launch() {
 
@@ -24,12 +25,43 @@ export default function Launch() {
         <div>
             <div style={page1Style}>
                 <Row style={rowStyle}>
-                    <Col span={6} offset={6} style={colStyle}>
-                        <h1>Welcome to <img src="/static/HeyLangoT1.png" height={'auto'} width={200}/></h1>
-                        <p>It's Time to Get Fluent</p>
+                    <Col span={6} offset={6} style={{width: '600px', ...colStyle}}>
+                        <h1><img src="/static/HeyLangoT1.png" height={'auto'} width={400}/></h1>
+                        <h1>It's Time to Get Fluent</h1>
                         {loggedIn ? null : portalButtons}
                     </Col>
                 </Row>
+                <Row style={rowStyle}>
+                    <Col span={6} offset={6} style={{width: '900px', ...colStyle}}>
+                        <h1 style={{marginTop: 20}}>Real content, not from a scripted course</h1>
+                        <img src="/static/demo.png" height={'auto'} width={600} />
+                    </Col>
+                </Row>
+                <Row style={rowStyle}>
+                    <Col span={6} offset={6} style={{width: '900px', ...colStyle}}>
+                        <h1>Discover yourself in a new world of language</h1>
+                        <img src="/static/demo3.png" height={'auto'} width={600} />
+                        <h1>Immersion works!</h1>
+                    </Col>
+                </Row>
+                <Row style={rowStyle}>
+                    <Col span={6} offset={6} style={{width: '900px', ...colStyle}}>
+                        <h1>Review what matters</h1>
+                        <img src="/static/demo2.png" height={'auto'} width={800}/>
+                    </Col>
+                </Row>
+                <Row style={rowStyle}>
+                    <Col span={6} offset={6} style={{width: '600px', ...colStyle}}>
+                        <h1>Free tools for effective language learners</h1>
+                        <h1></h1>
+                        {loggedIn ? null : (
+                            <div className="portalButtons">
+                            <Button size="large" type="primary" block style={buttonStyle}><Link to="/signup">Sign up for free!</Link></Button>
+                            </div>
+                        )}
+                    </Col>
+                </Row>
+                <span style={{padding: 40}}></span>
             </div>
         </div>
     )
@@ -52,7 +84,7 @@ const rowStyle = {
 } as React.CSSProperties
 
 const colStyle = {
-    minWidth: 300, marginRight: 'auto', marginLeft: 'auto', padding: 30,
+    maxWidth: '90%', marginRight: 'auto', marginLeft: 'auto', padding: 30,
     border: '1px', borderRadius: '4px', backgroundColor: 'white',
     marginTop: 100, zIndex: 1, textAlign: 'center'
 } as React.CSSProperties
