@@ -72,13 +72,27 @@ export default function Nav(props : any) {
         
     )
 
+    const learnTab = (
+        <SubMenu title={<Link to='/learn/' style={{color: 'inherit'}}>Learning Library</Link>}>
+            <Item key="/learn/m"><Link to="/learn/m/home">Native Content: Langos</Link></Item>
+            <Item key="/learn/bi"><Link to="/learn/bi">Bilingual Content: BiLangos</Link></Item>
+        </SubMenu>
+    )
+
+    const reviewTab = (
+        <SubMenu title={<Link style={{color: 'inherit'}} to="/study/">Review Library</Link>}>
+            <Item key="/study/saved"><Link to="/study/saved">Saved Words and Phrases</Link></Item>
+            <Item key="/study/decks"><Link to="/study/decks">Flashcard Decks</Link></Item>
+        </SubMenu>
+    )
+
     return (
         <div style={{zIndex: 5, position: 'relative'}}>
         <Menu onClick={handleMenuChange} selectedKeys={[currentKey]} mode="horizontal" style={{borderTop: '2px solid #1890FF', zIndex: 5}}>
             <Item key="/"><Link to='/'><strong>HeyLango!</strong></Link></Item>
             <Item key='/community/'><Link to='/community/'>Community</Link></Item>
-            <Item key='/learn/'><Link to='/learn/'>Learning Library</Link></Item>
-            <Item key='/study/'><Link to='/study/saved'>Study Library</Link></Item>
+            {learnTab}
+            {reviewTab}
             {
                 (logged) ? (loggedTabs) : unLoggedTabs
             }

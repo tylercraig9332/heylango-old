@@ -148,8 +148,6 @@ export default function List() {
 
     return (
         <div>
-            <h2>Saved Words and Expressions</h2>
-            <hr></hr>
             <div style={{display: 'flex', marginBottom: '10px'}}>
                 <Button onClick={() => setDeckModalView(true)}>Add Selected to Flashcard Deck</Button>
             </div>

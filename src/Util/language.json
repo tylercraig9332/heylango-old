@@ -248,8 +248,8 @@
             "flag": "💚"
         },
         {
-            "name" : "Other / All",
-            "title": "Other / All",
+            "name" : "All / Other",
+            "title": "All / Other",
             "code": "all",
             "flag": "📚"
         }

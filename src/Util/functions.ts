@@ -7,6 +7,14 @@ export function parseLanguageCode(code : string) {
     }
 }
 
+export function parseLanguageFlag(code : string) {
+  for (let c of s.info) {
+      if (c.code === code) {
+          return c.flag
+      } 
+  }
+}
+
 export function timeSince(dString : string) {
     let date : any = new Date(dString);
     let now : any = new Date()

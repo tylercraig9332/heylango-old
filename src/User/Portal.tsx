@@ -38,7 +38,7 @@ export default function Portal(props: any) {
                 window.sessionStorage.setItem('userId', user.id)
                 window.sessionStorage.setItem('userRole', user.meta.role)
               })
-               window.location.href = '/community/'
+               window.location.href = '/learn/m/home'
            }
            else {
             message.error(res.statusText)

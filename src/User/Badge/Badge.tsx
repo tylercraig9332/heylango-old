@@ -6,6 +6,8 @@ export default function Badge(props : {type: string, custom?: string}) {
     switch (props.type) {
         case 'new':
             return <Tag color="green">New User <Icon type="smile" /></Tag>
+        case 'comingSoon':
+            return <Tag color="orange">Comming Soon</Tag>
         case 'contributor':
             return <Tag color="#1890ff">Contributor</Tag>
         case 'supporter':

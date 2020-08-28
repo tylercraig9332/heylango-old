@@ -10,15 +10,14 @@ export default function Home() {
             <div style={appContainerStyle}>
                 <AppPreview title="Langos" description="Native Learning Sheets" icon="read" path="/learn/m/home"/>
                 <AppPreview title="BiLangos" description="Bilingual Learning Sheets" icon="read" path="/learn/bi"/>
-                <AppPreview title="VidLangos" description="Interactive Learning Videos" icon="youtube" path="/learn/vid"/>
-                <AppPreview title="Collections" description="Collections of Lango Resources" icon="book" path="/learn/collections" />
+                <AppPreview title="Collections" description="Collections of Lango Resources" icon="book" path="/learn/collections" comingSoon/>
             </div>
             <hr></hr>
             <h3>Review / Study</h3>
             <div style={appContainerStyle}>
-                <AppPreview title="Vocab" description="Vocabulary Sheets" icon="file-done" path="/study/voc"/>
-                <AppPreview title="Quiz" description="Custom Quizzes" icon="profile" path="/study/q"/>
+                <AppPreview title="Saved" description="Saved Words and Expressions" icon="file-done" path="/study/saved"/>
                 <AppPreview title="Decks" description="Flash Card Decks" icon="schedule" path="/study/decks"/>
+                <AppPreview title="Quiz" description="Custom Quizzes" icon="profile" path="/study/q" comingSoon/>
             </div>
             <hr></hr>
         </div>

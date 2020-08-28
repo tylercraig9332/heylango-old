@@ -5,7 +5,7 @@ import { Card, Col, Row } from 'antd'
 
 import PreviewImage from '../../Util/ResourcePreviewImage'
 import Loading from '../../Util/Loading'
-import { parseLanguageCode } from '../../Util/functions'
+import { parseLanguageCode, parseLanguageFlag } from '../../Util/functions'
 import { Like, Save, EditOrUser } from '../../Toolbar/Icons'
 
 
@@ -42,7 +42,10 @@ export default function LangoPreview(props : {lango : Lango}) {
                                 <h1>{props.lango.title}</h1>
                             </Row>
                             <Row>
-                                {parseLanguageCode(props.lango.language)} {props.lango.difficulty}
+                                <span>
+                                    <p><strong>Language </strong>{parseLanguageCode(props.lango.language)} {parseLanguageFlag(props.lango.language)} </p>
+                                    <strong> Difficulty </strong>{props.lango.difficulty}
+                                </span>
                             </Row>
                         </Col>
                     </Row>
