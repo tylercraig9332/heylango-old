@@ -1,6 +1,6 @@
 import s from './language.json'
 export function parseLanguageCode(code : string) {
-    for (let c of s.communities) {
+    for (let c of s.info) {
         if (c.code === code) {
             return c.name
         } 

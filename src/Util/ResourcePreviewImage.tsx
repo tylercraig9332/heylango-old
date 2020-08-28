@@ -1,9 +1,9 @@
 import React from 'react'
 import { Avatar } from 'antd'
 export default function ResourcePreviewImage(props : {src? : string}) {
-
+    console.log(props.src)
     if (props.src === undefined || props.src.length < 4) return <Avatar icon="read" size={75}/>
     return (
-        <Avatar shape="square" src={props.src} size={75}/>
+        <Avatar shape="square" src={props.src} size={100}/>
     )
 }

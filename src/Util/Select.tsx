@@ -16,6 +16,7 @@ export function CEFRSelect(props : SelectProps) {
             mode="default"
             onChange={props.onChange}
             style={{width: '100%'}}
+            placeholder="Select Difficulty"
         >
             {
                 language.CEFR.map((d : any) => {
@@ -36,6 +37,7 @@ export function LanguageSelect(props : SelectProps) {
             mode="default"
             onChange={props.onChange}
             style={{width: '100%'}}
+            placeholder="Select Language"
         >
             {
                 language.info.map(language => {

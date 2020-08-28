@@ -6,6 +6,7 @@ function create(body) {
 }
 
 async function read(body) {
+    // Resource.count({_id: this})
     let docs = await Resource.find(body, (err, docs) => {
         if (err) throw new Error(err)
         return docs

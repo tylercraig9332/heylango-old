@@ -1,24 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import Lango from './Lango'
 import { Card, Col, Row } from 'antd'
+
 import PreviewImage from '../../Util/ResourcePreviewImage'
-import { Link } from 'react-router-dom'
+import Loading from '../../Util/Loading'
+import { parseLanguageCode } from '../../Util/functions'
 import { Like, Save, EditOrUser } from '../../Toolbar/Icons'
 
 
 export default function LangoPreview(props : {lango : Lango}) {
 
+    const [loaded, setLoaded] = useState<boolean>(false)
+
     const toolbar = [
         <Like parent_id={props.lango._id} />,
-        <Save parent_id={props.lango._id} parentType='lango' />
+        <Save parent_id={props.lango._id} parentType='lango' />,
     ]
 
     React.useEffect(() => {
-        console.log(props.lango)
-    }, [])
+        //console.log(props.lango)
+        if (props.lango != undefined) {
+            setLoaded(true)
+        }
+    })
 
+    if (!loaded) return <div style={wrapStyle}><Loading message="Loading Lango" /></div>
     return (
-        <div style={wrapStyle}>
+        <div style={wrapStyle} key={props.lango._id}>
                 <Card 
                     actions={toolbar}
                     hoverable
@@ -26,18 +35,26 @@ export default function LangoPreview(props : {lango : Lango}) {
                     <Link to={`/learn/m/${props.lango._id}`} style={{color: 'inherit'}}>
                     <Row type="flex">
                         <Col span={3}>
-                            <PreviewImage src={props.lango.imgSrc} />
+                            <PreviewImage src={props.lango.imageSrc} />
                         </Col>
-                        <Col span={10}>
+                        <Col>
                             <Row type="flex" justify="start" align='middle'>
                                 <h1>{props.lango.title}</h1>
                             </Row>
                             <Row>
-                                {/**<p>{props.lango.description}</p>*/}
+                                {parseLanguageCode(props.lango.language)} {props.lango.difficulty}
                             </Row>
                         </Col>
                     </Row>
                     </Link>
+                    <Row>
+                    <Col span={3}>
+                            
+                    </Col>
+                    <Col>
+                        
+                    </Col>
+                    </Row>
                 </Card>
         </div>
     )

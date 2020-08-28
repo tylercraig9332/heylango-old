@@ -246,9 +246,19 @@
             "title": "Esperantaj",
             "code": "eo",
             "flag": "💚"
+        },
+        {
+            "name" : "Other / All",
+            "title": "Other / All",
+            "code": "all",
+            "flag": "📚"
         }
     ],
     "CEFR" : [
+        {
+            "name": "N/A",
+            "description": "Not Applicable / Any"
+        },
         {
             "name": "A0",
             "description" : "New Learner"

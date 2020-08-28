@@ -17,6 +17,8 @@ async function read_like(body) {
     let l = []
     l = await Like.find(body, (err, likes) => {
         if (err) throw new Error(err)
+        Like.count({_id: likes._id}).then(c => {
+        })
     })
     return l
 }

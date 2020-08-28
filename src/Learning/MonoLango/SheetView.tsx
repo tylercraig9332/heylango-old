@@ -66,7 +66,12 @@ export default function SheetView(props :  {readOnly?: boolean, send? : any, id?
         >
             Image URL
             <Input value={imgSrc} placeholder={'leave empty to use default image'} onChange={(e : any) => setImgSrc(e.currentTarget.value)} />
-            upload feaute coming soon...
+            <p>upload feaute coming soon...</p>
+            <Button onClick={() => {
+                setImgSrc(`https://img.youtube.com/vi/${video_id}/sddefault.jpg`)
+                setPreviewComplete(true)
+                setImageModal(false)
+            }}>Use Youtube Video Thumbnail</Button>
         </Modal>
     )
         
@@ -79,7 +84,26 @@ export default function SheetView(props :  {readOnly?: boolean, send? : any, id?
                     <Input value={title} size='large' onChange={(e : any) => setTitle(e.target.value)}/>
                     <span style={{margin: 5}}></span>
             </Row>
-            <span style={{color: 'darkgray'}}>Preview</span>
+            <span style={{color: 'darkgray'}}>Video</span>
+            <div style={{paddingRight: 10, display: 'flex', justifyContent: 'start'}}>
+                <Row type="flex" justify="start" align="middle">
+                    <Col span={14}>
+                        <CompanionVideo onChange={setVideo_id}/>
+                    </Col>
+                    {/*<Col span={2}>
+                        Or
+                    </Col>
+                    <Col span={7}>
+                        <Upload {...uploadProps}>
+                            <Button>
+                            Upload Audio <Icon type="upload" />
+                            </Button>
+                        </Upload>
+                    </Col>*/}
+                    <span style={{margin: 5}}></span>
+                </Row>
+            </div>
+            <span style={{color: 'darkgray', marginTop: '5px'}}>Image Preview</span>
             <Row type="flex" justify="start">
                 <Col span={6}>
                     <Button onClick={() => setImageModal(true)}>
@@ -118,24 +142,6 @@ export default function SheetView(props :  {readOnly?: boolean, send? : any, id?
             <Row type="flex" justify="end">
                 <Col style={{marginTop: '5px'}}><Button type="primary" onClick={() => setPreview(!enablePreview)}>Preview Word Learner</Button></Col>
             </Row>
-            <span style={{color: 'darkgray'}}>Audio / Video</span>
-            <div style={{paddingRight: 10, display: 'flex', justifyContent: 'start'}}>
-                <Row type="flex" justify="start" align="middle">
-                    <Col span={14}>
-                        <CompanionVideo onChange={setVideo_id}/>
-                    </Col>
-                    {/*<Col span={2}>
-                        Or
-                    </Col>
-                    <Col span={7}>
-                        <Upload {...uploadProps}>
-                            <Button>
-                            Upload Audio <Icon type="upload" />
-                            </Button>
-                        </Upload>
-                    </Col>*/}
-                </Row>
-            </div>
             {previewImageModal}
         </div>
     )

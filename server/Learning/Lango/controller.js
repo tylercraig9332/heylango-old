@@ -9,9 +9,19 @@ router.get('/', (req, res) => {
     .then(langos => res.staus(200).send(langos))
     .catch( err => res.status(400).send(err))
 })
-.get('/list/:by', (req, res) => {
+.get('/list/:by/:lang/:diff', (req, res) => {
     let body = undefined
+    let diff = (req.params.diff !== 'NA') ? {difficulty: req.params.diff} : {}
+    let lang = (req.params.lang !== 'all') ? {language: req.params.lang} : {}
     switch (req.params.by) {
+        case 'popular':
+            // TODO: allow for most liked posts to be presented first.
+            console.log('popular', lang, diff)
+            body = {
+                ...diff,
+                ...lang
+            }
+            break
         case 'oldest':
             // TODO:
             break
