@@ -37,5 +37,6 @@ const flexContainer = {
 const commContainer = {
     display: 'flex',
     alignItems: 'start',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
 } as React.CSSProperties

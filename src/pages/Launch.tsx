@@ -32,15 +32,15 @@ export default function Launch() {
                 </Row>
                 <Row style={rowStyle}>
                     <Col span={6} offset={6} style={{width: '900px', ...colStyle}}>
-                        <h1 style={{marginTop: 20}}>Real content, not from a scripted course</h1>
-                        <img src="/static/demo.png" height={'auto'} width={600} />
+                        <h1>Discover yourself in a new world of language</h1>
+                        <img src="/static/demo3.png" height={'auto'} width={600} />
+                        <h1>Immersion works!</h1>
                     </Col>
                 </Row>
                 <Row style={rowStyle}>
                     <Col span={6} offset={6} style={{width: '900px', ...colStyle}}>
-                        <h1>Discover yourself in a new world of language</h1>
-                        <img src="/static/demo3.png" height={'auto'} width={600} />
-                        <h1>Immersion works!</h1>
+                        <h1 style={{marginTop: 20}}>Real content, not from a scripted course</h1>
+                        <img src="/static/demo.png" height={'auto'} width={600} />
                     </Col>
                 </Row>
                 <Row style={rowStyle}>

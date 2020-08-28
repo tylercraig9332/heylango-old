@@ -162,10 +162,16 @@
             "flag": "🇦🇪"
         },
         {
-            "name": "Chinese Languages",
-            "code": "zh",
+            "name": "Mandarin",
+            "code": "zh-m",
             "imageUrl": "/static/comm/redTassel_as",
             "flag": "🇨🇳"
+        },
+        {
+            "name": "Cantonese",
+            "code": "zh-c",
+            "imageUrl": "/static/comm/law.jpg",
+            "flag": "🇭🇰"
         },
         {
             "name": "Esperanto",

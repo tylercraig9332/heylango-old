@@ -23,7 +23,7 @@ export default function CommunityCard(props : CardProps) {
 
     return (
         <Card 
-            style={{width: 300, height: 500, margin: 20, textAlign: 'center', ...focusStyle}}
+            style={{width: 250, height: 400, margin: 20, textAlign: 'center', ...focusStyle}}
             hoverable
             onMouseEnter={() => focus(true)}
             onMouseLeave={() => focus(false)}
