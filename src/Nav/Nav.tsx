@@ -79,6 +79,12 @@ export default function Nav(props : any) {
         </SubMenu>
     )
 
+    const supportTab = (logged) ? (
+        <Item key="/support" style={{float: 'right'}}>
+            <Link to="/support"> <Tag color="gold" style={{fontSize: 15}}>Support</Tag></Link>
+        </Item>
+    ) : null
+
     const reviewTab = (
         <SubMenu title={<Link style={{color: 'inherit'}} to="/study/">Review Library</Link>}>
             <Item key="/study/saved"><Link to="/study/saved">Saved Words and Phrases</Link></Item>
@@ -96,6 +102,7 @@ export default function Nav(props : any) {
             {
                 (logged) ? (loggedTabs) : unLoggedTabs
             }
+            {supportTab}
         </Menu>
         </div>
     )

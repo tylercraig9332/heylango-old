@@ -1,15 +1,13 @@
 import React, { useState } from 'react'
 import { Modal, Input, message } from 'antd'
 import CardButton from '../../Util/CardButton'
-import List from './List'
-import NewDeck from './Create'
-export default function Home() {
+
+export default function Create(props : {onChange?: any}) {
 
     const [newDeckView, setNewDeckView] = useState<boolean>(false)
 
     const [newDeckTitle, setNewDeckTitle] = useState<string>('')
     const [newDeckDescription, setNewDeckDescription] = useState<string>('')
-    const [decksRefresh, setDecksRefresh] = useState<boolean>(true)
 
     function newDeck() {
         const deckData = {
@@ -32,18 +30,22 @@ export default function Home() {
             setNewDeckView(false)
             setNewDeckDescription('')
             setNewDeckTitle('')
-            setDecksRefresh(true)
+            props.onChange()
         })
     }
 
     return (
         <div>
-            <h1>Decks</h1>
-            <p>Flash card decks</p>
-            <hr></hr>
-            <NewDeck onChange={() => setDecksRefresh(true)} />
-            <h3>Your Decks</h3>
-            <List refresh={decksRefresh} setRefresh={setDecksRefresh}/>
-        </div>
+            <h3>Create New Deck</h3>
+            <CardButton icon='plus-square' onClick={() => setNewDeckView(true)}>
+                New Deck
+            </CardButton>
+            <Modal visible={newDeckView} onOk={newDeck} title="New Deck" okText='Create' onCancel={() => setNewDeckView(false)}>
+                <div style={{color: 'spacegray'}}>Deck Name</div>
+                <Input value={newDeckTitle} onChange={(e) => setNewDeckTitle(e.currentTarget.value)}/>
+                <div style={{color: 'spacegray'}}>Description</div>
+                <Input.TextArea value={newDeckDescription} onChange={(e) => setNewDeckDescription(e.currentTarget.value)}/>
+            </Modal>
+            </div>
     )
 }
