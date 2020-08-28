@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Editor, EditorState, convertToRaw, convertFromRaw, ContentState } from 'draft-js'
 import WordLearnerProps from './WordLearnerProps' 
 import WordDecorator from './WordDecorator'
-import { Icon, Tooltip, Steps, Modal, Slider, Card, Button } from 'antd'
+import { Icon, Tooltip, Steps, Modal, Slider, Card, Button, Switch } from 'antd'
 import SelectContextMenu from './SelectContextMenu'
 
 const { Step } = Steps
@@ -20,6 +20,7 @@ export default function WordLearner(props : WordLearnerProps) {
     const [lineHeight, setLineHeight] = useState<string>(props.lineHeight === undefined ? '70px' : props.lineHeight)
     const [fontSize, setFontSize] = useState<string>(props.fontSize === undefined ? '30px' : props.fontSize)
     const [wordsPerPage, setWordsPerPage] = useState<number>(40)
+    const [pausePlay, setPausePlay] = useState<boolean>(true)
 
     const editor = useRef<any>(null)
     const [focus, setFocus] = useState<boolean>(false)
@@ -108,6 +109,10 @@ export default function WordLearner(props : WordLearnerProps) {
         }
     }, [focus])
 
+    useEffect(() => {
+        if (pausePlay) pausePlayVideo(highlight)
+    }, [highlight])
+
     /** Takes in text and seperated it into blocks based on wordsPerBlock */
     function getBlocks(text : string, wordsPerBlock : number) {
         const WORD_REGEX = /\p{L}+/gu
@@ -139,6 +144,19 @@ export default function WordLearner(props : WordLearnerProps) {
             s += blocks[i]
         }
         return s
+    }
+
+    function pausePlayVideo(pause : boolean) {
+        let postMessage = '{"event":"command","func":"pauseVideo","args":""}'
+        if (!pause) {
+            postMessage = '{"event":"command","func":"playVideo","args":""}'
+        }
+        let video = document.querySelector('iframe')
+        if (video != null) {
+            if (video.contentWindow != null) {
+                video.contentWindow.postMessage(postMessage, '*')
+            }
+        }    
     }
 
     const editorFocusStyle = (focus || highlight) ? focusStyle : nonFocusStyle
@@ -181,6 +199,7 @@ export default function WordLearner(props : WordLearnerProps) {
             <Slider marks={fontSizeMarks} defaultValue={Number(fontSize.slice(0, -2))} min={15} max={40} onChange={(v) => setFontSize(v.toString() + 'px')}/>
             <strong>Words Per Page</strong>
             <Slider marks={wordsPerPageMarks} defaultValue={wordsPerPage} min={10} max={125} onChange={(v) => setWordsPerPage(Number(v.toString()))}/>
+            <div style={{paddingTop: '20px'}}><strong>Autopause WordViewer </strong> <Switch defaultChecked onChange={(v) => setPausePlay(v)} /></div>
         </Modal>
     )
     if (!props.readOnly) {
