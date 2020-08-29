@@ -5,7 +5,7 @@ import CardView from './CardView'
 import { Tooltip, Icon, Switch } from 'antd'
 
 
-export default function DeckView(props : {deck?: ICard[]}) {
+export default function Present(props : {deck?: ICard[]}) {
     
     const [deck, setDeck] = useState<ICard[]>([])
     const [current, setCurrent] = useState<number>(0)
@@ -37,7 +37,7 @@ export default function DeckView(props : {deck?: ICard[]}) {
                         <Icon type="caret-left" className="icon" onClick={() => updateCurrent(current - 1)}/>
                     </Tooltip>
                 </div>
-                <CardView front={deck[current].front} back={deck[current].back} sound={sound} />
+                <CardView front={deck[current].value} back={deck[current].translation} sound={sound} />
                 <div className="right" style={{...controlContainer}}>
                     <Tooltip title="Next Card" placement="right">
                         <Icon type="caret-right" className="icon" onClick={() => updateCurrent(current + 1)}/>

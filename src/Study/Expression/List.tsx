@@ -3,8 +3,9 @@ import Expression from './Expression'
 import { message, Table, Button, Modal, Icon, Input, Popconfirm, Tooltip } from 'antd'
 import {parseLanguageCode} from '../../Util/functions'
 import DeckModal from './DeckModal'
+import Loading from '../../Util/Loading'
 
-export default function List() {
+export default function List(props : {by? : string, type? : string, onRemove?: any}) {
 
     const [expressions, setExpressions] = useState<Expression[]>([])
     const [editModal, setEditModal] = useState<boolean>(false)
@@ -19,8 +20,11 @@ export default function List() {
     const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([])
     const [deckModalView, setDeckModalView] = useState<boolean>(false)
 
+    const [loading, setLoading] = useState<boolean>(true)
+
 
     useEffect(() => {
+        let by = (props.by === undefined) ? '/s/ex/' : props.by
         if (expressRefresh === false) return
         const reqHeaders = {
             headers: {
@@ -28,7 +32,7 @@ export default function List() {
             },
             method: "GET"
         }
-        fetch('/s/ex/', reqHeaders).then(res => {
+        fetch(by, reqHeaders).then(res => {
             if (res.status !== 200) message.error(res.statusText) 
             return res.json()
         }).then(exp => {
@@ -40,6 +44,7 @@ export default function List() {
                         language: parseLanguageCode(exp.language)
                     }
                 })
+            setLoading(false)
             setExpressions(tableData)
             setExpressRefresh(false)
         })
@@ -144,17 +149,24 @@ export default function List() {
         onChange: onSelectChange
     }
 
-    
+    const addRemove = (props.type === 'deck') ? (
+        <Popconfirm title="Are you sure you want to remove selected from this deck?" onConfirm={() => props.onRemove(selectedRowKeys)} okText="Remove">
+            <Button>Remove Selected from Deck</Button>
+        </Popconfirm>
+    ) : (
+        <Button onClick={() => setDeckModalView(true)}>Add Selected to Flashcard Deck</Button>
+    )
 
+    
+    if (loading) return <Loading message="Loading Expressions" />
     return (
         <div>
             <div style={{display: 'flex', marginBottom: '10px'}}>
-                <Button onClick={() => setDeckModalView(true)}>Add Selected to Flashcard Deck</Button>
+                {addRemove}
             </div>
-           
             <Table dataSource={expressions} columns={tableHeaders} rowSelection={rowSelection} bordered/>
             <div style={{display: 'flex', marginTop: '-50px'}}>
-                <Button onClick={() => setDeckModalView(true)}>Add Selected to Flashcard Deck</Button>
+                {addRemove} 
             </div>
             <Modal title="Edit Word / Expression" visible={editModal} onOk={() => saveWord()} onCancel={() => setEditModal(false)} okText={'Save'}>
                 <div style={{color: 'spacegray'}}>Word or Phrase</div>

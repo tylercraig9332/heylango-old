@@ -1,4 +1,5 @@
 const Resource = require('./ExpressionResource')
+const DeckExpression = require('../Decks/DeckExpressionRelation')
 
 function create(body) {
     let expressionObject = new Resource(body)
@@ -12,6 +13,20 @@ async function read(body) {
     })
     .catch(err => {throw new Error(err)})
     return docs
+}
+
+async function readDeck(deck_id, callback) {
+    await DeckExpression.find({deck: deck_id}, async (err, docs) => {
+        const expPromiseArray = docs.map((doc) => {
+            return Resource.findOne({_id: doc.expression}, (err, doc) => {
+                if (err) throw new Error(err)
+            }).exec()
+        })
+        Promise.all(expPromiseArray).then(expressions => {
+            callback(expressions)
+        })
+        if (err) throw new Error(err)
+    })
 }
 
 async function update(from, body) {
@@ -34,6 +49,7 @@ async function _delete(_id) {
 module.exports = {
     create,
     read,
+    readDeck,
     update,
     delete: _delete
 }

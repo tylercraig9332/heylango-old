@@ -24,6 +24,8 @@ import mView from './Learning/MonoLango/View'
 
 import sHome from './Study/Home'
 import dHome from './Study/Decks/Home'
+import dView from './Study/Decks/View'
+import dPresent from './Study/Decks/Review'
 import eHome from './Study/Expression/Home'
 
 import iHome from './pages/Info/Home'
@@ -65,7 +67,10 @@ export default function Routes() {
                         <Route path='/learn/m/' component={mView} />
                         <Route exact path='/study/' component={sHome} />
                         <Route exact path='/study/decks/' component={dHome} />
-                        <Route exact path='/study/saved/' component={eHome} />
+                        <Route path='/study/decks/review' component={dPresent} />
+                        <Route path='/study/decks/' component={dView} />
+                        <Route exact path='/study/saved/' component={sHome} />
+                        <Route exact path='/study/decks/' component={eHome} />
                         <Route exact path='/info' component={iHome} />
                         <Route exact path='/info/lango' component={iLango} />
                         <Route exact path='/info/ip' component={iInteraction} />

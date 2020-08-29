@@ -31,8 +31,7 @@ export default function CommunityCard(props : CardProps) {
         >
             <Link to={`/community/${props.code}`}>
             <img alt={props.name} src={props.imageUrl} style={{maxWidth: '100%', maxHeight: '100%', objectFit: 'contain'}}/>
-            <h1>{props.name}</h1>
-            <h1 style={{marginTop: -20}}>{props.flag}</h1>
+            <h1>{props.name} {props.flag}</h1>
             </Link>
         </Card>
     )

@@ -24,8 +24,8 @@ export default function Launch() {
         <div>
             <div style={page1Style}>
                 <Row style={rowStyle}>
-                    <Col span={6} offset={6} style={{width: '600px', ...colStyle}}>
-                        <h1><img src="/static/HeyLangoT1.png" height={'auto'} width={400}/></h1>
+                    <Col span={6} offset={6} style={{width: '600px', marginBottom: '15%', ...colStyle}}>
+                        <h1><img src="/static/HeyLangoT1.png" style={{maxWidth:'90%', width: 400, height: 'auto'}}/></h1>
                         <h1>It's Time to Get Fluent</h1>
                         {loggedIn ? null : portalButtons}
                     </Col>
@@ -33,20 +33,19 @@ export default function Launch() {
                 <Row style={rowStyle}>
                     <Col span={6} offset={6} style={{width: '900px', ...colStyle}}>
                         <h1>Discover yourself in a new world of language</h1>
-                        <img src="/static/demo3.png" height={'auto'} width={600} />
-                        <h1>Immersion works!</h1>
+                        <img src="/static/demo3.png" style={{maxWidth: '90%', width: 600, height: 'auto'}} />
                     </Col>
                 </Row>
                 <Row style={rowStyle}>
                     <Col span={6} offset={6} style={{width: '900px', ...colStyle}}>
                         <h1 style={{marginTop: 20}}>Real content, not from a scripted course</h1>
-                        <img src="/static/demo.png" height={'auto'} width={600} />
+                        <img src="/static/demo.png" style={{maxWidth: '90%', width: 600, height: 'auto'}}/>
                     </Col>
                 </Row>
                 <Row style={rowStyle}>
                     <Col span={6} offset={6} style={{width: '900px', ...colStyle}}>
                         <h1>Review what matters</h1>
-                        <img src="/static/demo2.png" height={'auto'} width={800}/>
+                        <img src="/static/demo2.png" height={'auto'} style={{maxWidth: '90%', width: 800, height: 'auto'}}/>
                     </Col>
                 </Row>
                 <Row style={rowStyle}>

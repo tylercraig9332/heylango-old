@@ -18,7 +18,7 @@ export default function DeckModal(props : {visible?: boolean, onCancel?: any, se
             },
             method: "GET"
         }
-        fetch('/s/deck/', reqHeaders).then(res => {
+        fetch('/s/decks/', reqHeaders).then(res => {
             if (res.status === 400) message.error('An Error Occured with Loading Deck')
             return res.json()
         }).then(decks => {
