@@ -107,6 +107,15 @@ router.patch('/ex/:id', (req, res) => {
         res.status(400).send(err.toString())
     })
 })
+.patch('/deck/:id', (req, res) => {
+    if (req.session.user === undefined) {
+        res.status(400).send('User need to be logged in to perform this action')
+        return
+    }
+    req.body.author = req.session.user.id
+    Deck.update(req.params.id, req.body).catch(err => {console.log(err); res.status(400).send(err)})
+    res.send(true)
+})
 
 router.delete('/ex/:id', (req, res) => {
     if (req.session.user === undefined) {
@@ -114,6 +123,24 @@ router.delete('/ex/:id', (req, res) => {
         return
     }
     Expression.delete(req.params.id).then(r => res.send(r))
+})
+.delete('/deck/ex/', (req, res) => {
+    if (req.session.user === undefined) {
+        res.status(400).send('User need to be logged in to perform this action')
+        return
+    }
+    req.body.expressions.forEach(exp_id => {
+        Deck.deleteDeckExp({expression: exp_id, deck: req.body.deck_id}).catch(err => res.status(400).send(err))
+    })
+    res.send(true)
+    
+})
+.delete('/deck/:id', (req, res) => {
+    if (req.session.user === undefined) {
+        res.status(400).send('User need to be logged in to perform this action')
+        return
+    }
+    Deck.delete({_id: req.params.id, author: req.session.user.id}).then(r => res.send(true)).catch(err =>{ console.error(err); res.status(400).send(err)})
 })
 
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import IDeck from './Deck'
-import { Modal, Input, Button, Popconfirm } from 'antd'
+import { Modal, Input, Button, Popconfirm, message } from 'antd'
 
 export default function EditModal(props : {deck: IDeck, visible: boolean, onClose: any}) {
 
@@ -8,11 +8,37 @@ export default function EditModal(props : {deck: IDeck, visible: boolean, onClos
     const [newDesc, setDesc] = useState<string>(props.deck.description)
 
     function saveChanges() {
-        props.onClose()
+        if (props.deck === undefined) return
+        const reqHeaders = {
+            body: JSON.stringify({
+                title: newTitle,
+                description: newDesc
+            }),
+            headers: {
+                "Content-Type": "application/json"
+            },
+            method: "PATCH"
+        }
+        fetch('/s/deck/' + props.deck._id, reqHeaders).then(res => {
+            if (res.status === 400) message.error('Something went wrong :(')
+            props.onClose()
+        })
     }
 
     function deleteDeck() {
-
+        const reqHeaders = {
+            headers: {
+                "Content-Type": "application/json"
+            },
+            method: "DELETE"
+        }
+        fetch('/s/deck/' + props.deck._id, reqHeaders).then(res => {
+            if (res.status === 400) message.error('Something went wrong') 
+            else if (res.status === 200) {
+                message.success('Deck deleted')
+                window.location.href = "/study/"
+            }
+        })
     }
 
     return (

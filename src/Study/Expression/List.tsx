@@ -150,7 +150,14 @@ export default function List(props : {by? : string, type? : string, onRemove?: a
     }
 
     const addRemove = (props.type === 'deck') ? (
-        <Popconfirm title="Are you sure you want to remove selected from this deck?" onConfirm={() => props.onRemove(selectedRowKeys)} okText="Remove">
+        <Popconfirm 
+            title="Are you sure you want to remove selected from this deck?" 
+            onConfirm={() => {
+                setExpressRefresh(true)
+                props.onRemove(selectedRowKeys)}
+            } 
+            okText="Remove"
+        >
             <Button>Remove Selected from Deck</Button>
         </Popconfirm>
     ) : (

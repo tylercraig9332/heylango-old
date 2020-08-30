@@ -32,7 +32,7 @@ async function update(id, body) {
 }
 
 async function _delete(id) {
-    console.log("delete id:", id)
+    //console.log("delete id:", id)
     let res = Resource.deleteOne({"_id:": id})
     return await res
 }

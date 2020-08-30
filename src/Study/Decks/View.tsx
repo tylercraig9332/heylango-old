@@ -12,8 +12,10 @@ export default function View(props : {deck_id? : string}) {
     const [deck, setDeck] = useState<IDeck>()
 
     const [editView, setEditView] = useState<boolean>(false)
+    const [refresh, setRefresh] = useState<boolean>(true) // When true deck will be reloaded from db
 
     useEffect(() => {
+        if (refresh === false) return
         let p_id = '' 
         if (props.deck_id === undefined) {
             const urls = window.location.pathname.split('/')
@@ -34,18 +36,26 @@ export default function View(props : {deck_id? : string}) {
             if (res.status === 400) message.error('Error Loading Deck Info')
             return res.json()
         }).then((deck : IDeck) => {
+            setRefresh(false)
             setDeck(deck)
         })
-    }, [])
+    }, [refresh])
 
-    function removeSelected(selected : any[]) {
+    function removeSelected(selected : string[]) {
         const reqHeaders = {
+            body: JSON.stringify({expressions: selected, deck_id: deck_id}),
             headers: {
                 "Content-Type": "application/json"
             },
             method: "DELETE"
         }
-        console.log(selected)
+        fetch('/s/deck/ex', reqHeaders).then(res => {
+            if (res.status === 400) message.error(res.statusText)
+            else {
+                setRefresh(true)
+                message.success('Removed from deck')
+            }
+        })
     }
 
     if (deck_id === '' || deck === undefined) return <Loading message="Loading" />
@@ -60,7 +70,10 @@ export default function View(props : {deck_id? : string}) {
             <div style={{marginTop: 30}}>
                 <Link to={`/study/decks/review/${deck_id}`}><Button type="primary" size="large">Review Deck</Button></Link>
             </div>
-            <EditModal deck={deck} visible={editView} onClose={() => setEditView(false)} />
+            <EditModal deck={deck} visible={editView} onClose={() => {
+                setRefresh(true)
+                setEditView(false)
+            }} />
         </div>
         
     )

@@ -35,11 +35,22 @@ async function read(body) {
 }
 
 function update(_id, body) {
-
+    return Deck.findByIdAndUpdate(_id, body, (err, docs) => {
+        if (err) throw new Error(err)
+    })
 }
 
-function _delete(_id) {
+function _delete(body) {
+    console.log(body)
+    return Deck.deleteOne(body, (err) => {
+        if (err) throw new Error(err)
+    })
+}
 
+function _deleteDeckExp(body) {
+    return DeckExpression.findOneAndDelete(body, (err, doc) => {
+        if (err) throw new Error(err)
+    })
 }
 
 module.exports = {
@@ -47,5 +58,6 @@ module.exports = {
     createDeckExp,
     read,
     update,
-    delete : _delete
+    delete : _delete,
+    deleteDeckExp: _deleteDeckExp
 }

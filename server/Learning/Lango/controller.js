@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
     switch (req.params.by) {
         case 'popular':
             // TODO: allow for most liked posts to be presented first.
-            console.log('popular', lang, diff)
+            //console.log('popular', lang, diff)
             body = {
                 ...diff,
                 ...lang
