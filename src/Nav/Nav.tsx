@@ -81,7 +81,7 @@ export default function Nav(props : any) {
 
     const supportTab = (logged) ? (
         <Item key="/support" style={{float: 'right'}}>
-            <Link to="/support"> <Tag color="gold" style={{fontSize: 15}}>Support</Tag></Link>
+            <Link to="/support"> <Tag color="gold" style={{fontSize: 15, padding: 3, paddingRight: 10, paddingLeft: 10}}>Support</Tag></Link>
         </Item>
     ) : null
 
