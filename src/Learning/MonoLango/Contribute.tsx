@@ -13,7 +13,7 @@ export default function Contribute() {
     return (
         <div style={container}>
             <Empty description={desc}>
-                <Link to='/learn/m/create'><Button size="large" type="primary">Create New Lango</Button></Link>
+                <Link to='/learn/lango/create'><Button size="large" type="primary">Create New Lango</Button></Link>
             </Empty>
         </div>
     )

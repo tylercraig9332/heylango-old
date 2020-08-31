@@ -30,7 +30,7 @@ export default function Home() {
                         setDifficulty(d)
                     }}/>
                 </div>
-                <Link to="/learn/m/create"><Button type="primary" style={{width: 300}}>Create New Lango</Button></Link>
+                <Link to="/learn/lango/create"><Button type="primary" style={{width: 300}}>Create New Lango</Button></Link>
             </div>
             
             <List by={filter} />

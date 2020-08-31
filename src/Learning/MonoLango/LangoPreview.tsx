@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Lango from './Lango'
 import { Card, Col, Row } from 'antd'
 
+import Author from '../../User/Author'
 import PreviewImage from '../../Util/ResourcePreviewImage'
 import Loading from '../../Util/Loading'
 import { parseLanguageCode, parseLanguageFlag } from '../../Util/functions'
@@ -21,6 +22,7 @@ export default function LangoPreview(props : {lango : Lango}) {
     React.useEffect(() => {
         //console.log(props.lango)
         if (props.lango != undefined) {
+            console.log(props.lango.description)
             setLoaded(true)
         }
     })
@@ -32,7 +34,7 @@ export default function LangoPreview(props : {lango : Lango}) {
                     actions={toolbar}
                     hoverable
                 >
-                    <Link to={`/learn/m/${props.lango._id}`} style={{color: 'inherit'}}>
+                    <Link to={`/learn/lango/${props.lango._id}`} style={{color: 'inherit'}}>
                     <Row type="flex">
                         <Col span={3}>
                             <PreviewImage src={props.lango.imageSrc} />
@@ -42,22 +44,20 @@ export default function LangoPreview(props : {lango : Lango}) {
                                 <h1>{props.lango.title}</h1>
                             </Row>
                             <Row>
-                                <span>
-                                    <p><strong>Language </strong>{parseLanguageCode(props.lango.language)} {parseLanguageFlag(props.lango.language)} </p>
-                                    <strong> Difficulty </strong>{props.lango.difficulty}
-                                </span>
+                                <Col>
+                                    <div style={{textOverflow: 'ellipsis'}}><strong>Description</strong> {props.lango.description}</div>
+                                    <div><strong>Language </strong>{parseLanguageCode(props.lango.language)} {parseLanguageFlag(props.lango.language)}</div>
+                                    <div><strong> Difficulty </strong>{props.lango.difficulty}</div>
+                                    <div><strong> Author </strong></div>
+                                </Col>
+                                <Col>
+                                    <Author user_id={props.lango.author} />
+                                </Col>
                             </Row>
                         </Col>
+                        
                     </Row>
                     </Link>
-                    <Row>
-                    <Col span={3}>
-                            
-                    </Col>
-                    <Col>
-                        
-                    </Col>
-                    </Row>
                 </Card>
         </div>
     )

@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react'
 import Lango from './Lango'
 import Loading from '../../Util/Loading'
 import Editor from '../../Draft/WordLearner/WordLearner'
-import { EditOrAdmin, Info } from '../../Toolbar/Icons'
+import { EditOrAdmin, Info, Like } from '../../Toolbar/Icons'
 import CommentEngine from '../../Comment/Engine'
 import { message } from 'antd'
 import VideoPlayer from '../VidLango/VideoPlayer'
+import Author from '../../User/Author'
+import PreviewImage from '../../Util/ResourcePreviewImage'
 
 export default function View() {
 
@@ -45,13 +47,17 @@ export default function View() {
     
     return (
         <div style={container}>
+            <div style={{display: 'flex', alignItems: 'center'}}>
+                <span style={titleStyle}>{lango.title}</span> <Info title="Description" description={lango.description}/>
+            </div>
             <div style={langoHeader}>
-                {/* TODO: Add preview image support and place it here */}
                 <div>
-                    <span style={titleStyle}>{lango.title}</span> <Info title="Description" description={lango.description}/>
+                    <Author />
                 </div>
-                
-                <EditOrAdmin handleEdit={edit} editView={false} parent={lango._id} parentType={'Lango'}/>
+                <div style={{display: 'flex', justifyContent: 'space-between', width: 50}}>
+                    <Like parent_id={lango._id} />
+                    <EditOrAdmin handleEdit={edit} editView={false} parent={lango._id} parentType={'Lango'}/>
+                </div>
             </div>
             {langoVideo}
             <div className="langoBody" style={langoBody}>
@@ -59,11 +65,12 @@ export default function View() {
                     value={lango.content} 
                     readOnly
                     style={editorStyle}
-                    wordsPerPage={40}
+                    wordsPerPage={25}
                     lineHeight={'60px'}
                     fontSize={'25px'}
                 />
             </div>
+            <br></br>
             <br></br>
             <div>
                 <CommentEngine parent_id={lango._id}/>
@@ -83,6 +90,7 @@ const langoHeader = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
+    paddingBottom: 10 
 } as React.CSSProperties
 
 const editorStyle = {

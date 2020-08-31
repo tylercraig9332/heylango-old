@@ -48,10 +48,11 @@ export default function SheetView(props :  {readOnly?: boolean, send? : any, id?
                 description: description,
                 language: language,
                 difficulty: difficulty,
-                video_id: video_id
+                video_id: video_id,
+                imgSrc: imgSrc
             })
         }
-    }, [content, title, description, language, difficulty, video_id])
+    }, [content, title, description, language, difficulty, video_id, imgSrc])
 
 
     const previewImageModal = (

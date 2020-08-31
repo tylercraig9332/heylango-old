@@ -9,6 +9,7 @@ import Portal from './User/Portal'
 import Signup from './User/Signup'
 import Logout from './User/Logout'
 import Profile from './User/Profile'
+import Settings from './User/Settings'
 import cHome from './Community/Home'
 import cView from './Community/View'
 import pCreate from './Post/Create'
@@ -56,15 +57,16 @@ export default function Routes() {
                         <Route path='/logout' component={Logout} />
                         <Route path='/profile' component={Profile} />
                         <Route path='/test' component={Test} />
+                        <Route exact path='/settings' component={Settings} />
                         <Route exact path='/support' component={Support} />
                         <Route exact path='/learn/' component={lHome} />
                         <Route exact path='/learn/bi/new' component={biCreate} />
                         <Route exact path='/learn/bi/' component={biHome} />
                         <Route path='/learn/bi/' component={biView} />
                         <Route path='/learn/vid/' component={vidView} />
-                        <Route exact path='/learn/m/home/' component={mHome} />
-                        <Route path='/learn/m/create' component={mCreate} />
-                        <Route path='/learn/m/' component={mView} />
+                        <Route exact path='/learn/lango/home/' component={mHome} />
+                        <Route path='/learn/lango/create' component={mCreate} />
+                        <Route path='/learn/lango/' component={mView} />/
                         <Route exact path='/study/' component={sHome} />
                         <Route exact path='/study/decks/' component={dHome} />
                         <Route path='/study/decks/review' component={dPresent} />

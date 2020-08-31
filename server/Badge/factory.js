@@ -11,14 +11,30 @@ function create(type, user, custom='') {
 }
 
 async function read(body) {
-    const badges = await Resource.find(body, (err, doc) => {
+    const badges = await Resource.find({enabled: true, ...body}, (err, doc) => {
         if (err) throw new Error(err)
     })
     return badges
 }
 
+async function updateById(id, body) {
+    const badges = await Resource.findByIdAndUpdate(id, body).then((err, doc) => {
+        if (err) throw new Error(err)
+    })
+    return badges
+}
+
+function update(by, body, callback) {
+    Resource.updateOne(by, body, (err, raw) => {
+        if (err) throw new Error(err)
+        callback(raw)
+    })
+}
+
 
 module.exports = {
     create,
-    read
+    read,
+    update,
+    updateById
 }

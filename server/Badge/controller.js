@@ -16,4 +16,25 @@ router.get('/:user_id',(req, res) => {
     })
 })
 
+router.patch('/', (req, res) => {
+    if (req.session.user === undefined) {
+        res.status(403).send('User must be logged in to perform this action.')
+        return 
+    }
+    req.body.by.author = req.session.user.id
+    BadgeFactory.update(req.body.by, req.body.update, (r) => {
+        res.send(`${r.nModified} Updated`)
+    })
+})
+.patch('/:badge_id', (req, res) => {
+    if (req.session.user === undefined) {
+        res.status(403).send('User must be logged in to perform this action.')
+        return 
+    }
+    req.body.author = req.session.user.id 
+    BadgeFactory.updateById(req.params.id, req.body)
+})
+
+
+
 module.exports = router

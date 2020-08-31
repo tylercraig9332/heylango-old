@@ -21,11 +21,10 @@ export default function Create() {
             method: "POST"
         }
         fetch('/l/m/', reqHeaders).then(res => {
-            // todo: get it from res and set it so result button can use it.
-            //setSuccessLink(`/learn/m/${res.id}`)
+            // todo: get it from res and set it so result button can use it
             setSuccess(res.status === 200)
             return res.json()
-        }).then(lango => {console.log(lango);setSuccessLink(`/learn/m/${lango._id}`)})
+        }).then(lango => {console.log(lango);setSuccessLink(`/learn/lango/${lango._id}`)})
     }
 
     /** This function will be called by subcomponents when it updates itself so this component will be updated.

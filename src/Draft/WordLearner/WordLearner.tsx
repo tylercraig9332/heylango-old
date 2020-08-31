@@ -19,7 +19,7 @@ export default function WordLearner(props : WordLearnerProps) {
 
     const [lineHeight, setLineHeight] = useState<string>(props.lineHeight === undefined ? '70px' : props.lineHeight)
     const [fontSize, setFontSize] = useState<string>(props.fontSize === undefined ? '30px' : props.fontSize)
-    const [wordsPerPage, setWordsPerPage] = useState<number>(40)
+    const [wordsPerPage, setWordsPerPage] = useState<number>(25)
     const [pausePlay, setPausePlay] = useState<boolean>(true)
 
     const editor = useRef<any>(null)

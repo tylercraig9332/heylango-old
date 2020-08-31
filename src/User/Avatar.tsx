@@ -35,7 +35,7 @@ export default function UserAvatar(props : {fetch_author? : string | Object, use
 
     return (
         <Tooltip title={`${username}`}>
-            <Avatar style={{backgroundColor: '#1890ff'}}>{username}</Avatar>
+            <Avatar size="large" style={{backgroundColor: '#1890ff'}}>{username}</Avatar>
         </Tooltip>
     )
 }

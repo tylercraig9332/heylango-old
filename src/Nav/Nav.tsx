@@ -74,8 +74,8 @@ export default function Nav(props : any) {
 
     const learnTab = (
         <SubMenu title={<Link to='/learn/' style={{color: 'inherit'}}>Learning Library</Link>}>
-            <Item key="/learn/m"><Link to="/learn/m/home">Native Content: Langos</Link></Item>
-            <Item key="/learn/bi"><Link to="/learn/bi">Bilingual Content: BiLangos</Link></Item>
+            <Item key="/learn/lango"><Link to="/learn/lango/home">Native Content | Langos</Link></Item>
+            <Item key="/learn/bi"><Link to="/learn/bi">Bilingual Content | BiLangos</Link></Item>
         </SubMenu>
     )
 
