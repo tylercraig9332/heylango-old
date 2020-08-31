@@ -3,10 +3,11 @@ import Badge from './Badge'
 import IBadge from './IBadge'
 import Author from '../Author'
 import { Input, Button, Checkbox, Avatar } from 'antd'
+import Loading from '../../Util/Loading'
 
 export default function Settings() {
 
-    const [language, setLanguage] = useState<string>('English N | Spanish B2')
+    const [language, setLanguage] = useState<string>('English')
     const [diamond, setDiamond] = useState<string>('Diamond Supporter')
     const [gold, setGold] = useState<string>('Gold Supporter')
 
@@ -16,7 +17,8 @@ export default function Settings() {
     const [gEnable, setGEnable] = useState<boolean>(false)
     const [dEnable, setDEnable] = useState<boolean>(false)
 
-    const [test, setTest] = useState<number>(0)
+    const [refresh, setRefresh] = useState<number>(0)
+    const [loaded, setLoaded] = useState<boolean>(false)
 
     useEffect(() => {
         const reqHeaders = {
@@ -25,41 +27,38 @@ export default function Settings() {
             },
             method: "GET"
         }
-        fetch(`/b/${window.sessionStorage.getItem('userId')}`, reqHeaders).then(res => {
+        fetch(`/b/all/${window.sessionStorage.getItem('userId')}`, reqHeaders).then(res => {
             return res.json()
         }).then(b => {
             b.forEach((badge : IBadge) => {
-                console.log(badge.type)
                 switch (badge.type) {
                     case 'contributor':
-                        setCEnable(true)
+                        setCEnable(badge.enabled)
                         return
                     case 'new':
-                        setNEnable(true)
+                        setNEnable(badge.enabled)
                         return
                     case 'supporterGold':
-                        setGEnable(true)
+                        setGold(badge.custom)
+                        setGEnable(badge.enabled)
                         return
-                    case 'supportDiamond':
-                        setDEnable(true)
+                    case 'supporterDiamond':
+                        setDiamond(badge.custom)
+                        setDEnable(badge.enabled)
                         return
                     case 'custom':
-                        setLEnable(true)
+                        setLanguage(badge.custom)
+                        setLEnable(badge.enabled)
                         return
                     default:
                         return
                 }
             })
-            console.log(b)
+            setLoaded(true)
         }) 
     }, [])
 
-    useEffect(() => {
-        
-    }, [cEnable, nEnable, lEnable, gEnable, dEnable])
-
     function updateRequest(body : Object) {
-        console.log(body)
         const reqHeaders = {
             body: JSON.stringify(body),
             headers: {
@@ -68,12 +67,12 @@ export default function Settings() {
             method: "PATCH"
         }
         fetch('/b/', reqHeaders).then(res => {
-            setTest(test + 1)
-            console.log(res.status)
+            setRefresh(refresh + 1)
         })
     }
 
     function onUpdate(type : string) {
+        if (!loaded) return
         let c = ''
         let e = false
         switch(type) {
@@ -114,7 +113,7 @@ export default function Settings() {
                 enabled: e
             }
         }
-        console.log(`Updating type: ${type}, enabled: ${e}, custom: ${c}`)
+        //console.log(`Updating type: ${type}, enabled: ${e}, custom: ${c}`)
         updateRequest(body)
     }
 
@@ -158,11 +157,13 @@ export default function Settings() {
         updateRequest(body)
     }
 
+    if (!loaded) return <Loading message="Loading Flair Settings..." />
     return (
         <div style={{width: 500, maxWidth: '95%'}}>
             <h2>Set Language Flair</h2>
             <div style={{marginBottom: 15}}>
-                <Author key={test}/>
+                <Author key={refresh}/>
+                <hr></hr>
             </div>
             <div style={{color: 'spacegray', marginBottom: 5, marginTop: 5}}>
                 <Checkbox checked={lEnable} style={{marginRight: 5}} onChange={() => onUpdate('custom')}></Checkbox>
@@ -184,8 +185,8 @@ export default function Settings() {
                 <Checkbox  checked={dEnable} style={{marginRight: 5}}  onChange={() => onUpdate('supporterDiamond')}></Checkbox>
                 <Badge type="supporterDiamond" custom={diamond} />
             </div>
-            <div style={inputWrap}>
-                <Input value={diamond} onChange={(e : any) => setDiamond(e.currentTarget.value)} />
+            <div style={inputWrap} key={diamond}>
+                <Input key={diamond} value={diamond} onChange={(e : any) => setDiamond(e.currentTarget.value)} />
                 <Button style={{marginLeft: 5}} type="primary" onClick={diamondUpdate}>Update</Button>
             </div>
             <div style={{color: 'spacegray', marginBottom: 5, marginTop: 5}}>

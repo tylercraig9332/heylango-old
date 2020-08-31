@@ -11,7 +11,7 @@ function create(type, user, custom='') {
 }
 
 async function read(body) {
-    const badges = await Resource.find({enabled: true, ...body}, (err, doc) => {
+    const badges = await Resource.find(body, (err, doc) => {
         if (err) throw new Error(err)
     })
     return badges

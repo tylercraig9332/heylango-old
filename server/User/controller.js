@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const model = require('./factory.js')
+const BadgeFactory = require('../Badge/factory')
 
 router.get('/loggedIn', (req, res) => {
     const logged = req.session.user !== undefined
@@ -32,6 +33,7 @@ router.post('/signup', (req, res) => {
         return
     }
     model.create(req.body).then((user) => {
+        BadgeFactory.create('custom', user.id, 'English')
         req.session.user = user
         res.sendStatus(200)
     })

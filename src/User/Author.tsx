@@ -19,7 +19,6 @@ export default function Author(props : {user_id?: string}) {
             }
         }
         fetch('/u/' + u_id, headers).then((res) => res.json()).then((user : User) => {
-            console.log(user)
             setUser(user)
         })
     }, [])

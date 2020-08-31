@@ -17,7 +17,7 @@ export default function Panel(props : {badges?: IBadge[]}) {
         fetch(`/b/${window.sessionStorage.getItem('userId')}`, reqHeaders).then(res => {
             return res.json()
         }).then(b => {
-            setBadges(b)
+            setBadges(b.reverse())
         }) 
     }, [])
 
