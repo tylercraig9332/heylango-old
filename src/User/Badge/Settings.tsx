@@ -185,8 +185,8 @@ export default function Settings() {
                 <Checkbox  checked={dEnable} style={{marginRight: 5}}  onChange={() => onUpdate('supporterDiamond')}></Checkbox>
                 <Badge type="supporterDiamond" custom={diamond} />
             </div>
-            <div style={inputWrap} key={diamond}>
-                <Input key={diamond} value={diamond} onChange={(e : any) => setDiamond(e.currentTarget.value)} />
+            <div style={inputWrap}>
+                <Input value={diamond} onChange={(e : any) => setDiamond(e.currentTarget.value)} />
                 <Button style={{marginLeft: 5}} type="primary" onClick={diamondUpdate}>Update</Button>
             </div>
             <div style={{color: 'spacegray', marginBottom: 5, marginTop: 5}}>
