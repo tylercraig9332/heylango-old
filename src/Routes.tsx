@@ -1,10 +1,12 @@
 import React from 'react'
 import { BrowserRouter, Route, Switch, useLocation } from 'react-router-dom'
+import AppWrap from './styles/AppWrap'
 
 import Nav from './Nav/Nav'
 import PageHead from './Nav/PageHead'
 
 import Launch from './pages/Launch'
+import Land from './pages/Landing'
 import Portal from './User/Portal'
 import Signup from './User/Signup'
 import Logout from './User/Logout'
@@ -45,9 +47,9 @@ export default function Routes() {
         <BrowserRouter>
             <div>
                 <Nav useLocation={useLocation}/>
-                <div className="pageContainer">
+                <AppWrap useLocation={useLocation}>
                     <Switch>
-                        <Route exact path='/' component={Launch} />
+                        <Route exact path='/' component={Land} />
                         <Route exact path='/community/' component={cHome} />
                         <Route path='/community/p/new/' component={pCreate} />
                         <Route path='/community/p/' component={pView} />
@@ -77,7 +79,7 @@ export default function Routes() {
                         <Route exact path='/info/lango' component={iLango} />
                         <Route exact path='/info/ip' component={iInteraction} />
                     </Switch>
-                </div>
+                </AppWrap>
             </div>
         </BrowserRouter>
     )
