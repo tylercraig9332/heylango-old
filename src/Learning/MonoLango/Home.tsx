@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import List from './List'
 import {Link} from 'react-router-dom'
-import {Button} from 'antd'
+import {Button, Pagination} from 'antd'
 import {LanguageSelect, CEFRSelect} from '../../Util/Select'
 
 export default function Home() {
@@ -10,11 +10,12 @@ export default function Home() {
     const [sort, setSort] = useState<string>('popular')
     const [difficulty, setDifficulty] = useState<string>('NA')
     const [language, setLangauge] = useState<string>('all')
+    const [page, setPage] = useState<number>(1)
 
     useEffect(() => {
-        const f  = `/${sort}/${language}/${difficulty}`
+        const f  = `/${sort}/${language}/${difficulty}/${page}`
         setFilter(f)
-    }, [difficulty, language, sort])
+    }, [difficulty, language, sort, page])
 
     return (
         <div style={container}>
@@ -32,8 +33,8 @@ export default function Home() {
                 </div>
                 <Link to="/learn/lango/create"><Button type="primary" style={{width: 300}}>Create New Lango</Button></Link>
             </div>
-            
             <List by={filter} />
+            <Pagination total={(page * 7) + 7} current={page} onChange={(page, pageSize) => setPage(page)} defaultPageSize={7}/>
         </div>
     )
 }

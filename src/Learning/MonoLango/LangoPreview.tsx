@@ -22,7 +22,7 @@ export default function LangoPreview(props : {lango : Lango}) {
     React.useEffect(() => {
         //console.log(props.lango)
         if (props.lango != undefined) {
-            console.log(props.lango.description)
+            //console.log(props.lango.description)
             setLoaded(true)
         }
     })

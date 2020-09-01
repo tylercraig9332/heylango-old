@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
     .then(langos => res.staus(200).send(langos))
     .catch( err => res.status(400).send(err))
 })
-.get('/list/:by/:lang/:diff', (req, res) => {
+.get('/list/:by/:lang/:diff/:page', (req, res) => {
     let body = undefined
     let diff = (req.params.diff !== 'NA') ? {difficulty: req.params.diff} : {}
     let lang = (req.params.lang !== 'all') ? {language: req.params.lang} : {}
@@ -30,10 +30,18 @@ router.get('/', (req, res) => {
             body = {}
     }
     if (body === undefined) return
-    factory.read(body).then((langos) => res.status(200).send(langos))
-    .catch(err => {
-        console.log(err)
-        res.status(400).send(err)
+    factory.readMany(body, req.params.page, (langos, err) => {
+        if (err) {
+            console.log(err)
+            res.status(400).send(err)
+        }
+        else {
+            let a = langos.sort((a,b) => {
+                return b.likes - a.likes
+            })
+            console.log(a)
+            res.status(200).send(a)
+        }
     })
 })
 .get('/:id', (req, res) => {

@@ -32,7 +32,7 @@ export default function List(props : {by? : string}) {
         <div>
             {langos.map((l : Lango) => {
                 return (
-                    <div key={l._id}>
+                    <div key={l._id} style={{ height: 375}}>
                         <LangoPreview lango={l} />
                     </div>
                 )
