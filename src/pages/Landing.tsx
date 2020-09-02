@@ -1,7 +1,10 @@
 import React from 'react'
-import './landing.css'
+import { Link } from "react-router-dom";
+import './Landing/landing.css'
+import LanguageBelt from './Landing/LanguageBelt';
 
 import {Button} from 'antd'
+
 
 export default function Landing() {
     return (
@@ -19,8 +22,9 @@ export default function Landing() {
                 <div className="headText">
                     <h1 className="heading" id="siteColor"><strong>Immersion brought to you</strong></h1>
                     <h2 className="subHeading">It's time to get fluent!</h2>
-                    <Button type="primary" size="large"><span className="callToAction">Sign up for free!</span></Button>
+                    <Link to="/signup"><Button type="primary" size="large"><span className="callToAction">Sign up for free!</span></Button></Link>
                 </div>
+                <LanguageBelt />
         </div>
     )
 }

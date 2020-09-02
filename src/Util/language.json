@@ -185,73 +185,85 @@
             "name" : "English",
             "title" : "English",
             "code" : "en",
-            "flag": "🇺🇸"
+            "flag": "🇺🇸",
+            "flagImg": "/static/flag/us.png"
         },
         {
             "name": "Spanish",
             "title" : "Español",
             "code": "es",
-            "flag": "🇪🇸"
+            "flag": "🇪🇸",
+            "flagImg": "/static/flag/es.png"
         },
         {
             "name": "French",
             "title" : "Français",
             "code": "fr",
-            "flag": "🇫🇷"
+            "flag": "🇫🇷",
+            "flagImg": "/static/flag/fr.png"
         },
         {
             "name": "German",
             "title" : "Deutsch",
             "code": "de",
-            "flag": "🇩🇪"
-        },
-        {
-            "name": "Portuguese",
-            "title": "Português",
-            "code": "pt",
-            "flag": "🇧🇷"
-        },
-        {
-            "name": "Italian",
-            "title" : "Italiano",
-            "code": "it",
-            "flag": "🇮🇹"
-        },
-        {
-            "name": "Russian",
-            "title" : "Русский",
-            "code": "ru",
-            "flag": "🇷🇺"
+            "flag": "🇩🇪",
+            "flagImg": "/static/flag/de.png"
         },
         {
             "name": "Japanese",
             "title" : "日本語",
             "code": "jp",
-            "flag": "🇯🇵"
+            "flag": "🇯🇵",
+            "flagImg": "/static/flag/jp.png"
+        },
+        {
+            "name": "Italian",
+            "title" : "Italiano",
+            "code": "it",
+            "flag": "🇮🇹",
+            "flagImg": "/static/flag/it.png"
+        },
+        {
+            "name": "Portuguese",
+            "title": "Português",
+            "code": "pt",
+            "flag": "🇧🇷",
+            "flagImg": "/static/flag/pt-br.png"
+        },
+        {
+            "name": "Russian",
+            "title" : "Русский",
+            "code": "ru",
+            "flag": "🇷🇺",
+            "flagImg": "/static/flag/ru.png"
         },
         {
             "name": "Arabic",
             "title": "العربية",
             "code": "ar",
-            "flag": "🇦🇪"
+            "flag": "🇦🇪",
+            "flagImg": "/static/flag/ar.png"
         },
         {
             "name": "Mandarin",
             "title": "國語",
             "code": "zh-m",
-            "flag": "🇨🇳"
+            "flag": "🇨🇳",
+            "flagImg": "/static/flag/zh-m.png"
         },
         {
             "name" : "Cantonese",
             "title": "廣東話",
             "code" : "zh-c",
-            "flag" : "🇭🇰"
+            "flag" : "🇭🇰",
+            "flagImg": "/static/flag/zh-c.png"
         },
         {
             "name": "Esperanto",
             "title": "Esperantaj",
             "code": "eo",
-            "flag": "💚"
+            "flag": "💚",
+            "flagImg": "/static/flag/eo.png"
         },
         {
             "name" : "All / Other",
