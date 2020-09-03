@@ -108,7 +108,7 @@ export default function SignUp(props: any) {
             title="Success!"
             subTitle="Thanks for signing up :)"
             extra={
-                <Button type="primary"><Link to='/portal'>Login</Link></Button>
+                <Button type="primary"><Link to='/portal'>Log in</Link></Button>
             }
         />
     )

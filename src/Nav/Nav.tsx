@@ -21,7 +21,9 @@ export default function Nav(props : any) {
         }
         fetch('/u/loggedIn', reqHeaders)
         .then(res => {
-            let l = (res.status === 200)
+            return res.json()
+        }).then(logged => {
+            let l = logged
             if (!l) {
                 // If the backend server goes down, I wanna ensure that the session is cleared.
                 window.sessionStorage.setItem('userId', '')
@@ -44,8 +46,8 @@ export default function Nav(props : any) {
 
 
     const unLoggedTabs = [
-            <Item style={{float: 'right', marginRight: '20px'}} key="/portal"><Link to="/portal">Login</Link></Item>,
-            <Item style={{float: 'right'}} key='/signup'><Link to='/signup'>Signup</Link></Item>
+            <Item style={{float: 'right', marginRight: '20px'}} key="/portal"><Link to="/portal">Log in</Link></Item>,
+            <Item style={{float: 'right'}} key='/signup'><Link to='/signup'>Sign up</Link></Item>
     ]
 
     const loggedTabs = (

@@ -5,7 +5,7 @@ const BadgeFactory = require('../Badge/factory')
 
 router.get('/loggedIn', (req, res) => {
     const logged = req.session.user !== undefined
-    res.status(logged ? 200 : 400).send(logged)
+    res.status(200).send(logged)
 })
 .get('/logout', (req, res) => {
     req.session.destroy((err) => {

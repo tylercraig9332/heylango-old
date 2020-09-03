@@ -173,7 +173,7 @@ export default function Settings() {
                 <Input value={language} onChange={(e : any) => setLanguage(e.currentTarget.value)} />
                 <Button style={{marginLeft: 5}} type="primary" onClick={customUpdate}>Update</Button>
             </div>
-            <div style={{color: 'spacegray', marginBottom: 5, marginTop: 5}}>
+            {/*<div style={{color: 'spacegray', marginBottom: 5, marginTop: 5}}>
                 <Checkbox checked={gEnable} style={{marginRight: 5}} onChange={() => onUpdate('supporterGold')}></Checkbox>
                 <Badge type="supporterGold" custom={gold} />
             </div>
@@ -190,12 +190,13 @@ export default function Settings() {
                 <Button style={{marginLeft: 5}} type="primary" onClick={diamondUpdate}>Update</Button>
             </div>
             <div style={{color: 'spacegray', marginBottom: 5, marginTop: 5}}>
-                <Checkbox checked={cEnable} style={{marginRight: 5}}  onChange={() => onUpdate('contributor')}></Checkbox>
-                <Badge type="contributor" />
-            </div>
-            <div style={{color: 'spacegray', marginBottom: 5, marginTop: 5}}>
                 <Checkbox  checked={nEnable} style={{marginRight: 5}}  onChange={() => onUpdate('new')}></Checkbox>
                 <Badge type="new" />
+            </div>
+            */}
+            <div style={{color: 'spacegray', marginBottom: 5, marginTop: 5}}>
+                <Checkbox checked={cEnable} style={{marginRight: 5}}  onChange={() => onUpdate('contributor')}></Checkbox>
+                <Badge type="contributor" />
             </div>
         </div>
     )

@@ -33,10 +33,10 @@ export default function Author(props : {user_id?: string}) {
                 </Tooltip>
             </div>
             <div style={{marginLeft: '5px'}}>
-                <h3><Tooltip title="View Profile">
+                <h3 style={{marginBottom: 0}}><Tooltip title="View Profile">
                         <Link to={`/profile/${user.id}`}>{user?.username}</Link>
                 </Tooltip></h3>
-                <BadgePanel />
+                <BadgePanel user_id={user.id}/>
             </div>
         </div>
     )

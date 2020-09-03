@@ -62,7 +62,7 @@ export default function Routes() {
                         <Route exact path='/settings' component={Settings} />
                         <Route exact path='/support' component={Support} />
                         <Route exact path='/learn/' component={lHome} />
-                        <Route exact path='/learn/bi/new' component={biCreate} />
+                        {/*<Route exact path='/learn/bi/new' component={biCreate} />*/}
                         <Route exact path='/learn/bi/' component={biHome} />
                         <Route path='/learn/bi/' component={biView} />
                         <Route path='/learn/vid/' component={vidView} />

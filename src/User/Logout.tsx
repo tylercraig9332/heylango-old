@@ -26,7 +26,7 @@ export default function Logout() {
         })
     }, [])
 
-    if (success) return <Result status="success" title="Successfully logged out!" extra={<Button type="primary"><Link to='/portal'>Login</Link></Button>} />
+    if (success) return <Result status="success" title="Successfully logged out!" extra={<Button type="primary"><Link to='/portal'>Log in</Link></Button>} />
     return (error) ? <Result status="error" title="An error has occurred" /> : <Result status="info" title="Loggin out"/>
 
 }

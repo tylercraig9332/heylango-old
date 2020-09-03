@@ -182,6 +182,12 @@
     ],
     "info" : [
         {
+            "name" : "All / Other",
+            "title": "All / Other",
+            "code": "all",
+            "flag": "📚"
+        },
+        {
             "name" : "English",
             "title" : "English",
             "code" : "en",
@@ -264,12 +270,6 @@
             "code": "eo",
             "flag": "💚",
             "flagImg": "/static/flag/eo.png"
-        },
-        {
-            "name" : "All / Other",
-            "title": "All / Other",
-            "code": "all",
-            "flag": "📚"
         }
     ],
     "CEFR" : [

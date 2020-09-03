@@ -7,7 +7,8 @@ const { Option } = Select
 type SelectProps = {
     value? : string,
     onChange : any,
-    type? : string
+    type? : string,
+    placeholder?: string
 }
 
 export function CEFRSelect(props : SelectProps) {
@@ -16,7 +17,7 @@ export function CEFRSelect(props : SelectProps) {
             mode="default"
             onChange={props.onChange}
             style={{width: '100%'}}
-            placeholder="Select Difficulty"
+            placeholder={(props.placeholder === undefined) ? "Select Difficulty" : props.placeholder}
         >
             {
                 language.CEFR.map((d : any) => {
@@ -36,8 +37,8 @@ export function LanguageSelect(props : SelectProps) {
         <Select
             mode="default"
             onChange={props.onChange}
-            style={{width: '100%'}}
-            placeholder="Select Language"
+            style={{width: '100%', minWidth: 200}}
+            placeholder={(props.placeholder === undefined) ? "Select Language" : props.placeholder}
         >
             {
                 language.info.map(language => {
