@@ -3,6 +3,7 @@ import {BiSheet} from './BiSheet'
 import Preview from './Preview'
 import {Link} from 'react-router-dom'
 import {Button} from 'antd'
+import Badge from '../../User/Badge/Badge'
 
 export default function Home() {
 
@@ -23,14 +24,14 @@ export default function Home() {
     return (
         <div>
             <div>
-                <h1>BiLango Sheets</h1>
+                <h1>BiLango Sheets <Badge type="comingSoon" /></h1>
                 <p style={{marginTop: -10}}>Short Bilingual Texts</p>
-                <Link to="/learn/bi/new"><Button>Create New Sheet</Button></Link>
+                {/*<Link to="/learn/bi/new"><Button>Create New Sheet</Button></Link>*/}
             </div>
             <hr></hr>
             <div style={flexContainer}>
                 {(sheets !== undefined) ? sheets.map((s : any) => {
-                    return <Preview sheet={s} />
+                    return <Preview sheet={s} key={s._id}/>
                 }) : undefined}
             </div>
         </div>

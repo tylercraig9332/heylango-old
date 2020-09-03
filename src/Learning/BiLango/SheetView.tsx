@@ -33,7 +33,7 @@ export default function SheetView(props : {readOnly?: boolean, id?: string, send
         
         fetch('/l/bi/' + props.id, reqHeaders).then(r => r.json())
         .then(data => {
-            console.log(data)
+            //console.log(data)
             setLoaded(true)
             setTitle(data.title)
             setPrimary(data.primary)

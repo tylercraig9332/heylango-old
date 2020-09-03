@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 export default function Preview(props : {sheet: any}) {
     if (props.sheet === undefined) return null
     return (
-        <div>
+        <div key={props.sheet._id}>
             <Link to={`/learn/bi/${props.sheet._id}`}>
                 <Card title={props.sheet.title} style={cardStyle} hoverable>
                     <Editor value={props.sheet.primary}  
