@@ -104,7 +104,7 @@ export default function Nav(props : any) {
             {
                 (logged) ? (loggedTabs) : unLoggedTabs
             }
-            {supportTab}
+            {/*supportTab*/}
         </Menu>
         </div>
     )
