@@ -37,12 +37,11 @@ async function update(from, body) {
     return await d
 }
 
-async function _delete(_id) {
-    let r = Resource.findByIdAndDelete(_id).then((err, doc) => {
-        if (err) return false
-        return true
+function _delete(_id, callback) {
+    Resource.findByIdAndDelete(_id).then((err, doc) => {
+        if (err) console.error(err)
+        callback(true)
     })
-    return await d
 }
 
 

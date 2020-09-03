@@ -7,6 +7,7 @@ import Avatar from '../User/Avatar'
 import IComment from './Comment'
 import { timeSince } from '../Util/functions'
 import User from '../User/User'
+import BadgePanel from '../User/Badge/Panel'
 
 type CommentComponentProps = {
     id?: string,
@@ -56,10 +57,18 @@ export default function Component(props : CommentComponentProps) {
         //<div style={actionStyle}><Reply onClick={() => setShowReply(!showReply)} reply/></div>
     ]
 
-    const title = <div><Link to={`/profile/${props.comment.author}`}>{username}</Link> {timeSince(dateToString(props.comment.createdAt))} ago</div> 
+    const title = (
+        <div style={{display: 'flex', alignItems: 'center'}}>
+            <Link to={`/profile/${props.comment.author}`}>{username}</Link>
+            <span style={{marginRight: '5px'}}></span>
+            {timeSince(dateToString(props.comment.createdAt))} ago 
+            <span style={{marginRight: '5px'}}></span>
+            <BadgePanel user_id={props.comment.author}/>
+        </div> 
+    )
 
     const commentBody = (editView) ? (
-        <div style={{maxWidth: 500}}>
+        <div style={{maxWidth: 1200}}>
             <TextArea value={props.comment.content} onChange={(e : any) => props.handleEdit(props.comment._id, e.currentTarget.value)}/>
         </div>
     ) : (

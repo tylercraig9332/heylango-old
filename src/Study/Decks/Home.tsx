@@ -3,6 +3,7 @@ import { Modal, Input, message } from 'antd'
 import CardButton from '../../Util/CardButton'
 import List from './List'
 import NewDeck from './Create'
+import NotLogged from '../../User/NotLogged'
 export default function Home() {
 
     const [newDeckView, setNewDeckView] = useState<boolean>(false)
@@ -36,6 +37,7 @@ export default function Home() {
         })
     }
 
+    if (window.sessionStorage.getItem('userId') === null || window.sessionStorage.getItem('userId') === '') return <NotLogged message="to view saved decks"/>
     return (
         <div>
             <h1>Decks</h1>

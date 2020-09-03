@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom'
 import { Input, Row, Col, Upload, Button, Icon, Cascader, Result } from 'antd'
 
 import Editor from '../Draft/DraftEditor'
+import { LanguageSelect } from '../Util/Select'
+import NotLogged from '../User/NotLogged'
 
 export default function Create() {
 
@@ -64,6 +66,7 @@ export default function Create() {
         )
     }
 
+    if (window.sessionStorage.getItem('userId') === null || window.sessionStorage.getItem('userId') === '') return <NotLogged message="to make a post"/>
     return (
         <div style={container}>
             <h1>Create New Post</h1>
@@ -72,17 +75,17 @@ export default function Create() {
                 <Input size="large" placeholder="title" onChange={(e) => setTitle(e.currentTarget.value)}/>
             </Row>
             <Row style={row} type="flex" justify="space-between">
-                <Col>
+                {/*<Col>
                     <Upload listType="picture">
                         <Button><Icon type="upload" /> Upload Preview Image (optional)</Button>
                     </Upload>
-                </Col>
-                <Col> 
-                        <Cascader 
-                            options={language.cascade} placeholder="Select Language Community" 
-                            style={{width: 275}} expandTrigger="hover"
-                            onChange={(e) => setCommunity(e[e.length - 1])}
+                </Col>*/}
+                <Col>
+                    <div style={{width: 300}}>
+                        <LanguageSelect 
+                            onChange={(e : any) => setCommunity(e)} value={community} placeholder={'Select Language Community'}
                         />
+                    </div> 
                 </Col>
             </Row>
             <Row style={row}>

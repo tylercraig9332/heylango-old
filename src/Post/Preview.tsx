@@ -15,7 +15,7 @@ export default function Preview(props : PostCardProps) {
 
     const toolbar = [
         <Like parent_id={post.id}/>, <Comment />,
-        <Save parent_id={post.id} parentType={'post'} />, <Share postID={post.id}/>, 
+        <Save parent_id={post.id} parentType={'post'} />, <Share parent_id={post.id} parentType='Post' />, 
         <EditOrUser postID={post.id} handleEdit={() => {
             window.location.href = `/community/p/${post.id}`}
         }/>

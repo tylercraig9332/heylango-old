@@ -29,13 +29,13 @@ export default function Engine(props : {parent_id : string}) {
                 return []
             }
         }).then(comments => {
-            console.log(comments)
+            //console.log(comments)
             setComments(comments)
         })
     }, [])
 
     function handleEdit(comment_id: string, content : string) {
-        console.log(comment_id, content)
+        //console.log(comment_id, content)
         // TODO: update the index of the comment with this id with the value
         let c = [...comments]
         c.forEach(comment => {
@@ -63,7 +63,7 @@ export default function Engine(props : {parent_id : string}) {
         let p = props.parent_id
         let a = window.sessionStorage.getItem('userId')
         let con = reply
-        console.log(p)
+        //console.log(p)
         if (parent !== undefined) {
             p = parent
         }
@@ -92,7 +92,7 @@ export default function Engine(props : {parent_id : string}) {
             },
             method: "POST"
         }
-        console.log(newComment)
+        //console.log(newComment)
         fetch('/com/', reqHeaders).then((res : Response) => {
             if (res.status === 200) return res.json()
             else  {

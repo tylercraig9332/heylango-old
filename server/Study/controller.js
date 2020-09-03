@@ -122,7 +122,7 @@ router.delete('/ex/:id', (req, res) => {
         res.status(400).send('User need to be logged in to perform this action')
         return
     }
-    Expression.delete(req.params.id).then(r => res.send(r))
+    Expression.delete(req.params.id, (r) => res.send(r))
 })
 .delete('/deck/ex/', (req, res) => {
     if (req.session.user === undefined) {

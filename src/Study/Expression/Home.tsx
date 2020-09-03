@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import List from './List'
-import {Link} from 'react-router-dom'
-import { message, Result, Button } from 'antd'
+import { message } from 'antd'
+import NotLogged from '../../User/NotLogged'
 
 export default function Home() {
 
@@ -17,15 +17,7 @@ export default function Home() {
         setLogged(t)
     }, [])
 
-    const extraComp = (
-        <Link to={'/portal'}>
-                <Button type="primary" key="portal">
-                    Login
-                </Button>
-        </Link>
-    )
-
-    if (!logged) return <Result title="Please Login to view saved words and expressions" extra={extraComp} />
+    if (!logged) return <NotLogged message={'to view saved words and expressions'}/>
     return (
         <div>
             <h1>Saved Words and Expressions</h1>
