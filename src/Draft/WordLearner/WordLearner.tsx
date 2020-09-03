@@ -110,7 +110,7 @@ export default function WordLearner(props : WordLearnerProps) {
     }, [focus])
 
     useEffect(() => {
-        if (pausePlay && mouseupevent === undefined) pausePlayVideo(highlight)
+        if (pausePlay && mouseupevent === undefined && props.readOnly) pausePlayVideo(highlight)
     }, [highlight])
 
     /** Takes in text and seperated it into blocks based on wordsPerBlock */

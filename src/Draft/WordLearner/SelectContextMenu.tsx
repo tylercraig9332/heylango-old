@@ -24,6 +24,7 @@ export default function SelectContextMenu(props : {event : any, clearEvent: any}
             props.clearEvent()
             return
         }
+        if (props.event === undefined) return
         const x = props.event.pageX
         const y = props.event.pageY
 

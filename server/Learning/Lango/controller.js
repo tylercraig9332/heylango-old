@@ -25,6 +25,9 @@ router.get('/', (req, res) => {
         case 'oldest':
             // TODO:
             break
+        case 'u':
+            body = {author: req.session.user.id}
+            break
         case 'all':
         default:
             body = {}
@@ -39,7 +42,22 @@ router.get('/', (req, res) => {
             let a = langos.sort((a,b) => {
                 return b.likes - a.likes
             })
-            console.log(a)
+            //console.log(a)
+            res.status(200).send(a)
+        }
+    })
+})
+.get('/list/u/:user_id', (req, res) => {
+    factory.read({author: req.params.user_id}).then((langos, err) => {
+        if (err) {
+            console.log(err)
+            res.status(400).send(err)
+        }
+        else {
+            let a = langos.sort((a,b) => {
+                return b.likes - a.likes
+            })
+            //console.log(a)
             res.status(200).send(a)
         }
     })

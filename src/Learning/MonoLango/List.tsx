@@ -29,12 +29,10 @@ export default function List(props : {by? : string}) {
     if (langos === undefined) return <Loading message="Loading Langos"/>
     if (langos.length === 0) return <Contribute />
     return (
-        <div>
+        <div style={{display: 'flex', flexWrap: 'wrap'}}>
             {langos.map((l : Lango) => {
                 return (
-                    <div key={l._id} style={{ height: 375}}>
-                        <LangoPreview lango={l} />
-                    </div>
+                    <LangoPreview lango={l} key={l._id}/>
                 )
             })}
         </div>

@@ -90,7 +90,16 @@ export function Save(props : {parent_id : string | undefined, parentType: string
     )
 }
 
-export function Share(props: {postID?: string}) {
+export function Share(props: {parent_id?: string, parentType?: string}) {
+    let link = window.location.host
+    switch (props.parentType) {
+        case 'Post':
+            link = `${window.location.host}/community/p/${props.parent_id}`
+            break;
+        case 'Lango':
+            link = `${window.location.host}/learn/lango/${props.parent_id}`
+            break;
+    }
     const inputRef = useRef<any>()
     function info() {
 
@@ -105,11 +114,11 @@ export function Share(props: {postID?: string}) {
         )
 
         Modal.info({
-          title: 'Share Post',
+          title: `Share ${props.parentType}`,
           content: (
             <div>
                 <br></br>
-                <Input ref={inputRef} size="large" value={`${window.location.host}/community/p/${props.postID}`}addonAfter={copyIcon} readOnly/>
+                <Input ref={inputRef} size="large" value={link} addonAfter={copyIcon} readOnly/>
             </div>
           ),
           onOk() {},

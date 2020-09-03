@@ -7,7 +7,7 @@ import Author from '../../User/Author'
 import PreviewImage from '../../Util/ResourcePreviewImage'
 import Loading from '../../Util/Loading'
 import { parseLanguageCode, parseLanguageFlag } from '../../Util/functions'
-import { Like, Save, EditOrUser } from '../../Toolbar/Icons'
+import { Like, Save, EditOrUser, Share } from '../../Toolbar/Icons'
 
 
 export default function LangoPreview(props : {lango : Lango}) {
@@ -17,6 +17,7 @@ export default function LangoPreview(props : {lango : Lango}) {
     const toolbar = [
         <Like parent_id={props.lango._id} />,
         <Save parent_id={props.lango._id} parentType='lango' />,
+        <Share parent_id={props.lango._id} parentType='Lango' />
     ]
 
     React.useEffect(() => {
@@ -29,10 +30,11 @@ export default function LangoPreview(props : {lango : Lango}) {
 
     if (!loaded) return <div style={wrapStyle}><Loading message="Loading Lango" /></div>
     return (
-        <div style={wrapStyle} key={props.lango._id}>
                 <Card 
                     actions={toolbar}
                     hoverable
+                    style={wrapStyle}
+                    key={props.lango._id}
                 >
                     <Link to={`/learn/lango/${props.lango._id}`} style={{color: 'inherit'}}>
                     <Row type="flex">
@@ -59,7 +61,6 @@ export default function LangoPreview(props : {lango : Lango}) {
                     </Row>
                     </Link>
                 </Card>
-        </div>
     )
 }
 
@@ -69,5 +70,5 @@ const wrapStyle = {
     maxWidth: '1000px',
     marginLeft: 'auto',
     marginRight: 'auto',
-    maxHeight: '300px'
+    //minHeight: '300px'
 }
