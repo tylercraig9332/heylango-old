@@ -3,6 +3,9 @@ const Like = require('../../Interaction/Like')
 
 function create(body) {
     let sheetObj = new Resource(body)
+    if (sheetObj.video_id.length > 0) {
+        sheetObj.imgSrc = `https://img.youtube.com/vi/${sheetObj.video_id}/sddefault.jpg`
+    }
     return sheetObj.save()
 }
 
