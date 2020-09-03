@@ -15,7 +15,7 @@ export default function LangoPreview(props : {lango : Lango}) {
     const [loaded, setLoaded] = useState<boolean>(false)
 
     const toolbar = [
-        <Like parent_id={props.lango._id} />,
+        <Like parent_id={props.lango._id} likes={props.lango.likes} />,
         <Save parent_id={props.lango._id} parentType='lango' />,
         <Share parent_id={props.lango._id} parentType='Lango' />
     ]

@@ -1,5 +1,6 @@
 const Like = require('./Like')
 const Save = require('./Save')
+const Lango = require('../Learning/Lango/LangoResource')
 
 function create_like(body) {
     // New Like
@@ -39,8 +40,15 @@ async function readOne(body) {
 }
 
 function _delete(body) {
-    Like.deleteMany(body, (err) => {
+    Like.findOneAndRemove(body, (err, doc) => {
         if (err) throw new Error(err)
+        Lango.exists({_id: doc.parent}, (err, res) => {
+            if (res) {
+                Lango.updateOne({_id: doc.parent}, {$inc: {'likes': -1}}).exec((err, doc) => {
+                    if (err) console.error(err)
+                })
+            }
+        })
     })
 }
 

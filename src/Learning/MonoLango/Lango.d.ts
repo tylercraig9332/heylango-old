@@ -9,7 +9,8 @@ interface Lango {
     audio?: any,
     video_id?: string,
     imageSrc? : string,
-    difficulty?: string
+    difficulty?: string,
+    likes?: number
 }
 
 export default Lango

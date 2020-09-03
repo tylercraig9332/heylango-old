@@ -7,7 +7,7 @@ const iconStyle = {fontSize: 20}
 
 const likedStyle = {fontSize: 20, color: '#1890ff'}
 
-export function Like(props : {parent_id? : string, onClick? : any}) {
+export function Like(props : {parent_id? : string, onClick? : any, likes?: number}) {
 
     const [liked, like] = useState<boolean>(false)
 
@@ -40,7 +40,7 @@ export function Like(props : {parent_id? : string, onClick? : any}) {
 
     return (
         <Tooltip title={(liked) ? "Liked!" : "Like"}>
-            <Icon type="heart" theme={(liked) ? "filled" : "outlined"} onClick={handleLike} style={(liked) ? likedStyle : iconStyle}/>
+            <Icon type="heart" theme={(liked) ? "filled" : "outlined"} onClick={handleLike} style={(liked) ? likedStyle : iconStyle}/> {props.likes}
         </Tooltip>
     )
 }

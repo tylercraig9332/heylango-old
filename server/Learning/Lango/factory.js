@@ -23,17 +23,17 @@ async function readMany(body, page, callback) {
     const options = {
         skip: (page - 1) * 7,
         limit: 7, 
-        sort: {_id: 'desc'}
+        sort: {likes: 'desc'}
     }
     let d = await Resource.find(body, null, options, async (err, langos) => {
-        let proms = langos.map(async (doc) => {
+        /*let proms = langos.map(async (doc) => {
             let counts = await Like.countDocuments({parent: doc._id}, (err, doc) => {
                 if (err) console.error(err)
             })
             return {...doc.toObject(), likes: counts}
         })
-        let newDocs = await Promise.all(proms)
-        callback(newDocs, err)
+        let newDocs = await Promise.all(proms)*/
+        callback(langos, err)
     })
 }
 
