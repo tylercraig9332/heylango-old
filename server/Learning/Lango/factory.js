@@ -44,13 +44,11 @@ async function readOne(body) {
     return doc
 }
 
-async function update(id, body) {
-    // We may want to pull the id out and append it to the body
-    let d = Resource.findOneAndUpdate(id, body, (err, doc) => {
+function update(by, body, callback) {
+    Resource.updateOne(by, body, (err, doc) => {
         if (err) throw new Error(err)
-        return doc
+        callback(err, doc)
     })
-    return await d
 }
 
 async function _delete(id) {

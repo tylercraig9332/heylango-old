@@ -6,7 +6,7 @@ const LangoScheme = mongoose.Schema({
     description: {type: String, required: true},
     language: {type: String, required: true},
     author: {type: mongoose.Types.ObjectId, required: true},
-    imageSrc: {type: String, default: ''},
+    imgSrc: {type: String, default: ''},
     alternateContent: {type: String},
     audio: {type: Buffer},
     video_id: {type: String},

@@ -39,7 +39,7 @@ export default function LangoPreview(props : {lango : Lango}) {
                     <Link to={`/learn/lango/${props.lango._id}`} style={{color: 'inherit'}}>
                     <Row type="flex">
                         <Col span={3}>
-                            <PreviewImage src={props.lango.imageSrc} />
+                            <PreviewImage src={props.lango.imgSrc} />
                         </Col>
                         <Col>
                             <Row type="flex" justify="start" align='middle'>

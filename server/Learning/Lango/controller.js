@@ -84,6 +84,19 @@ router.post('/', (req, res) => {
     .catch(err => res.status(400).send(err))
 })
 
+router.put('/:id', (req, res) => {
+    if (req.session.user === undefined) {
+        res.status(400).send('User need to be logged in to perform this action')
+        return
+    }
+    factory.update({_id: req.params.id, author: req.session.user.id}, req.body, (err, r) => {
+        if (err) res.status(400).send(err)
+        else {
+            res.send(req.params.id)
+        }
+    })
+})
+
 router.delete('/:id', (req, res) => {
     // TODO: test
     factory._delete(req.params.id).then(response => {

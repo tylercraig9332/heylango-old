@@ -33,6 +33,7 @@ export default function Create() {
     function extract(e : Object) {
         // saves the local object to prepare it for the save
         // I also might want to make a handler to save this object to the local session
+        console.log(e)
         setlangoSheet(e)
     }
 

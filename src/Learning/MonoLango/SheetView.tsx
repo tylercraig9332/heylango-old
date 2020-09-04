@@ -25,10 +25,10 @@ const uploadProps = {
     },
   };
 
-export default function SheetView(props :  {readOnly?: boolean, send? : any, id?: string}) {
+export default function SheetView(props :  {readOnly?: boolean, send? : any, id?: string, receive?: any}) {
 
 
-    const [enablePreview, setPreview] = useState<boolean>(false)
+    const [enablePreview, setPreview] = useState<boolean>(true)
     const [enableImageModal, setImageModal] = useState<boolean>(false)
     const [previewComplete, setPreviewComplete] = useState<boolean>(false)
     
@@ -39,6 +39,28 @@ export default function SheetView(props :  {readOnly?: boolean, send? : any, id?
     const [difficulty, setDifficulty] = useState<string>()
     const [video_id, setVideo_id] = useState<string>()
     const [imgSrc, setImgSrc] = useState<string>()
+
+    useEffect(() => {
+        console.log(props.receive)
+        if (props.receive !== undefined && props.receive.content !== '') {
+            setPreview(true)
+        } else {
+            setPreview(false)
+        }
+    }, [])
+
+    useEffect(() => {
+        if (props.receive === undefined || props.receive.title === undefined || props.receive.content === '') return
+        setContent(props.receive.content)
+        setTitle(props.receive.title)
+        setDescription(props.receive.description)
+        setLanguage(props.receive.language)
+        setDifficulty(props.receive.difficulty)
+        setVideo_id(props.receive.video_id)
+        setImgSrc(props.receive.imgSrc)
+        setPreviewComplete(true)
+        //setPreview(false)
+    }, [props.receive])
 
     useEffect(() => {
         if (!props.readOnly && props.send != undefined) {
@@ -89,7 +111,7 @@ export default function SheetView(props :  {readOnly?: boolean, send? : any, id?
             <div style={{paddingRight: 10, display: 'flex', justifyContent: 'start'}}>
                 <Row type="flex" justify="start" align="middle">
                     <Col span={14}>
-                        <CompanionVideo onChange={setVideo_id}/>
+                        <CompanionVideo onChange={setVideo_id} value={video_id}/>
                     </Col>
                     {/*<Col span={2}>
                         Or

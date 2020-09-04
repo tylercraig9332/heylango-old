@@ -8,7 +8,7 @@ interface Lango {
     alternateContent?: string
     audio?: any,
     video_id?: string,
-    imageSrc? : string,
+    imgSrc? : string,
     difficulty?: string,
     likes?: number
 }

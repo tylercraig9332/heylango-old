@@ -20,10 +20,11 @@ import lHome from './Learning/Home'
 import biView from './Learning/BiLango/View'
 import biCreate from './Learning/BiLango/Create'
 import biHome from './Learning/BiLango/Home'
-import vidView from './Learning/VidLango/View'
+
 import mHome from './Learning/MonoLango/Home'
 import mCreate from './Learning/MonoLango/Create'
 import mView from './Learning/MonoLango/View'
+import mEdit from './Learning/MonoLango/Edit'
 
 import sHome from './Study/Home'
 import dHome from './Study/Decks/Home'
@@ -54,27 +55,34 @@ export default function Routes() {
                         <Route path='/community/p/new/' component={pCreate} />
                         <Route path='/community/p/' component={pView} />
                         <Route path='/community/' component={cView} />
+
                         <Route path='/portal' component={Portal} />
                         <Route path='/signup' component={Signup} />
                         <Route path='/logout' component={Logout} />
                         <Route path='/profile' component={Profile} />
-                        <Route path='/test' component={Test} />
                         <Route exact path='/settings' component={Settings} />
+
+                        <Route path='/test' component={Test} />
+                        
                         <Route exact path='/support' component={Support} />
+
                         <Route exact path='/learn/' component={lHome} />
                         {/*<Route exact path='/learn/bi/new' component={biCreate} />*/}
                         <Route exact path='/learn/bi/' component={biHome} />
                         <Route path='/learn/bi/' component={biView} />
-                        <Route path='/learn/vid/' component={vidView} />
+
                         <Route exact path='/learn/lango/home/' component={mHome} />
                         <Route path='/learn/lango/create' component={mCreate} />
-                        <Route path='/learn/lango/' component={mView} />/
+                        <Route path='/learn/lango/edit' component={mEdit} />
+                        <Route path='/learn/lango/' component={mView} />
+
                         <Route exact path='/study/' component={sHome} />
                         <Route exact path='/study/decks/' component={dHome} />
                         <Route path='/study/decks/review' component={dPresent} />
                         <Route path='/study/decks/' component={dView} />
                         <Route exact path='/study/saved/' component={sHome} />
                         <Route exact path='/study/decks/' component={eHome} />
+                        
                         <Route exact path='/info' component={iHome} />
                         <Route exact path='/info/lango' component={iLango} />
                         <Route exact path='/info/ip' component={iInteraction} />

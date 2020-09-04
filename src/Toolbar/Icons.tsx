@@ -27,6 +27,10 @@ export function Like(props : {parent_id? : string, onClick? : any, likes?: numbe
 
     function handleLike() {
         // send or remove like to server
+        if (window.sessionStorage.getItem('logged') != 'true') {
+            message.info('You are not logged in')
+            return
+        }
         const reqHeaders = {
             body: JSON.stringify({parent: props.parent_id}),
             headers: {

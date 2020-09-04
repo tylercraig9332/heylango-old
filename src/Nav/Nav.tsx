@@ -75,7 +75,7 @@ export default function Nav(props : any) {
     )
 
     const learnTab = (
-        <SubMenu title={<Link to='/learn/' style={{color: 'inherit'}}>Learning Library</Link>}>
+        <SubMenu title={<Link to='/learn/lango/home' style={{color: 'inherit'}}>Learning Library</Link>}>
             <Item key="/learn/lango"><Link to="/learn/lango/home">Native Content | Langos</Link></Item>
             <Item key="/learn/bi"><Link to="/learn/bi">Bilingual Content | BiLangos</Link></Item>
         </SubMenu>
@@ -104,7 +104,7 @@ export default function Nav(props : any) {
             {
                 (logged) ? (loggedTabs) : unLoggedTabs
             }
-            {/*supportTab*/}
+            {supportTab}
         </Menu>
         </div>
     )

@@ -36,6 +36,8 @@ export default function View() {
 
     function edit() {
         // TODO: redirect to an edit page that will load this lango to be edited
+        if (lango === undefined) return
+        window.location.href = `/learn/lango/edit/${lango._id}`
     }
 
     if (lango === undefined) return <Loading message="Loading Lango"/>
@@ -56,7 +58,7 @@ export default function View() {
                 </div>
                 <div style={{display: 'flex', justifyContent: 'space-between', width: 50}}>
                     <Like parent_id={lango._id} />
-                    <EditOrAdmin handleEdit={edit} editView={false} parent={lango._id} parentType={'Lango'}/>
+                    <EditOrAdmin handleEdit={edit} editView={false} parent={lango._id} parentAuthor={lango.author} parentType={'Lango'}/>
                 </div>
             </div>
             {langoVideo}

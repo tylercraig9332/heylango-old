@@ -3,8 +3,11 @@ import List from './List'
 import {Link} from 'react-router-dom'
 import {Button, Pagination} from 'antd'
 import {LanguageSelect, CEFRSelect} from '../../Util/Select'
+import Loading from '../../Util/Loading'
 
 export default function Home() {
+
+    const [loaded, setLoaded] = useState<boolean>(false)
 
     const [filter, setFilter] = useState<string>('/all')
     const [sort, setSort] = useState<string>('popular')
@@ -13,17 +16,29 @@ export default function Home() {
     const [page, setPage] = useState<number>(1)
 
     useEffect(() => {
+        let l = window.sessionStorage.getItem('LangoLanguage')
+        console.log(l)
+        if (l === null) {
+            l = 'all'
+        }
+        setLangauge(l)
+        setLoaded(true)
+    }, [])
+
+    useEffect(() => {
+        window.sessionStorage.setItem('LangoLanguage', language)
         const f  = `/${sort}/${language}/${difficulty}/${page}`
         setFilter(f)
     }, [difficulty, language, sort, page])
 
+    if (!loaded) return <Loading message="Loading Lango Browser.." />
     return (
         <div style={container}>
             <h2>Browse Langos</h2>
             <hr></hr>
             <div style={toolbar}>
                 <div style={{width: 300, marginRight: 10}}>
-                    <LanguageSelect onChange={(l : any) => setLangauge(l)}/>
+                    <LanguageSelect value={language} onChange={(l : any) => setLangauge(l)}/>
                 </div>
                 <div style={{width: 300, marginRight: 10}}>
                     <CEFRSelect onChange={(d : any) => {
