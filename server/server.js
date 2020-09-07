@@ -13,20 +13,20 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }))
-app.use('/static', express.static('./public'));
+app.use('/static', express.static('./Static'));
 
 const port = process.env.PORT || 8080
 
-const cRouter = require('./server/Community/controller')
-const pRouter = require('./server/Post/controller')
-const uRouter = require('./server/User/controller')
-const iRouter = require('./server/Interaction/controller')
-const lBiRouter = require('./server/Learning/BiLango/controller')
-const lMRouter = require('./server/Learning/Lango/controller')
-const comRouter = require('./server/Comment/controller')
-const sRouter = require('./server/Study/controller')
-const adminRouter = require('./server/Admin/controller')
-const badgeRouter = require('./server/Badge/controller')
+const cRouter = require('./Community/controller')
+const pRouter = require('./Post/controller')
+const uRouter = require('./User/controller')
+const iRouter = require('./Interaction/controller')
+const lBiRouter = require('./Learning/BiLango/controller')
+const lMRouter = require('./Learning/Lango/controller')
+const comRouter = require('./Comment/controller')
+const sRouter = require('./Study/controller')
+const adminRouter = require('./Admin/controller')
+const badgeRouter = require('./Badge/controller')
 
 app.use('/c', cRouter)
 app.use('/p', pRouter)
