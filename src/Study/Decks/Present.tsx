@@ -1,8 +1,9 @@
 import React, { useState, useEffect, CSSProperties } from 'react'
 import ICard from './ICard'
-import CardView from './CardView'
+import CardView from './Components/CardView'
 
 import { Tooltip, Icon, Switch } from 'antd'
+import SRSBanner from './Components/SRSBanner'
 
 
 export default function Present(props : {deck?: ICard[]}) {
@@ -43,6 +44,10 @@ export default function Present(props : {deck?: ICard[]}) {
                         <Icon type="caret-right" className="icon" onClick={() => updateCurrent(current + 1)}/>
                     </Tooltip>
                 </div>
+            </div>
+            <div className="srsRow">
+                {/* TODO: Add SRS banner here */}
+                <SRSBanner deck={deck} current={current} onChange={() => updateCurrent(current + 1)}/>
             </div>
         </div>
     )

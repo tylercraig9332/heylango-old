@@ -4,7 +4,7 @@ import List from '../Expression/List'
 import Loading from '../../Util/Loading'
 import IDeck from './Deck'
 import { message, Button, Icon, Tooltip } from 'antd'
-import EditModal from './EditModal'
+import EditModal from './Components/EditModal'
 
 export default function View(props : {deck_id? : string}) {
 

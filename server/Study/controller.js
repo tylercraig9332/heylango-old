@@ -50,7 +50,7 @@ router.get('/ex/', (req, res) => {
 })
 .get('/deck/ex/:deck_id', (req, res) => {
     Expression.readDeck(req.params.deck_id, (docs) => {
-        console.log(docs)
+        //console.log(docs)
         res.send(docs)
     })
 })
@@ -91,7 +91,17 @@ router.post('/ex/', (req, res) => {
     //res.send(already)
 })
 
-router.patch('/ex/:id', (req, res) => {
+router.patch('/ex/strength', (req, res) => {
+    if (req.session.user === undefined) {
+        res.status(400).send('User need to be logged in to perform this action')
+        return
+    }
+    Expression.adjustStrength(req.body, (err, response) => {
+        if (err) res.status(400)
+        res.send(response)
+    })
+})
+.patch('/ex/:id', (req, res) => {
     if (req.session.user === undefined) {
         res.status(400).send('User need to be logged in to perform this action')
         return

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import IDeck from './Deck'
+import IDeck from '../Deck'
 import { Modal, Input, Button, Popconfirm, message } from 'antd'
 
 export default function EditModal(props : {deck: IDeck, visible: boolean, onClose: any}) {

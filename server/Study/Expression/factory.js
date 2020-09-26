@@ -44,11 +44,51 @@ function _delete(_id, callback) {
     })
 }
 
+function adjustStrength(body, callback) {
+    console.log('adjusting strength', body)
+    Resource.findById(body._id).exec((err, sex) => {
+        if (err || sex === null) {
+            console.error(err)
+            callback(err, 'Failed to find expression')
+        } else {
+            let s = sex.strength // load the previous saved expression's strength
+            if (s === undefined || s === null) s = 50 // This allows data before this update to be updated.
+            switch (body.grade) { // Update based on grade
+                case 'a':
+                    s += 10
+                    break;
+                case 'b':
+                    s += 5
+                    break;
+                case 'c':
+                    s += 1
+                    break;
+                case 'd':
+                    s -= 5
+                    break;
+                case 'f':
+                    s -= 10
+                    break;
+                default: // don't change s
+                    break; 
+            }
+            if (s < 1) s = 1 // Ensure that strength doesn't get below 1
+            // TODO: multiply by some factor of last updated.. So if last updated was a year a go multiply this value by a big number so it comes up way later/sooner
+            sex.strength = s
+            sex.save(null, (err, newSex) => {
+                console.log(newSex)
+                callback(err, 'Strength Updated!')
+            })
+        }
+    })
+}
+
 
 module.exports = {
     create,
     read,
     readDeck,
     update,
-    delete: _delete
+    delete: _delete,
+    adjustStrength
 }

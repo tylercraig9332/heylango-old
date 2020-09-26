@@ -36,14 +36,19 @@ export default function List(props : {by? : string, type? : string, onRemove?: a
             if (res.status !== 200) message.error(res.statusText) 
             return res.json()
         }).then(exp => {
-            const tableData = exp.map((exp : Expression , i : number) => {
-                    return {
-                        key: exp._id,
-                        expression: exp.value,
-                        translation: exp.translation,
-                        language: parseLanguageCode(exp.language)
-                    }
-                })
+            let tableData : Expression[] = []
+            // Had to use a for loop in the case that an expression get corrupted (a map returns undefined values if nothing is returned; for loop allows me to skip corrupted values)
+            for (let i = 0; i < exp.length; i++) {
+                if (exp[i] === null) continue 
+                let p = {
+                    ...exp[i],
+                    key: exp[i]._id,
+                    strength: (exp[i].strength === undefined) ? 50 : exp[i].strength,
+                    language: parseLanguageCode(exp[i].language),
+                }
+                tableData.push(p)
+            }
+            console.log(tableData)
             setLoading(false)
             setExpressions(tableData)
             setExpressRefresh(false)
@@ -56,7 +61,7 @@ export default function List(props : {by? : string, type? : string, onRemove?: a
                 <Button onClick={() => {
                     console.log(expression)
                     setEditModal(true)
-                    setEditValue(expression.expression)
+                    setEditValue(expression.value)
                     setEditLanguage(expression.language)
                     setEditTranslation(expression.translation)
                     setEdit_id(expression.key)     
@@ -68,7 +73,7 @@ export default function List(props : {by? : string, type? : string, onRemove?: a
     const tableHeaders = [
         {
             title: 'Word / Expression',
-            dataIndex: 'expression',
+            dataIndex: 'value',
             key: 'expression'
         },
         {

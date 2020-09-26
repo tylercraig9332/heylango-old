@@ -1,0 +1,79 @@
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    min-width: 80px;
+    height: 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition: all .3s cubic-bezier(.645,.045,.355,1);
+    cursor: pointer;
+    border-radius: 4px;
+    
+  }
+  
+  .btn-green {
+    background-color: white; 
+    color: #4CAF50; 
+    border: 2px solid #4CAF50;
+  }
+  
+  .btn-green:hover {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .btn-blue {
+    background-color: white; 
+    color: #1890ff; 
+    border: 2px solid #1890ff;
+  }
+  
+  .btn-blue:hover {
+    background-color: #1890ff;
+    color: white;
+  }
+  
+  .btn-red {
+    background-color: white; 
+    color: #f44336; 
+    border: 2px solid #f44336;
+  }
+  
+  .btn-red:hover {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .btn-neut {
+    background-color: white;
+    color: #85929e ;
+    border: 2px solid #85929e;
+  }
+  
+  .btn-neut:hover {background-color: #85929e; color: white}
+  
+  .btn-rorange {
+    background-color: white;
+    color: #FF4500;
+    border: 2px solid #FF4500;
+  }
+  
+  .btn-rorange:hover {
+    background-color: #FF4500;
+    color: white;
+  }
+
+  .btn-purple {
+    background-color: white;
+    color: #a569bd;
+    border: 2px solid #a569bd ;
+  }
+  
+  .btn-purple:hover {
+    background-color: #a569bd ;
+    color: white;
+  }
