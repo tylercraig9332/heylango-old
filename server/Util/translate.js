@@ -1,6 +1,6 @@
 const {TranslationServiceClient} = require('@google-cloud/translate');
 const gcloud = require('./gcloud.json')
-const translationClient = new TranslationServiceClient({keyFile: './server/Util/gcloud.json'});
+const translationClient = new TranslationServiceClient({keyFile: './Util/gcloud.json'});
 
 async function translateText(text, targetCode) {
     const p_id = gcloud.project_id
