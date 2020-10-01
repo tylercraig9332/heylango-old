@@ -8,4 +8,8 @@ const ExpressionScheme = mongoose.Schema({
     strength: {type: Number, default: 50, min: 1}
 })
 
+ExpressionScheme.pre('remove', function(next) {
+    this.model('DeckExpression').remove({expression: this._id}, next)
+})
+
 module.exports = mongoose.model('Expression', ExpressionScheme)

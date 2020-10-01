@@ -18,7 +18,11 @@ async function read(body) {
 async function readDeck(deck_id, callback) {
     await DeckExpression.find({deck: deck_id}, async (err, docs) => {
         const expPromiseArray = docs.map((doc) => {
-            return Resource.findOne({_id: doc.expression}, (err, doc) => {
+            return Resource.findOne({_id: doc.expression}, (err, exp) => {
+                if (exp == null) {
+                    console.error('DeckExpression Corruption')
+                    console.log(doc)
+                }
                 if (err) throw new Error(err)
             }).exec()
         })

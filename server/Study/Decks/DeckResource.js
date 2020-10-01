@@ -6,4 +6,8 @@ const DeckScheme = mongoose.Schema({
     author: {type: mongoose.Types.ObjectId, required: true}
 })
 
+DeckScheme.pre('remove', function(next) {
+    this.model('DeckExpression').remove({expression: this._id}, next)
+})
+
 module.exports = mongoose.model('Deck', DeckScheme)

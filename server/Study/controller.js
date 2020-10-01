@@ -6,12 +6,19 @@ const translateText = require('../Util/translate.js')
 const Deck = require('./Decks/factory')
 const DeckExpression = require('./Decks/DeckExpressionRelation')
 
-router.get('/ex/', (req, res) => {
+const sortFn = require('./Expression/expSortFn')
+
+router.get('/ex/:sort?', (req, res) => {
     if (req.session.user === undefined) {
         res.status(400).send('User need to be logged in to perform this action')
         return
     }
-    Expression.read({author: req.session.user.id}).then(exps => res.send(exps))
+    Expression.read({author: req.session.user.id}).then(exps => {
+        s = req.params.sort
+        if (s === undefined) s = 'language'
+        exps.sort(sortFn.sort(s))
+        res.send(exps)
+    })
 })
 .get('/ex/t/:text/to/:to', (req, res) => {
     // Instantiates a client
@@ -48,9 +55,10 @@ router.get('/ex/', (req, res) => {
         res.status(400).send(err)
     })
 })
-.get('/deck/ex/:deck_id', (req, res) => {
+.get('/deck/ex/:deck_id/:sort?', (req, res) => {
     Expression.readDeck(req.params.deck_id, (docs) => {
-        //console.log(docs)
+        // Sorts the deck based on given sort function name, sorts weak by default
+        docs.sort(sortFn.sort(req.params.sort))
         res.send(docs)
     })
 })

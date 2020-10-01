@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Children } from 'react'
 import Expression from './Expression'
-import { message, Table, Button, Modal, Icon, Input, Popconfirm, Tooltip } from 'antd'
+import { message, Table, Button, Modal, Icon, Input, Popconfirm, Tooltip, Select, Cascader } from 'antd'
 import {parseLanguageCode} from '../../Util/functions'
 import DeckModal from './DeckModal'
 import Loading from '../../Util/Loading'
+
+const { Option } = Select
 
 export default function List(props : {by? : string, type? : string, onRemove?: any}) {
 
@@ -21,10 +23,11 @@ export default function List(props : {by? : string, type? : string, onRemove?: a
     const [deckModalView, setDeckModalView] = useState<boolean>(false)
 
     const [loading, setLoading] = useState<boolean>(true)
+    const [sortBy, setSort] = useState<string>('weak')
 
 
     useEffect(() => {
-        let by = (props.by === undefined) ? '/s/ex/' : props.by
+        let by = (props.by === undefined) ? '/s/ex' : props.by
         if (expressRefresh === false) return
         const reqHeaders = {
             headers: {
@@ -32,7 +35,7 @@ export default function List(props : {by? : string, type? : string, onRemove?: a
             },
             method: "GET"
         }
-        fetch(by, reqHeaders).then(res => {
+        fetch(by + `/${sortBy}`, reqHeaders).then(res => {
             if (res.status !== 200) message.error(res.statusText) 
             return res.json()
         }).then(exp => {
@@ -54,46 +57,6 @@ export default function List(props : {by? : string, type? : string, onRemove?: a
             setExpressRefresh(false)
         })
     }, [expressRefresh])
-
-    const actionComponent = (expression : any) => {
-        return (
-            <Tooltip title="Edit">
-                <Button onClick={() => {
-                    console.log(expression)
-                    setEditModal(true)
-                    setEditValue(expression.value)
-                    setEditLanguage(expression.language)
-                    setEditTranslation(expression.translation)
-                    setEdit_id(expression.key)     
-                }}><Icon type="edit" /></Button>
-            </Tooltip>
-
-    )}
-
-    const tableHeaders = [
-        {
-            title: 'Word / Expression',
-            dataIndex: 'value',
-            key: 'expression'
-        },
-        {
-            title: 'Meaning / Translation',
-            dataIndex: 'translation',
-            key: 'translation'
-        },
-        {
-            dataIndex: '',
-            title: 'Edit',
-            key: 'edit',
-            width: '20px',
-            render: (t : any) =>  <div>{actionComponent(t)}</div>
-        },
-        {
-            title: 'Language',
-            dataIndex: 'language',
-            key: 'language'
-        }
-    ]
 
     function saveWord() {
         // TODO: save edits made
@@ -169,12 +132,100 @@ export default function List(props : {by? : string, type? : string, onRemove?: a
         <Button onClick={() => setDeckModalView(true)}>Add Selected to Flashcard Deck</Button>
     )
 
+    const sort = (option : any) => {
+        console.log(option)
+        let o = option[0]
+        if (option[0] === 'strength' || option[0] === 'age') o = option[1]
+        setSort(o)
+        setExpressRefresh(true)
+    }
+
+    const actionComponent = (expression : any) => {
+        return (
+            <Tooltip title="Edit">
+                <Button onClick={() => {
+                    console.log(expression)
+                    setEditModal(true)
+                    setEditValue(expression.value)
+                    setEditLanguage(expression.language)
+                    setEditTranslation(expression.translation)
+                    setEdit_id(expression.key)     
+                }}><Icon type="edit" /></Button>
+            </Tooltip>
+
+    )}
+
+    const tableHeaders = [
+        {
+            title: 'Word / Expression',
+            dataIndex: 'value',
+            key: 'expression'
+        },
+        {
+            title: 'Meaning / Translation',
+            dataIndex: 'translation',
+            key: 'translation'
+        },
+        {
+            dataIndex: '',
+            title: 'Edit',
+            key: 'edit',
+            width: '20px',
+            render: (t : any) =>  <div>{actionComponent(t)}</div>
+        },
+        {
+            title: 'Language',
+            dataIndex: 'language',
+            key: 'language'
+        }
+    ]
+
+    const filterOptions = [
+        {
+            value: 'strength',
+            label: 'Stength',
+            children: [
+                {
+                    value: 'weak',
+                    label: 'Weakest'
+                },
+                {
+                    value: 'strong',
+                    label: 'Strongest'
+                }
+            ]
+        },
+        {
+            value: 'age',
+            label: 'Age',
+            children: [
+                {
+                    value: 'young',
+                    label: 'Newest'
+                },
+                {
+                    value: 'old',
+                    label: 'Oldest'
+                }
+            ]
+        },
+        {
+            value: 'language',
+            label: 'Language'
+        }
+    ]
+
     
     if (loading) return <Loading message="Loading Expressions" />
     return (
         <div>
-            <div style={{display: 'flex', marginBottom: '10px'}}>
-                {addRemove}
+            <div id="actionToolbar" style={{display: 'flex', justifyContent: 'space-between'}}>
+                <div id="left" style={{display: 'flex', marginBottom: '10px'}}>
+                    {addRemove}
+                </div>
+                <div id="right">
+                    <Cascader placeholder='Sort By' style={{width: 200}} onChange={(e) => sort(e)} options={filterOptions} />
+                </div>
             </div>
             <Table dataSource={expressions} columns={tableHeaders} rowSelection={rowSelection} bordered/>
             <div style={{display: 'flex', marginTop: '-50px'}}>
