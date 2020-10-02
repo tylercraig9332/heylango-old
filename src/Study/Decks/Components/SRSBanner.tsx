@@ -31,16 +31,25 @@ export default function SRSBanner(props : {deck : ICard[], current : number, onC
         })
     }
 
+    const srsFaq = (
+        <div>
+            <h3>Spaced Repition Toolbar</h3>
+            <p style={{marginBottom: 0}}>As you rate a word/expression, its strength/weakness will adjust allowing for use in</p>
+            <p style={{marginBottom: 0}}>our Spaced Repition System (SRS). SRS will determine how often the expression comes back up when reviewing.</p>
+            <p style={{marginBottom: 5}}>The easier you rate the word, the less frequently it will appear, and vise versa.</p>
+            <p><Link to="/info/src">More Info</Link></p>
+        </div>
+    )
+
+    const srsFaq2 = (
+        <div>
+            <h3>Spaced Repition Toolbar</h3>
+        </div>
+    )
+
     return (
         <div style={containerStyle}>
-            <p style={{margin: 0}}>SRS <Popover content={
-                <div>
-                    <h3>Spaced Repition Toolbar</h3>
-                    <p style={{marginBottom: 0}}>How you feel about a word will determine how often it comes back up.</p>
-                    <p style={{marginBottom: 5}}>The easier the word, the less frequently it will appear, and vise versa.</p>
-                    <p><Link to="/info/src">More Info</Link></p>
-                </div>
-            }><Icon type="question-circle" /></Popover>
+            <p style={{margin: 0}}>SRS <Popover content={srsFaq}><Icon type="question-circle" /></Popover>
             </p>
             <div style={buttonToolbarStyle}>
                 
