@@ -37,7 +37,7 @@ export default function SRSBanner(props : {deck : ICard[], current : number, onC
             <p style={{marginBottom: 0}}>As you rate a word/expression, its strength/weakness will adjust allowing for use in</p>
             <p style={{marginBottom: 0}}>our Spaced Repition System (SRS). SRS will determine how often the expression comes back up when reviewing.</p>
             <p style={{marginBottom: 5}}>The easier you rate the word, the less frequently it will appear, and vise versa.</p>
-            <p><Link to="/info/src">More Info</Link></p>
+            <p><Link to="/info/srs">More Info</Link></p>
         </div>
     )
 

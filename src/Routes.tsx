@@ -35,6 +35,7 @@ import eHome from './Study/Expression/Home'
 import iHome from './pages/Info/Home'
 import iLango from './pages/Info/Lango'
 import iInteraction from './pages/Info/Interaction'
+import iSRS from './pages/Info/SRS'
 
 import Test from './pages/Test'
 import Support from './pages/Support'
@@ -86,6 +87,7 @@ export default function Routes() {
                         <Route exact path='/info' component={iHome} />
                         <Route exact path='/info/lango' component={iLango} />
                         <Route exact path='/info/ip' component={iInteraction} />
+                        <Route exact path='/info/srs' component={iSRS} />
                     </Switch>
                 </AppWrap>
             </div>

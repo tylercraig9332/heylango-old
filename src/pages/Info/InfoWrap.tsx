@@ -1,21 +1,16 @@
 import React from 'react'
-import { Typography, Divider, Row, Col } from 'antd';
-import { Link } from 'react-router-dom'
+import { Row, Col } from 'antd';
 
-const { Title, Paragraph, Text } = Typography;
-
-export default function Home() {
+/**
+ *  Wrap content in this to display the books background used in info pages
+ * @param props children required
+ */
+export default function InfoWrap(props: any) {
     return (
         <div style={pageStyle}>
             <Row style={rowStyle}>
                 <Col span={6} offset={6} style={colStyle}>
-                    <Title>FAQ Home</Title>
-                    <Paragraph>
-                        <ul>
-                            <li><Link to="/info/lango#what">What are Langos?</Link> / <Link to="/info/lango#how">How do I use Langos?</Link> / <Link to="/info/lango#read">What is extensive and intensive reading?</Link></li>
-                            <li><Link to="/info/srs">What is SRS?</Link></li>
-                        </ul>
-                    </Paragraph>
+                    {props.children}
                 </Col>
             </Row>
     </div>
@@ -23,7 +18,7 @@ export default function Home() {
 }
 
 const pageStyle = {
-    backgroundImage: 'url(/static/louis-pellissier-unsplash.jpg)',
+    backgroundImage: 'url(/static/info/patrick-tomasso-lango.jpg)', // louis-pellissier-unsplash.jpg
     top: 0,
     left: 0,
     position: 'fixed',
