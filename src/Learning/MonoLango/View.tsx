@@ -54,7 +54,7 @@ export default function View() {
             </div>
             <div style={langoHeader}>
                 <div>
-                    <Author />
+                    <Author user_id={lango.author}/>
                 </div>
                 <div style={{display: 'flex', justifyContent: 'space-between', width: 50}}>
                     <Like parent_id={lango._id} />
