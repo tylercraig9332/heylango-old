@@ -14,6 +14,7 @@ export default function Home() {
                         <ul>
                             <li><Link to="/info/lango#what">What are Langos?</Link> / <Link to="/info/lango#how">How do I use Langos?</Link> / <Link to="/info/lango#read">What is extensive and intensive reading?</Link></li>
                             <li><Link to="/info/srs">What is SRS?</Link></li>
+                            <li><Link to="/info/cefr#what">What does A1, A2, B1, B2, C1, C2 mean? </Link> / <Link to="/info/cefr#how"> How do I know which CEFR level I am?</Link></li>
                         </ul>
                     </Paragraph>
                 </Col>
