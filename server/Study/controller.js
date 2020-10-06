@@ -24,6 +24,7 @@ router.get('/ex/:sort?', (req, res) => {
     // Instantiates a client
     //console.log(gcloud)
     //console.log('translating...')
+    if (req.params.to === 'zh-c' || req.params.to === 'zh-m') req.params.to = 'zh'
     const text = req.params.text
     const target = req.params.to
     

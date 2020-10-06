@@ -151,7 +151,7 @@
         },
         {
             "name": "Japanese",
-            "code": "jp",
+            "code": "ja",
             "imageUrl": "/static/comm/jp_b",
             "flag": "🇯🇵"
         },
@@ -218,7 +218,7 @@
         {
             "name": "Japanese",
             "title" : "日本語",
-            "code": "jp",
+            "code": "ja",
             "flag": "🇯🇵",
             "flagImg": "/static/flag/jp.png"
         },
