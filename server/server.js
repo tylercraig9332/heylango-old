@@ -3,19 +3,30 @@ const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const session = require('express-session')
 const mongodb = require('./mongodb.json')
+const MongoStore = require('connect-mongo')(session)
+const cookieParser = require('cookie-parser')
+const cors = require('cors')
 
 const app = new express()
+const port = process.env.PORT || 8080
 
 app.use(express.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({extended: true}))
+
+mongoose.connect(mongodb.authString, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }).then(() => {
+    console.log('mongodb connection established')
+}).catch(() => {
+    console.log('Mongodb connection failed.')
+})
+
 app.use(session({
-    secret: 'capstone', // Note I will change this in production environments
+    secret: 'development', // Note I will change this in production environments
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
+    store: new MongoStore({mongooseConnection: mongoose.connection, collection: 'sessions'}),
 }))
 app.use('/static', express.static('./Static'));
-
-const port = process.env.PORT || 8080
+app.use(cookieParser('development'))
 
 const cRouter = require('./Community/controller')
 const pRouter = require('./Post/controller')
@@ -58,10 +69,5 @@ const loggerMiddleware = (req, res, next) => {
 app.use(userAuthMiddleware)
 app.use(loggerMiddleware)
 
-mongoose.connect(mongodb.authString, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }).then(() => {
-    console.log('mongodb connection established')
-    app.listen(port, () => console.log(`server listening on port ${port}`))
-}).catch(() => {
-    console.log('Mongodb connection failed.')
-})
+app.listen(port, () => console.log(`server listening on port ${port}`))
 
