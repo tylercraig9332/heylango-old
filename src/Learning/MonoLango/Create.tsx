@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import SheetView from './SheetView'
-import { Button, Result } from 'antd'
+import { Button, Result, Icon, Tooltip, message } from 'antd'
 
 export default function Create() {
 
@@ -21,10 +21,19 @@ export default function Create() {
             method: "POST"
         }
         fetch('/l/m/', reqHeaders).then(res => {
-            // todo: get it from res and set it so result button can use it
             setSuccess(res.status === 200)
-            return res.json()
-        }).then(lango => {console.log(lango);setSuccessLink(`/learn/lango/${lango._id}`)})
+            if (res.status !== 200) {
+                message.error('Something went wrong: please check all fields and try again')
+                res.json().then(err => {
+                    message.error(err.message)
+                })
+                return
+            }
+            res.json().then(lango => {
+                console.log(lango);
+                setSuccessLink(`/learn/lango/${lango._id}`)
+            })
+        })
     }
 
     /** This function will be called by subcomponents when it updates itself so this component will be updated.
@@ -37,11 +46,17 @@ export default function Create() {
         setlangoSheet(e)
     }
 
+    const langoInfoIcon = (
+        <Tooltip title="What is a lango?">
+            <Link to="/info/lango"><Icon type="question-circle" style={{fontSize: 18}}/></Link>
+        </Tooltip>
+    )
+
 if (success) return (<Result status="success" title={"Lango Sheet Successfully Created!"} 
                                 extra={<Button type="primary"><Link to={successLink}>View</Link></Button>}/>)
     return (
         <div style={containerStyle}>
-            <h1>Create New Lango Sheet</h1>
+            <h1>Create New Lango Sheet {langoInfoIcon}</h1> 
             <SheetView send={extract} />
             <hr></hr>
             <div style={{display: 'flex', justifyContent: 'center', marginTop: 15}}>

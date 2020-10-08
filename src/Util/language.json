@@ -223,6 +223,13 @@
             "flagImg": "/static/flag/jp.png"
         },
         {
+            "name": "Korean",
+            "title": "한국어",
+            "code": "ko",
+            "flag": "🇰🇷",
+            "flagImg": "/static/flag/ko.png"
+        },
+        {
             "name": "Italian",
             "title" : "Italiano",
             "code": "it",

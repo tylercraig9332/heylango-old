@@ -19,6 +19,7 @@ export default function LanguageBelt() {
 const container = {
     display: 'flex', 
     justifyContent: 'center',
+    alignItems: 'center',
     flexWrap: 'wrap',
     background: '#C6C6C6',
     margin: '30px auto 30px auto',
@@ -26,7 +27,7 @@ const container = {
     paddingBottom: 5,
     overflowX: "auto", 
     overflowY: "hidden",
-    width: '1337px',
+    width: '800px',
     maxWidth: '95%',
     borderRadius: '10px'
 } as React.CSSProperties

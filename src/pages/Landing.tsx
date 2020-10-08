@@ -20,6 +20,7 @@ export default function Landing() {
                     <h3 className="mobileHeader">HeyLango is currently only avaliable for desktop</h3>
                 </div>
                 <div className="headText">
+                    <h1>Effecitve tools for effective language learners</h1>
                     <h1 className="heading" id="siteColor"><strong>Immersion brought to you</strong></h1>
                     <h2 className="subHeading">It's time to get fluent!</h2>
                     <Link to="/signup"><Button type="primary" size="large"><span className="callToAction">Sign up for free!</span></Button></Link>
