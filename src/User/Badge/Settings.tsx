@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Badge from './Badge'
 import IBadge from './IBadge'
 import Author from '../Author'
-import { Input, Button, Checkbox, Avatar } from 'antd'
+import { Input, Button, Checkbox, Avatar, message } from 'antd'
 import Loading from '../../Util/Loading'
 
 export default function Settings() {
@@ -21,13 +21,18 @@ export default function Settings() {
     const [loaded, setLoaded] = useState<boolean>(false)
 
     useEffect(() => {
+        let user = window.sessionStorage.getItem('userId')
+        if (user === null) {
+            message.info('You need to be logged in to view profile settings')
+            return
+        }
         const reqHeaders = {
             headers: {
                 "Content-Type": "application/json"
             },
             method: "GET"
         }
-        fetch(`/b/all/${window.sessionStorage.getItem('userId')}`, reqHeaders).then(res => {
+        fetch(`/b/all/${user}`, reqHeaders).then(res => {
             return res.json()
         }).then(b => {
             b.forEach((badge : IBadge) => {
