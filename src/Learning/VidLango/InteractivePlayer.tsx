@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import YouTube from 'react-youtube'
-import { Icon } from 'antd'
+import PlayerControls from './PlayerControls'
 
 
 export default function InteractivePlayer(props : {video_id : string}) {
@@ -19,11 +19,10 @@ export default function InteractivePlayer(props : {video_id : string}) {
     // GLOBAL UPDATE of STATE -> I normally don't do this but I think that it is the best way to keep player always synced
     if (!paused) {
         window.setInterval(updateState, 1000)
+    } else {
+        window.clearInterval()
     }
     
-    useEffect(() => {
-        updateState()
-    })
 
     /** 
      * Connects with the YouTube player and updates the local state
@@ -75,7 +74,18 @@ export default function InteractivePlayer(props : {video_id : string}) {
             case 'aseek10':
                 yt.seekTo(currentTime - 10, true)
                 break;
+            default: // defualt case means that there is a custom command 
+                let args = a.split('-') // format is ${command}-${arg} -> eg. setVolume-24 
+                switch (args[0]) {
+                    case 'setVolume':
+                        yt.setVolume(args[1])
+                        break;
+                    default:
+                        console.log('unsupported command', args)
+                }
+                break;
         }
+        updateState()
     }
 
     const videoOptions = {
@@ -86,31 +96,12 @@ export default function InteractivePlayer(props : {video_id : string}) {
             controls: controls
         }
     }
-
-
-    const toolbarJSX = (
-        <div style={toolbarStyle}>
-            <Icon type={(paused) ? "play-circle" : 'pause-circle'} onClick={() => action('playpause')} style={ (!paused) ? {fontSize: 48, marginRight: 5} : {fontSize: 48, marginRight: 5, color : '#1890ff'}}/>
-            <div style={{display: 'inital', width: 150}}>
-                <p style={{margin: 0, padding: 0, fontSize: 16}}>{Math.round(currentTime)} / {Math.round(duration)}</p>
-                <div style={{fontSize: 20}}><Icon type="backward" onClick={() => action('aseek10')}/> <Icon type="forward" onClick={() => action('seek10')}/></div>
-            </div>
-        </div>
-    )
     
     return (
         <div>
             <YouTube ref={player} videoId={props.video_id} opts={videoOptions} />
-            {toolbarJSX}
+            <PlayerControls paused={paused} currentTime={currentTime} duration={duration} volume={volume} onChange={action} />
         </div>
     )
 }
 
-const toolbarStyle = {
-    display: 'flex',
-    alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 10,
-    border: '1px solid',
-    cursor: 'pointer'
-} as React.CSSProperties
