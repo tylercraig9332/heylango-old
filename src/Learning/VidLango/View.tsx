@@ -1,15 +1,15 @@
 import React from 'react'
-import VideoPlayer from './VideoPlayer'
+import InteractivePlayer from './InteractivePlayer'
+//import VideoPlayer from './VideoPlayer'
 
 export default function View() {
 
     return (
         <div>
-            <h1>VidLango</h1>
+            <h1>VidLango Test</h1>
             <hr></hr>
             <div style={videoStyleWrap}>
-                <VideoPlayer video_id="OM5WiuSCxwk" visible/>
-                <p>This is a test... I would like to put subtitle translations here and other tools to help parse videos</p>
+                <InteractivePlayer video_id="3BlqCoutRrI"/>
             </div>
         </div>
     )

@@ -26,6 +26,8 @@ import mCreate from './Learning/MonoLango/Create'
 import mView from './Learning/MonoLango/View'
 import mEdit from './Learning/MonoLango/Edit'
 
+import vTest from './Learning/VidLango/View'
+
 import sHome from './Study/Home'
 import dHome from './Study/Decks/Home'
 import dView from './Study/Decks/View'
@@ -77,6 +79,8 @@ export default function Routes() {
                         <Route path='/learn/lango/create' component={mCreate} />
                         <Route path='/learn/lango/edit' component={mEdit} />
                         <Route path='/learn/lango/' component={mView} />
+
+                        <Route exact path='/learn/vid/test' component={vTest} />
 
                         <Route exact path='/study/' component={sHome} />
                         <Route exact path='/study/decks/' component={dHome} />
