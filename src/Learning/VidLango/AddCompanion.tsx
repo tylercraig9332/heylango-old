@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import VideoPlayer from './VideoPlayer'
+import VideoPlayer from './CompanionPlayer'
 import {Modal, Col, Input, Button, message, Icon} from 'antd'
 
-export default function CompanionVideo(props : {onChange: any, value?: string}) {
+export default function AddCompanion(props : {onChange: any, value?: string}) {
 
     const [videoModal, setVideoModal] = useState<boolean>(false)
     const [videoUrl, setUrl] = useState<string>((props.value === undefined) ? '' : `https://www.youtube.com/watch?v=${props.value}`)

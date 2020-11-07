@@ -6,7 +6,7 @@ import BiHome from './BiLango/Home'
 import BiCreate from './BiLango/Create'
 import BiView from './BiLango/View'
 
-import VidView from './VidLango/View'
+import VidView from './VidLango/Pages/View'
 
 
 export default function SubRouter(path: string) {

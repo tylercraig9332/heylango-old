@@ -3,7 +3,7 @@ import Editor from '../../Draft/WordLearner/WordLearner'
 import {LanguageSelect, CEFRSelect} from '../../Util/Select'
 import {Row, Col, Button, Input, Icon, Modal, Upload, message} from 'antd'
 import PreviewImage from '../../Util/ResourcePreviewImage'
-import CompanionVideo from '../VidLango/CompanionVideo'
+import AddCompanionVideo from '../VidLango/AddCompanion'
 
 const uploadProps = {
     name: 'file',
@@ -111,7 +111,7 @@ export default function SheetView(props :  {readOnly?: boolean, send? : any, id?
             <div style={{paddingRight: 10, display: 'flex', justifyContent: 'start'}}>
                 <Row type="flex" justify="start" align="middle">
                     <Col span={14}>
-                        <CompanionVideo onChange={setVideo_id} value={video_id}/>
+                        <AddCompanionVideo onChange={setVideo_id} value={video_id}/>
                     </Col>
                     {/*<Col span={2}>
                         Or

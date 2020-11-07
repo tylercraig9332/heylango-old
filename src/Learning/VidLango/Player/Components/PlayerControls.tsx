@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Tooltip, Icon, Slider, Progress } from 'antd'
-import { timeFormat } from '../../Util/functions'
+import { timeFormat } from '../../../../Util/functions'
 
 type ControlProps = {
     paused : boolean,

@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react'
 import YouTube from 'react-youtube'
-import PlayerControls from './PlayerControls'
+import PlayerControls from './Components/PlayerControls'
+import SubtitleViewer from './Components/SubtitleViewer'
 
 
-export default function InteractivePlayer(props : {video_id : string}) {
+export default function InteractivePlayer(props : {video_id : string, captions : Array<any>, preview?: boolean}) {
 
     const [time, setTime] = useState<string>('00:00:00,000')
     const [currentTime, setCurrentTime] = useState<number>(0)
@@ -89,8 +90,8 @@ export default function InteractivePlayer(props : {video_id : string}) {
     }
 
     const videoOptions = {
-        //height: '529',
-        //width: '941',
+        height: '480px',
+        width: '800px',
         playerVars: {
             autoplay: autoplay,
             controls: controls
@@ -101,6 +102,10 @@ export default function InteractivePlayer(props : {video_id : string}) {
         <div>
             <YouTube ref={player} videoId={props.video_id} opts={videoOptions} />
             <PlayerControls paused={paused} currentTime={currentTime} duration={duration} volume={volume} onChange={action} />
+            { (props.preview !== undefined && props.preview) ?
+                <div>Captions Avaliable: {props.captions.length}</div> :
+                <SubtitleViewer currentTime={currentTime} captions={props.captions} />
+            }
         </div>
     )
 }

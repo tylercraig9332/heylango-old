@@ -69,7 +69,7 @@ export default function WordLearner(props : WordLearnerProps) {
     }, [props.value, wordsPerPage, props.readOnly])
 
     useEffect(() => {
-        // Edits are happending we want to restore batch lenght
+        // Edits are happending we want to restore batch length
         if (batches.length > 0 && !props.readOnly) {
             setBatches([])
             setBatchNumber(0)
@@ -133,7 +133,7 @@ export default function WordLearner(props : WordLearnerProps) {
             i++
             item = matchItr.next()
         }
-        blocks[chunckIndex] = text.substring(from, text.length - 1)
+        blocks[chunckIndex] = text.substring(from, text.length)
         return blocks
     }
 
@@ -197,10 +197,13 @@ export default function WordLearner(props : WordLearnerProps) {
             <br></br>
             <strong>Font Size</strong>
             <Slider marks={fontSizeMarks} defaultValue={Number(fontSize.slice(0, -2))} min={15} max={40} onChange={(v) => setFontSize(v.toString() + 'px')}/>
+            {(props.simplified) ? <div></div> : (<span>
             <strong>Words Per Page</strong>
             <Slider marks={wordsPerPageMarks} defaultValue={wordsPerPage} min={10} max={125} onChange={(v) => setWordsPerPage(Number(v.toString()))}/>
+            </span>)}
             <div style={{paddingTop: '20px'}}><strong>Autopause WordViewer </strong> <Switch defaultChecked onChange={(v) => setPausePlay(v)} /></div>
-        </Modal>
+        
+            </Modal>
     )
     if (!props.readOnly) {
         return (
@@ -216,6 +219,7 @@ export default function WordLearner(props : WordLearnerProps) {
         <div>
             <SelectContextMenu event={mouseupevent} clearEvent={() => setMouseupevent(undefined)}/>
             {settingsModal}
+            {(props.simplified) ? <div></div> : (
             <div style={stepStyle}>
                 <Steps current={batchNumber}>
                     {batches.map((batch : string, i : number) => {
@@ -232,12 +236,15 @@ export default function WordLearner(props : WordLearnerProps) {
                     <Icon style={{fontSize: '25px', marginLeft: '10px'}} type="setting" onClick={() => setSettingsView(true)}/>
                 </Tooltip>
             </div>
+            )}
             <div style={{...containerStyle, ...props.style}}>
+                {(props.simplified) ? <div></div> : (
                 <div className="left" style={{...columnStyle, justifyContent: 'end'}}>
                     <Tooltip title="Previous Page" placement="left">
                         <Icon type="caret-left" className="icon" onClick={() => setBatchNumber(batchNumber - 1)}/>
                     </Tooltip>
                 </div>
+                )}
                 <div 
                     className="editor" id="editor"
                     style={{...editorFocusStyle, ...editorStyle, fontSize: fontSize, lineHeight: lineHeight }}
@@ -247,11 +254,13 @@ export default function WordLearner(props : WordLearnerProps) {
                 >
                     <Editor editorState={editorState} onChange={setEditorState} readOnly={props.readOnly} />
                 </div>
+                {(props.simplified) ? <div></div> : (
                 <div className="right" style={{...columnStyle, justifyContent: 'start'}}>
                     <Tooltip title="Next Page" placement="right">
                         <Icon type="caret-right" className="icon" onClick={() => setBatchNumber(batchNumber + 1)}/>
                     </Tooltip>
                 </div>
+                )}
             </div>
         </div>
     )
@@ -269,7 +278,7 @@ const columnStyle = {
 } as React.CSSProperties
 
 const editorStyle = {
-    minHeight: '100px',
+    minHeight: '60px',
     width: '800px'
 } as React.CSSProperties
 
