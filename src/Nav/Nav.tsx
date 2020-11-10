@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Menu, Icon, Tag } from 'antd'
 import logo from './HeyLangoT1.png'
+import Badge from '../User/Badge/Badge'
 
 const { Item, SubMenu, Divider } = Menu
 
@@ -79,6 +80,7 @@ export default function Nav(props : any) {
         <SubMenu title={<Link to='/learn/lango/home' style={{color: 'inherit'}}>Learning Library</Link>}>
             <Item key="/learn/lango"><Link to="/learn/lango/home">Native Content | Langos</Link></Item>
             <Item key="/learn/bi"><Link to="/learn/bi">Bilingual Content | BiLangos</Link></Item>
+            <Item key='/learn/vid'><Link to="/learn/vid">Captioned Videos | VidLangos</Link></Item>
         </SubMenu>
     )
 

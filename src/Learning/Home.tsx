@@ -10,7 +10,8 @@ export default function Home() {
             <div style={appContainerStyle}>
                 <AppPreview title="Langos" description="Native Learning Sheets" icon="read" path="/learn/lango/home"/>
                 <AppPreview title="BiLangos" description="Bilingual Learning Sheets" icon="read" path="/learn/bi"/>
-                <AppPreview title="Collections" description="Collections of Lango Resources" icon="book" path="/learn/collections" comingSoon/>
+                <AppPreview title="VidLangos" description="Caption-supported Videos" icon="youtube" path="/learn/vid"/>
+                <AppPreview title="Collections" description="Collections of Lango Resources" icon="book" path="/learn/" comingSoon/>
             </div>
             <hr></hr>
             <h3>Review / Study</h3>

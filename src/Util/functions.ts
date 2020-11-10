@@ -1,18 +1,37 @@
 import s from './language.json'
 export function parseLanguageCode(code : string) {
+  // Language codes are often occompanied by their country eg. 'en-US' or 'en_UK' 
+    if (code.length > 2) {
+      code = code.slice(0, 2)
+    }
     for (let c of s.info) {
         if (c.code === code) {
             return c.name
         } 
     }
+    // This will return whatever was passed if language code not found
+    return code
 }
 
 export function parseLanguageFlag(code : string) {
+  // Language codes are often occompanied by their country eg. 'en-US' or 'en_UK' 
+  // It would be nice in the future to parse countrycode and return their emoji, rather than the general one saved in the JSON
+  if (code.length > 2) {
+    code = code.slice(0, 2)
+  }
   for (let c of s.info) {
       if (c.code === code) {
           return c.flag
       } 
   }
+}
+
+export function parseCategoryId(code : string) {
+  let cat : {[key: string] : any} = s.youtubeCategories
+
+  // Just rereturn the code if it doesn't exist
+  if (cat[code] === undefined) return code
+  return cat[code]
 }
 
 export function timeSince(dString : string) {

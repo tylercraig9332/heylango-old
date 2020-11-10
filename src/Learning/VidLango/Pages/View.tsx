@@ -22,10 +22,9 @@ export default function View(props : {vidLango : IVidLango | undefined, preview?
                 }
                 return res.json()
             }).then(data => {
-                const v = {
-                    ...data[0],
-                    snippet: JSON.parse(data[0].snippet)
-                }
+                const v : IVidLango = data[0]
+                // Allows for the WordLearner to identify the language
+                window.sessionStorage.setItem('LangoLanguage', v.language)
                 setVidLango(v)
             })
         } else {
@@ -37,8 +36,8 @@ export default function View(props : {vidLango : IVidLango | undefined, preview?
     return (
         <div>
             { (props.preview) ?
-                <h3>{vidLango.snippet?.title}</h3> :
-                <h1>{vidLango.snippet?.title}</h1>
+                <h3>{vidLango.meta?.title}</h3> :
+                <h1>{vidLango.meta?.title}</h1>
             }
             <hr></hr>
             <div style={videoStyleWrap}>

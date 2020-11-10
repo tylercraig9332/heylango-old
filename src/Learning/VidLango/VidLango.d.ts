@@ -1,8 +1,12 @@
 export default interface VidLango {
     video_id : string,
-    snippet : snippet | undefined,
+    meta : vmeta | undefined,
+    tags: Array<any>,
+    author: string,
+    language: string,
     captions : Array<any>,
-    kind : string | 'yt'
+    kind : string | 'yt',
+    _id : string
 }
 
 export type snippet = {
@@ -17,4 +21,10 @@ export type snippet = {
     liveBroadcastContent: string,
     localized: Object,
     defaultAudioLanguage: string
+}
+export type vmeta = {
+    title: string,
+    description: string,
+    categoryId: string,
+    thumbnails: string
 }

@@ -4,17 +4,30 @@ const factory = require('./factory')
 const YouTube = require('./YouTube')
 const yt = new YouTube() 
 
+// TODO: handle wrong YouTube id : right now it crashed the server
 router.get('/yt/:videoId', (req, res) => {
     yt.getVideoDetails(req.params.videoId, (data) => {
+        const s = data.items[0].snippet
         const vidLango = {
             video_id: req.params.videoId,
-            snippet: JSON.stringify(data.items[0].snippet),
-            captions: []
+            meta: {
+                title: s.title,
+                description: s.description,
+                categoryId: s.categoryId,
+                thumbnails: JSON.stringify(s.thumbnails)
+            },
+            language: s.defaultAudioLanguage,
+            tags: s.tags,
+            captions: [],
+            author: req.session.user.id
         }
         factory.create(vidLango).then(doc => {
             res.send(doc)
         })
     })
+})
+.get('/list/', (req, res) => { //:var?
+    factory.read({}, (docs) => res.send(docs))
 })
 .get('/:id', (req, res) => {
     factory.read({_id: req.params.id}, (doc) => {
@@ -68,7 +81,7 @@ router.post('/sub', (req, res) => {
 
 router.put('/', (req, res) => {
     const body = {...req.body, snippet: JSON.stringify(req.body.snippet)}
-    factory.update({_id: req.body._id}, body, (doc) => {
+    factory.update({_id: req.body._id, author: req.session.user.id}, body, (doc) => {
         res.send(doc)
     })
 })

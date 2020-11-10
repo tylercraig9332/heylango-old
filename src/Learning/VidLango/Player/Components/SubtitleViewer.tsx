@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import WordLearner from '../../../../Draft/WordLearner/WordLearner'
 
 export default function SubtitleViewer(props : {captions : Array<any>, currentTime: number}) {
-    const [text, setText] = useState<string>('')
+    const [texts, setTexts] = useState<Array<string>>(['', ''])
 
 
     function captionTimeToSeconds(stringTime : string) : number {
@@ -23,14 +23,16 @@ export default function SubtitleViewer(props : {captions : Array<any>, currentTi
     }
 
     useEffect(() => {
-        if (props.captions.length < 1) return
+        if (props.captions === undefined || props.captions.length < 1) return
         // Dispays in seconds
         //console.log(props.currentTime)
         //console.log(props.captions)
-        props.captions.forEach(captionSet => {
+        props.captions.forEach((captionSet, i) => {
             captionSet.captions.forEach((caption : any) => {
                 if (props.currentTime > captionTimeToSeconds(caption.start) && props.currentTime < captionTimeToSeconds(caption.end)) {
-                    setText(caption.content)
+                    let t = texts
+                    t[i] = caption.content
+                    setTexts(t)
                 }
             })
         })
@@ -40,6 +42,14 @@ export default function SubtitleViewer(props : {captions : Array<any>, currentTi
         return <div>No Captions Provided</div>
     }
     return (
-        <WordLearner value={text} lineHeight={'40px'} fontSize={'24px'} simplified readOnly/>
+        <div>
+            {
+                texts.map((text, i) => {
+                    return (
+                        <div key={text + i} style={{marginBottom: '20px'}}><WordLearner value={text} lineHeight={'40px'} fontSize={'24px'} simplified readOnly/></div>
+                    )
+                })
+            }
+        </div>
     )
 }

@@ -43,12 +43,12 @@ export default function SheetView(props : {send? : any, recieve?: any}) {
         fetch('/l/vid/yt/' + video_id, reqHeader).then(res => {
             if (res.status !== 200) message.error(res.statusText)
             else return res.json()
-        }).then(data => {
-            const l = {
+        }).then(l => {
+            /*const l = {
                 ...data,
                 snippet: JSON.parse(data.snippet)
             }
-            console.log(l)
+            console.log(l)*/
             setVidLango(l)
             setShow(true)
             // Save to localStorage in case of refresh
