@@ -6,7 +6,6 @@ import SubtitleViewer from './Components/SubtitleViewer'
 
 export default function InteractivePlayer(props : {video_id : string, captions : Array<any>, preview?: boolean}) {
 
-    const [time, setTime] = useState<string>('00:00:00,000')
     const [currentTime, setCurrentTime] = useState<number>(0)
     const [duration, setDuration] = useState<number>(0)
     const [muted, setMuted] = useState<boolean>(false)
@@ -80,6 +79,9 @@ export default function InteractivePlayer(props : {video_id : string, captions :
                 switch (args[0]) {
                     case 'setVolume':
                         yt.setVolume(args[1])
+                        break;
+                    case 'setCurrentTime':
+                        yt.seekTo(Number(args[1]), true)
                         break;
                     default:
                         console.log('unsupported command', args)

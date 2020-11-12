@@ -14,9 +14,26 @@ export default function PlayerControls(props : ControlProps) {
 
     const [showVolume, setShow] = useState<boolean>(false)
 
+    /*
+    * Identifies where the user has clicked on the progress and changes the player accordingly.
+    */
+    function changeProgress(e : any) {
+        const offsets = e.target.getBoundingClientRect()
+        const rightBound = offsets.right - offsets.left
+        const clickLocation = e.pageX - offsets.left
+        let duration = (clickLocation / rightBound) // This will result in the percent to seek to
+        // rightBound is the end of the blue/white depending on what color the user clicked
+        let white = true
+        if (rightBound < toolbarStyle.width) {
+           white = false
+        }
+        duration *= (white) ? props.duration : props.currentTime 
+        props.onChange('setCurrentTime-' + Math.floor(duration))
+    }
+
     return (
         <div style={toolbarStyle}>
-            <div style={{padding: 0}}><Progress percent={props.currentTime / props.duration * 100} showInfo={false}/></div>
+            <div style={{padding: 0}} onClick={changeProgress} ><Progress percent={props.currentTime / props.duration * 100} showInfo={false}/></div>
             <div style={controlsStyle}>
                 <Icon type={(props.paused) ? "play-circle" : 'pause-circle'} onClick={() => props.onChange('playpause')} style={ (!props.paused) ? playStyle : {color : '#1890ff', ...playStyle}}/>
                 <div style={{display: 'inital', paddingRight: 10}}>
@@ -41,7 +58,7 @@ export default function PlayerControls(props : ControlProps) {
 }
 
 const toolbarStyle = {
-    width: 642
+    width: 800
 }
 
 const controlsStyle = {
