@@ -43,5 +43,6 @@ const flexHeader = {
 
 const flexBody = {
     display: 'flex',
-    //flexDirection: 'column'
+    flexWrap: 'wrap',
+    width: '100%'
 } as React.CSSProperties
