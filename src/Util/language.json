@@ -314,6 +314,7 @@
         }
     ],
     "youtubeCategories" : {
+        "0": "Not Applicable / Any",
         "1" : "Film & Animation",
         "2"  : "Autos & Vehicles",
         "10"  : "Music",

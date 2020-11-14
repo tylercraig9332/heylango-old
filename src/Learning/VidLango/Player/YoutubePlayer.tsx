@@ -16,12 +16,19 @@ export default function InteractivePlayer(props : {video_id : string, captions :
 
     const player = useRef(null)
 
-    // GLOBAL UPDATE of STATE -> I normally don't do this but I think that it is the best way to keep player always synced
-    if (!paused) {
-        window.setInterval(updateState, 1000)
-    } else {
-        window.clearInterval()
-    }
+    useEffect(() => {
+        let interId : undefined | number
+        if (!paused || interId === undefined) {
+            interId = window.setInterval(updateState, 500)
+        } else {
+            window.clearInterval(interId)
+        }
+        return function onDestory() {
+            if (interId !== undefined) {
+                window.clearInterval(interId)
+            } 
+        } 
+    })
     
 
     /** 
@@ -29,6 +36,10 @@ export default function InteractivePlayer(props : {video_id : string, captions :
      * */ 
     async function updateState() {
         const p : any = player.current
+        if (p == null) {
+            window.clearInterval()
+            return
+        }
         const yt = p.internalPlayer
         const state = await yt.getPlayerState()
         if (state === 3) return // Don't update when buffering

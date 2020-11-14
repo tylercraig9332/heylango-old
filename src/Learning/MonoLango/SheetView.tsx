@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Editor from '../../Draft/WordLearner/WordLearner'
-import {LanguageSelect, CEFRSelect} from '../../Util/Select'
+import {LanguageSelect, CEFRSelect, CategorySelect} from '../../Util/Select'
 import {Row, Col, Button, Input, Icon, Modal, Upload, message} from 'antd'
 import PreviewImage from '../../Util/ResourcePreviewImage'
 import AddCompanionVideo from '../VidLango/AddCompanion'
@@ -28,7 +28,7 @@ const uploadProps = {
 export default function SheetView(props :  {readOnly?: boolean, send? : any, id?: string, receive?: any}) {
 
 
-    const [enablePreview, setPreview] = useState<boolean>(true)
+    const [enablePreview, setPreview] = useState<boolean>(false)
     const [enableImageModal, setImageModal] = useState<boolean>(false)
     const [previewComplete, setPreviewComplete] = useState<boolean>(false)
     
@@ -37,11 +37,12 @@ export default function SheetView(props :  {readOnly?: boolean, send? : any, id?
     const [description, setDescription] = useState<string>()
     const [language, setLanguage] = useState<string>()
     const [difficulty, setDifficulty] = useState<string>()
+    const [category, setCategory] = useState<string>()
     const [video_id, setVideo_id] = useState<string>()
     const [imgSrc, setImgSrc] = useState<string>()
 
     useEffect(() => {
-        console.log(props.receive)
+        // Props.receive is when the parent passes all data down
         if (props.receive !== undefined && props.receive.content !== '') {
             setPreview(true)
         } else {
@@ -56,6 +57,7 @@ export default function SheetView(props :  {readOnly?: boolean, send? : any, id?
         setDescription(props.receive.description)
         setLanguage(props.receive.language)
         setDifficulty(props.receive.difficulty)
+        setCategory(props.receive.category)
         setVideo_id(props.receive.video_id)
         setImgSrc(props.receive.imgSrc)
         setPreviewComplete(true)
@@ -70,11 +72,12 @@ export default function SheetView(props :  {readOnly?: boolean, send? : any, id?
                 description: description,
                 language: language,
                 difficulty: difficulty,
+                category: category,
                 video_id: video_id,
                 imgSrc: imgSrc
             })
         }
-    }, [content, title, description, language, difficulty, video_id, imgSrc])
+    }, [content, title, description, language, difficulty, category, video_id, imgSrc])
 
 
     const previewImageModal = (
@@ -111,7 +114,7 @@ export default function SheetView(props :  {readOnly?: boolean, send? : any, id?
             <div style={{paddingRight: 10, display: 'flex', justifyContent: 'start'}}>
                 <Row type="flex" justify="start" align="middle">
                     <Col span={14}>
-                        <AddCompanionVideo onChange={setVideo_id} value={video_id}/>
+                        <AddCompanionVideo onChange={setVideo_id} value={video_id} autoplay={!enablePreview}/>
                     </Col>
                     {/*<Col span={2}>
                         Or
@@ -150,6 +153,10 @@ export default function SheetView(props :  {readOnly?: boolean, send? : any, id?
                 <span style={{color: 'darkgray'}}>Difficulty <a href="https://en.wikipedia.org/wiki/Common_European_Framework_of_Reference_for_Languages">(CEFR)</a></span>
                 <CEFRSelect value={difficulty} onChange={setDifficulty} />
             </Row>
+            <Row type="flex" justify="start">
+                <span style={{color: 'darkgray'}}>Category</span>
+                <CategorySelect value={category} onChange={setCategory} />
+            </Row>
             <hr></hr>
             <Row type="flex" justify="start">
                 <span style={{color: 'darkgray'}}>Content</span>
@@ -159,11 +166,12 @@ export default function SheetView(props :  {readOnly?: boolean, send? : any, id?
                         wordsPerPage={40}
                         lineHeight={'60px'}
                         fontSize={'25px'}
+                        autopause={!enablePreview}
                     />
                 
             </Row>
             <Row type="flex" justify="end">
-                <Col style={{marginTop: '5px'}}><Button type="primary" onClick={() => setPreview(!enablePreview)}>Preview Word Learner</Button></Col>
+                <Col style={{marginTop: '5px'}}><Button type="primary" onClick={() => setPreview(!enablePreview)}>{enablePreview ? 'Edit Content' : 'Preview Word Learner'}</Button></Col>
             </Row>
             {previewImageModal}
         </div>

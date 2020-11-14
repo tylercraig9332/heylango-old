@@ -50,6 +50,14 @@ export default function SubtitleViewer(props : {captions : Array<any>, currentTi
                     )
                 })
             }
+            <div style={bottomBarStyle}>
+
+            </div>
         </div>
     )
+}
+
+const bottomBarStyle = {
+    display: 'flex',
+    
 }

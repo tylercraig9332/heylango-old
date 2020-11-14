@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import VideoPlayer from './CompanionPlayer'
 import {Modal, Col, Input, Button, message, Icon} from 'antd'
 
-export default function AddCompanion(props : {onChange: any, value?: string}) {
+export default function AddCompanion(props : {onChange: any, value?: string, autoplay?: boolean}) {
 
     const [videoModal, setVideoModal] = useState<boolean>(false)
     const [videoUrl, setUrl] = useState<string>((props.value === undefined) ? '' : `https://www.youtube.com/watch?v=${props.value}`)
@@ -47,7 +47,7 @@ export default function AddCompanion(props : {onChange: any, value?: string}) {
                 minHeight: '394px',
                 minWidth: '700px'
             }}> 
-        <VideoPlayer video_id={videoId} visible />
+        <VideoPlayer video_id={videoId} visible autoplay={props.autoplay}/>
     </div>
     return (
         <React.Fragment>

@@ -7,6 +7,7 @@ interface WordLearnerProps {
     fontSize?: string,
     lineHeight?: string,
     simplified?: boolean /** Displays less content for more general purpose */
+    autopause?: boolean
 }
 
 export default WordLearnerProps

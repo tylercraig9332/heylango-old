@@ -11,6 +11,7 @@ const LangoScheme = mongoose.Schema({
     audio: {type: Buffer},
     video_id: {type: String},
     difficulty: {type: String, default: 'NA'},
+    category: {type: String, default: '0'},
     likes: {type: Number}
 }, { timestamp: true })
 

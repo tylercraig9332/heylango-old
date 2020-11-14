@@ -61,6 +61,9 @@
 .bodyText {
     display: flex;
     justify-content: space-around;
+    max-width: 1200px;
+    margin-right: auto;
+    margin-left: auto;
     flex-wrap: wrap;
 }
 

@@ -15,9 +15,7 @@ export default function Preview(props : PreviewProps) {
     const [thumb, setThumb] = useState<string>('') // tODO: replace with default url to use
 
     useEffect(() => {
-        console.log(props.vidLango)
         if (props.vidLango.meta?.thumbnails === undefined) return
-        console.log(JSON.parse(props.vidLango.meta.thumbnails))
         const thumbs = JSON.parse(props.vidLango.meta?.thumbnails)
         setThumb(thumbs.medium.url)
     }, [])
@@ -27,10 +25,10 @@ export default function Preview(props : PreviewProps) {
     let captionMap;
     if (props.vidLango.captions.length > 0)  {
         captionMap = props.vidLango.captions.map((cObj) => {
-            return <span style={{margin: '0px 5px 0xp 5px'}}><Tag color="blue">{parseLanguageCode(cObj.lCode)}</Tag></span>
+            return <span key={cObj.lCode} style={{margin: '0px 5px 0xp 5px'}}><Tag color="blue">{parseLanguageCode(cObj.lCode)}</Tag></span>
         })
     } else {
-        captionMap = <span style={{margin: '0px 5px 0xp 5px'}}><Tag color="red">No Captions :(</Tag></span>
+        captionMap = <span key="nocap" style={{margin: '0px 5px 0xp 5px'}}><Tag color="red">No Captions :(</Tag></span>
     }
     
 
