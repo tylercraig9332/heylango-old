@@ -14,7 +14,7 @@ const port = process.env.PORT || 8080
 app.use(express.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({extended: true}))
 
-mongoose.connect(mongodb.authString, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }).then(() => {
+mongoose.connect(mongodb.authString, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true }).then(() => {
     console.log('mongodb connection established')
 }).catch(() => {
     console.log('Mongodb connection failed.')

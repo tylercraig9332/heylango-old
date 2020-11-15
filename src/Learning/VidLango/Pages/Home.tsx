@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import IVidLango from '../VidLango'
 import Preview from '../Preview'
-import { Button, message } from 'antd'
+import { Button, message, Pagination } from 'antd'
 import { Link } from 'react-router-dom'
 import Filter from '../../Filter'
 
@@ -9,15 +9,21 @@ export default function Home() {
 
     const [langos, setLangos] = useState<Array<IVidLango>>([])
     const [qString, setQString] = useState<string>('')
+    const [page, setPage] = useState<number>(1)
 
     useEffect(() => {
-        fetch('/l/vid/list').then(res => {
+        fetch(`/l/vid/list/${page}/${qString}`).then(res => {
             if (res.status !== 200) {
+                console.error(res.statusText)
                 message.error(res.statusText)
+                return
             }
             return res.json()
-        }).then(data => setLangos(data))
-    }, [])
+        }).then(data => {
+            if (data === undefined) return
+            setLangos(data)
+        }).catch(err => message.error(err))
+    }, [qString, page])
 
 // https://www.youtube.com/watch?v=x7R8joj0PHE
     return (
@@ -35,6 +41,7 @@ export default function Home() {
                 })
             }
             </div>
+            <Pagination total={(page * 7) + 7} current={page} onChange={(page, pageSize) => setPage(page)} defaultPageSize={7}/>
         </div>
     )
 }

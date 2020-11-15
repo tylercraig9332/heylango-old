@@ -26,11 +26,62 @@ router.get('/yt/:videoId', (req, res) => {
         })
     })
 })
-.get('/list/', (req, res) => { //:var?
-    factory.read({}, (docs) => res.send(docs))
+.get('/list/:page?/:query?', (req, res) => { //:var?
+    let qTerms = []
+    let selecter = {}
+    let page = 1
+    if (req.params.page !== undefined) {
+        page = req.params.page
+    }
+    if (req.params.query !== undefined) {
+        qTerms = req.params.query.split('_')
+        let c = {} // VidLango properties
+        let t = [] // tags
+        let lCode = ''
+        let categoryId = ''
+        let s = ''
+        //console.log(qTerms)
+        for (let i = 0; i < qTerms.length; i++) {
+            let split = qTerms[i].split('-')
+            switch (split[0]) {
+                case 'lang':
+                    c['language'] = new RegExp(`^${split[1]}`) // Ensures that codes like en_US are included
+                    break
+                case 'cat':
+                    categoryId = split[1]
+                    break
+                case 'cefr':
+                    t.push(split[1])
+                    break
+                case 'cap':
+                    lCode = new RegExp(`^${split[1]}`) // Ensures that codes like en_US are included
+                    break
+                case 's':
+                default:
+                    s = split[1]
+                    break
+                }
+        }
+        let captions = (lCode !== '') ? {'captions.lCode': lCode} : {}
+        let meta = (categoryId !== '') ? {'meta.categoryId': categoryId} : {}
+        let tags = (t.length > 0) ? {tags : {$in: t}} : {}
+        let search = (s !== '') ? {$text : {$search: s}} : {}
+        console.log(search)
+        selecter = {...c, ...captions, ...meta, ...tags, ...search}
+    }
+    factory.read(selecter, page, (err, docs) => {
+        if (err) {
+            res.status(500).send('MongoDB Error: ' + err.codeName)
+            return
+        }
+        res.send(docs)
+    })
 })
 .get('/:id', (req, res) => {
-    factory.read({_id: req.params.id}, (doc) => {
+    factory.read({_id: req.params.id}, 1, (err, doc) => {
+        if (err) {
+            res.statusMessage(500).send('Database Error', err.codeName)
+        }
         res.send(doc)
     })
 })

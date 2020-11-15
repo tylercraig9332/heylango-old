@@ -5,14 +5,19 @@ function create(body) {
     return v.save()
 }
 
-function read(body, callback) {
-    Resource.find(body, (err, res) => {
+function read(body, page, callback) {
+    const options = {
+        skip: (page - 1) * 7,
+        limit: 7,
+        sort: {_id: 'desc'}
+    }
+    Resource.find(body, null, options, (err, res) => {
         if (err) {
             console.error(err)
-            callback(err)
+            callback(err, res)
             return
         }
-        callback(res)
+        callback(null, res)
     })
 }
 

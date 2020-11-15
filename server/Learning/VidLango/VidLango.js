@@ -17,4 +17,6 @@ const VidLangoScheme = mongoose.Schema({
     author: {type: mongoose.Types.ObjectId, required: true},
 })
 
+VidLangoScheme.index({'$**': 'text'});
+
 module.exports = mongoose.model('VidLango', VidLangoScheme)

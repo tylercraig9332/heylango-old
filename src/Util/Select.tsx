@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Select } from 'antd'
+import { Select, Input } from 'antd'
 import language from './language.json'
 
 const { Option } = Select
+const { Search } = Input
 
 type SelectProps = {
     value? : string,
@@ -103,6 +104,19 @@ export function CategorySelect(props : SelectProps) {
                 })
             }
         </Select>
+        </div>
+    )
+}
+
+export function SearchBar(props : SelectProps) {
+    return (
+        <div style={props.style}>
+            <Search
+                disabled
+                placeholder={props.placeholder}
+                onSearch={props.onChange}
+                style={{ minWidth: 200 }}
+            />
         </div>
     )
 }
