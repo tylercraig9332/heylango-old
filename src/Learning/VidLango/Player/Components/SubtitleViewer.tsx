@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import WordLearner from '../../../../Draft/WordLearner/WordLearner'
+import { Button, Modal, Tooltip } from 'antd'
+import AddCaption from './AddCaption'
 
 export default function SubtitleViewer(props : {captions : Array<any>, currentTime: number}) {
-    const [texts, setTexts] = useState<Array<string>>(['', ''])
+    
+    const [texts, setTexts] = useState<Array<string>>([])
+    const [settingShow, setSettingShow] = useState<boolean>(false)
 
 
     function captionTimeToSeconds(stringTime : string) : number {
@@ -21,6 +25,14 @@ export default function SubtitleViewer(props : {captions : Array<any>, currentTi
         return seconds
 
     }
+
+    useEffect(() => {
+        let t = texts
+        props.captions.forEach( async (cap) => {
+            t.push(cap[0])
+        })
+        setTexts(t)
+    }, [props.captions])
 
     useEffect(() => {
         if (props.captions === undefined || props.captions.length < 1) return
@@ -51,7 +63,12 @@ export default function SubtitleViewer(props : {captions : Array<any>, currentTi
                 })
             }
             <div style={bottomBarStyle}>
-
+                <Modal title="Caption Settings" visible={settingShow} onOk={() => setSettingShow(false)} onCancel={() => setSettingShow(false)}>
+                    <AddCaption onChange={null} captions={props.captions} />
+                </Modal>
+                <Tooltip title="Caption Settings">
+                    <Button shape="round" icon="setting" onClick={() => setSettingShow(true)}/>
+                </Tooltip>
             </div>
         </div>
     )
