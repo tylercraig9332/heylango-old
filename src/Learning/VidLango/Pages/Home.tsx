@@ -4,30 +4,34 @@ import Preview from '../Preview'
 import { Button, message, Pagination } from 'antd'
 import { Link } from 'react-router-dom'
 import Filter from '../../Filter'
+import Loading from '../../../Util/Loading'
+import Contribute from '../Contribute'
 
 export default function Home() {
 
     const [langos, setLangos] = useState<Array<IVidLango>>([])
     const [qString, setQString] = useState<string>('')
     const [page, setPage] = useState<number>(1)
+    const [loaded, setLoaded] = useState<boolean>(false)
 
     useEffect(() => {
         fetch(`/l/vid/list/${page}/${qString}`).then(res => {
             if (res.status !== 200) {
                 console.error(res.statusText)
                 message.error(res.statusText)
+                setLoaded(true)
                 return
             }
             return res.json()
         }).then(data => {
+            setLoaded(true)
             if (data === undefined) return
             setLangos(data)
         }).catch(err => message.error(err))
     }, [qString, page])
 
-// https://www.youtube.com/watch?v=x7R8joj0PHE
     return (
-        <div>
+        <div style={wrap}>
             <div style={flexHeader}>
                 <h1>Browse VidLangos</h1>
                 <Link to="/learn/vid/create"><Button type="primary" size="large">Create New VidLango</Button></Link>
@@ -36,14 +40,21 @@ export default function Home() {
             <Filter value={qString} onChange={setQString} />
             <div style={flexBody}>
             {
+                (langos.length > 0) ?
                 langos.map((lango) => {
                     return <Preview key={lango._id} vidLango={lango} />
-                })
+                }) : (loaded) ?  <Contribute /> : <Loading message="Loading Langos" />
             }
             </div>
             <Pagination total={(page * 7) + 7} current={page} onChange={(page, pageSize) => setPage(page)} defaultPageSize={7}/>
         </div>
     )
+}
+
+const wrap = {
+    maxWidth: '1400px',
+    marginRight: 'auto',
+    marginLeft: 'auto'
 }
 
 const flexHeader = {
