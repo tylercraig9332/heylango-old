@@ -32,6 +32,26 @@ export default function View(props : {vidLango : IVidLango | undefined, preview?
         }
     }, [])
 
+    /**
+     * Allows for sub-components to update the caption state and then save the new captions to the server
+     * @param captions new captions to be passed back up to be saved into the state and the db
+     */
+    function captionChange(captions : Array<any>) {
+        if (vidLango === undefined) return // This should never be the case as the funciton can only be called if it's defined, but TypeScript
+        const v = {...vidLango, captions: [...vidLango.captions, captions]}
+        const reqHeaders = {
+            body: JSON.stringify(v),
+            headers: {
+                "Content-Type": "application/json"
+            },
+            method: "PUT"
+        }
+        fetch('/l/vid/' + vidLango._id, reqHeaders).then(res => {
+            if (res.status === 200) message.success('VidLango Updated!')
+        })
+        setVidLango(v)
+    }
+
     if (vidLango === undefined) return <Loading message="Loading VidLango..." />
     return (
         <div>
@@ -41,7 +61,7 @@ export default function View(props : {vidLango : IVidLango | undefined, preview?
             }
             <hr></hr>
             <div style={videoStyleWrap}>
-                <InteractivePlayer video_id={vidLango.video_id} captions={vidLango.captions} preview={props.preview}/>
+                <InteractivePlayer video_id={vidLango.video_id} captions={vidLango.captions} onCaptionChange={captionChange} preview={props.preview} />
             </div>
         </div>
     )

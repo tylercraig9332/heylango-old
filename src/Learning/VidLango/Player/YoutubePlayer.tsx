@@ -4,7 +4,7 @@ import PlayerControls from './Components/PlayerControls'
 import SubtitleViewer from './Components/SubtitleViewer'
 
 
-export default function InteractivePlayer(props : {video_id : string, captions : Array<any>, preview?: boolean}) {
+export default function InteractivePlayer(props : {video_id : string, captions : Array<any>, onCaptionChange: any, preview?: boolean}) {
 
     const [currentTime, setCurrentTime] = useState<number>(0)
     const [duration, setDuration] = useState<number>(0)
@@ -117,7 +117,7 @@ export default function InteractivePlayer(props : {video_id : string, captions :
             <PlayerControls paused={paused} currentTime={currentTime} duration={duration} volume={volume} onChange={action} />
             { (props.preview !== undefined && props.preview) ?
                 <div>Captions Avaliable: {props.captions.length}</div> :
-                <SubtitleViewer currentTime={currentTime} captions={props.captions} />
+                <SubtitleViewer currentTime={currentTime} captions={props.captions} onCaptionChange={props.onCaptionChange}/>
             }
         </div>
     )

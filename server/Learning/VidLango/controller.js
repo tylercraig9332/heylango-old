@@ -130,10 +130,12 @@ router.post('/sub', (req, res) => {
     res.send(caption)
 })
 
-router.put('/', (req, res) => {
-    const body = {...req.body, snippet: JSON.stringify(req.body.snippet)}
-    factory.update({_id: req.body._id, author: req.session.user.id}, body, (doc) => {
-        res.send(doc)
+router.put('/:id', (req, res) => {
+    factory.update({_id: req.params.id}, req.body, (err, doc) => {
+        if (err) res.status(500).send(err)
+        else {
+            res.send(doc)
+        } 
     })
 })
 

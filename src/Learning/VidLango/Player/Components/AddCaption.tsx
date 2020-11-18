@@ -1,12 +1,12 @@
 import React, { useState, CSSProperties } from 'react'
 import { Button, Modal, Upload, Icon, message, Popconfirm } from 'antd'
 
+/**
+ * 
+ * @param props onChange wil get executed when new Captions are uploaded and processed -> it returns the new Captions in a supported JSON format
+ */
 export default function AddCaption(props : {onChange : any, captions: Array<any>}) {
     const [showView, setShow] = useState<boolean>(false)
-
-    React.useEffect(() => {
-        
-    }, [])
 
     function onUpload(info : any) {
         if (info.file.status !== 'uploading') {
