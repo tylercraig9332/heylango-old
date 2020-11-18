@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import WordLearner from '../../../../Draft/WordLearner/WordLearner'
 import { Button, Modal, Tooltip } from 'antd'
 import AddCaption from './AddCaption'
+import Loading from '../../../../Util/Loading'
 
 export default function SubtitleViewer(props : {captions : Array<any>, currentTime: number}) {
     
@@ -26,13 +27,15 @@ export default function SubtitleViewer(props : {captions : Array<any>, currentTi
 
     }
 
-    useEffect(() => {
-        let t = texts
+    /*useEffect(() => {
+        let t : Array<string> = []
         props.captions.forEach( async (cap) => {
+
             t.push(cap[0])
         })
+        console.log(t)
         setTexts(t)
-    }, [props.captions])
+    }, [props.captions])*/
 
     useEffect(() => {
         if (props.captions === undefined || props.captions.length < 1) return
@@ -48,15 +51,20 @@ export default function SubtitleViewer(props : {captions : Array<any>, currentTi
                 }
             })
         })
-    }, [props.currentTime])
+    }, [props.currentTime, props.captions])
 
     if (props.captions === undefined || props.captions.length === 0) {
         return <div>No Captions Provided</div>
     }
+    if (texts.length === 0) {
+        return <div style={{width: '250px'}}>Waiting for first caption</div>
+    }
+    console.log(texts)
     return (
         <div>
             {
                 texts.map((text, i) => {
+                    console.log(text)
                     return (
                         <div key={text + i} style={{marginBottom: '20px'}}><WordLearner value={text} lineHeight={'40px'} fontSize={'24px'} simplified readOnly/></div>
                     )
