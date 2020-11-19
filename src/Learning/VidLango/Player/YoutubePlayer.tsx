@@ -103,8 +103,8 @@ export default function InteractivePlayer(props : {video_id : string, captions :
     }
 
     const videoOptions = {
-        height: '480px',
-        width: '800px',
+        height: '480px', // 400px
+        width: '100%', // 800px
         playerVars: {
             autoplay: autoplay,
             controls: controls
@@ -112,7 +112,7 @@ export default function InteractivePlayer(props : {video_id : string, captions :
     }
     
     return (
-        <div>
+        <div style={playerWrap}>
             <YouTube ref={player} videoId={props.video_id} opts={videoOptions} />
             <PlayerControls paused={paused} currentTime={currentTime} duration={duration} volume={volume} onChange={action} />
             { (props.preview !== undefined && props.preview) ?
@@ -122,4 +122,9 @@ export default function InteractivePlayer(props : {video_id : string, captions :
         </div>
     )
 }
+
+const playerWrap = {
+    maxWidth: '1200px',
+} as React.CSSProperties
+
 

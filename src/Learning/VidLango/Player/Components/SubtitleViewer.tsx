@@ -6,7 +6,7 @@ import { parseLanguageCode, parseLanguageFlag } from '../../../../Util/functions
 
 export default function SubtitleViewer(props : {captions : Array<any>, onCaptionChange: any, currentTime: number}) {
     
-    const [texts, setTexts] = useState<Array<string>>([])
+    const [texts, setTexts] = useState<Array<string>>(['Waiting on next caption'])
     const [settingShow, setSettingShow] = useState<boolean>(false)
     const [removedTexts, setRemoved] = useState<Array<string>>([])
 
@@ -37,7 +37,6 @@ export default function SubtitleViewer(props : {captions : Array<any>, onCaption
     useEffect(() => {
         if (props.captions === undefined || props.captions.length < 1) return
         // props.captions is in seconds
-        let a : string[] = []
         props.captions.forEach((captionSet, i) => {
             if (!removedTexts.includes(captionSet.lCode)) {
                 captionSet.captions.forEach((caption : any) => {
@@ -60,7 +59,7 @@ export default function SubtitleViewer(props : {captions : Array<any>, onCaption
         } else {
             rt.push(code)
         }
-        setTexts([])
+        setTexts(['Waiting on next caption'])
         setRemoved(rt)
     }
 

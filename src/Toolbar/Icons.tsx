@@ -224,7 +224,7 @@ export function EditOrAdmin(props : {handleEdit : any, editView?: boolean, paren
     )
 }
 
-export function Admin(props: any) {
+export function Admin(props: {parent : any, parentType : any}) {
 
     const [open, setModal] = useState<boolean>(false)
 
@@ -236,7 +236,7 @@ export function Admin(props: any) {
     )
 }
 
-export function Info(props : { title: string, description : string}) {
+export function Info(props : { title: string, description : string | React.ReactNode}) {
     return (
         <Popover title={props.title} content={<p>{props.description}</p>}>
             <Icon type="info-circle" style={iconStyle} />

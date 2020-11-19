@@ -1,7 +1,7 @@
 import React from 'react'
 import {PageHeader} from 'antd'
 
-export default function PageToolbar(props: {title: string, extra?: React.ReactNode }) {
+export default function PageToolbar(props: {title?: string, extra?: React.ReactNode }) {
     return (
         <PageHeader
             style={{

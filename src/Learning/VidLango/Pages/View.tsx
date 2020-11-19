@@ -4,6 +4,9 @@ import Loading from '../../../Util/Loading'
 import SubtitleViewer from '../Player/Components/SubtitleViewer'
 import InteractivePlayer from '../Player/YoutubePlayer'
 import IVidLango from '../VidLango'
+import PageToolbar from '../../../Nav/PageToolbar'
+import { IconRow, Like, User, Admin, Info } from '../../../Toolbar/Icons'
+import { parseLanguageCode, parseLanguageFlag } from '../../../Util/functions'
 //import VideoPlayer from './VideoPlayer'
 
 export default function View(props : {vidLango : IVidLango | undefined, preview?: boolean}) {
@@ -52,14 +55,41 @@ export default function View(props : {vidLango : IVidLango | undefined, preview?
         setVidLango(v)
     }
 
+
     if (vidLango === undefined) return <Loading message="Loading VidLango..." />
+
+    const descriptionJSX = (
+        <div style={{maxWidth: '400px'}}>
+            <strong>Audio Language</strong>
+            <p>{parseLanguageCode(vidLango.language)} - {parseLanguageFlag(vidLango.language)}</p>
+            <strong>Video Description</strong>
+            <p>{vidLango.meta?.description}</p>
+            <strong>Video Tags</strong> 
+            <p>
+            {
+                vidLango.tags.map((tag, i) => {
+                    return <span>{tag}{(i + 1 === vidLango.tags.length) ? '' : ', '}</span>
+                }) 
+            }
+            </p>
+        </div>
+    )
     return (
         <div>
-            { (props.preview) ?
+            {(props.preview) ?
                 <h3>{vidLango.meta?.title}</h3> :
-                <h1>{vidLango.meta?.title}</h1>
+                <div style={{maxWidth: '1200px', marginRight: 'auto', marginLeft: 'auto'}}>
+                    <PageToolbar title={vidLango.meta?.title} extra={
+                        <IconRow>
+                            <Info title="Details" description={descriptionJSX} />
+                            <Admin parent={vidLango._id} parentType='VidLango'/>
+                            <User author={vidLango.author} />
+                            <Like parent_id={vidLango._id} />
+                        </IconRow>
+                    }/>
+                    <hr></hr>
+                </div>
             }
-            <hr></hr>
             <div style={videoStyleWrap}>
                 <InteractivePlayer video_id={vidLango.video_id} captions={vidLango.captions} onCaptionChange={captionChange} preview={props.preview} />
             </div>
