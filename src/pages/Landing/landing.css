@@ -58,6 +58,15 @@
     text-align: center;
 }
 
+.bodyText {
+    display: flex;
+    justify-content: space-around;
+    max-width: 1200px;
+    margin-right: auto;
+    margin-left: auto;
+    flex-wrap: wrap;
+}
+
 .heading {
     color: #1890ff;
     font-size: 40px;
@@ -71,4 +80,18 @@
 
 .callToAction {
     font-size: 20px;
+}
+
+.leftHeading {
+    width: 300px;
+    padding: 15px;
+    border: 1px solid;
+    border-radius: 4px;
+    margin-left: 5px;
+    text-align: center;
+}
+
+.rightContainer {
+    width: 400px;
+    padding: 20px;
 }

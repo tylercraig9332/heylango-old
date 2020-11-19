@@ -5,6 +5,7 @@ const session = require('express-session')
 const mongodb = require('./mongodb.json')
 const MongoStore = require('connect-mongo')(session)
 const cookieParser = require('cookie-parser')
+const fileUpload = require('express-fileupload')
 const cors = require('cors')
 
 const app = new express()
@@ -13,7 +14,7 @@ const port = process.env.PORT || 8080
 app.use(express.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({extended: true}))
 
-mongoose.connect(mongodb.authString, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }).then(() => {
+mongoose.connect(mongodb.authString, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true }).then(() => {
     console.log('mongodb connection established')
 }).catch(() => {
     console.log('Mongodb connection failed.')
@@ -27,6 +28,7 @@ app.use(session({
 }))
 app.use('/static', express.static('./Static'));
 app.use(cookieParser('development'))
+app.use(fileUpload())
 
 const cRouter = require('./Community/controller')
 const pRouter = require('./Post/controller')
@@ -34,6 +36,7 @@ const uRouter = require('./User/controller')
 const iRouter = require('./Interaction/controller')
 const lBiRouter = require('./Learning/BiLango/controller')
 const lMRouter = require('./Learning/Lango/controller')
+const lVidRouter = require('./Learning/VidLango/controller')
 const comRouter = require('./Comment/controller')
 const sRouter = require('./Study/controller')
 const adminRouter = require('./Admin/controller')
@@ -45,6 +48,7 @@ app.use('/u', uRouter)
 app.use('/i', iRouter)
 app.use('/l/bi', lBiRouter)
 app.use('/l/m', lMRouter)
+app.use('/l/vid', lVidRouter)
 app.use('/com', comRouter)
 app.use('/s', sRouter)
 app.use('/admin', adminRouter)

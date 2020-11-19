@@ -5,7 +5,7 @@ import Editor from '../../Draft/WordLearner/WordLearner'
 import { EditOrAdmin, Info, Like } from '../../Toolbar/Icons'
 import CommentEngine from '../../Comment/Engine'
 import { message } from 'antd'
-import VideoPlayer from '../VidLango/VideoPlayer'
+import CompanionVideoPlayer from '../VidLango/CompanionPlayer'
 import Author from '../../User/Author'
 import PreviewImage from '../../Util/ResourcePreviewImage'
 
@@ -44,7 +44,7 @@ export default function View() {
     
     const langoVideo = ( lango.video_id !== undefined && lango.video_id.length > 0) ? (
         <div className="VidLango" style={videoContainer}>
-            <VideoPlayer video_id={lango?.video_id} visible/>
+            <CompanionVideoPlayer video_id={lango?.video_id} visible/>
         </div> ) : null
     
     return (

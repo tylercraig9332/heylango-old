@@ -8,7 +8,7 @@ export default function LanguageBelt() {
             <div style={container}>
                 {language.info.map((l, i) => {
                     if (l.code === 'all') return null
-                    return <LanguageIcon src={l.flagImg} name={l.name}/>
+                    return <LanguageIcon key={l.code} src={l.flagImg} name={l.name}/>
                 })}
             </div>
         </div>

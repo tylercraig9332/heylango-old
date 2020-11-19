@@ -5,7 +5,9 @@ interface WordLearnerProps {
     style?: React.CSSProperties,
     wordsPerPage?: number,
     fontSize?: string,
-    lineHeight?: string
+    lineHeight?: string,
+    simplified?: boolean /** Displays less content for more general purpose */
+    autopause?: boolean
 }
 
 export default WordLearnerProps
