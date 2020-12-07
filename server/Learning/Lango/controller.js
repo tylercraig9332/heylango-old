@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const factory = require('./factory')
-const BadgeFactory = require('../../Badge/factory')
+const BadgeFactory = require('../../User/Badge/factory')
 
 router.get('/', (req, res) => {
     // Reads data from the database depending on the body's request.

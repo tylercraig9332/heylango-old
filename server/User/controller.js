@@ -1,7 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const model = require('./factory.js')
-const BadgeFactory = require('../Badge/factory')
+const BadgeFactory = require('./Badge/factory')
+const SettingFactory = require('./UserSettings/factory')
+const User = require('./User.js')
 
 router.get('/loggedIn', (req, res) => {
     const logged = req.session.user !== undefined
@@ -19,6 +21,18 @@ router.get('/loggedIn', (req, res) => {
     }
     res.send(req.session.user)
 })
+.get('/setting', (req, res) => {
+    if (req.session.user === undefined) {
+        res.status(400).send('user not logged in')
+    }
+    SettingFactory.read(req.session.user.id, (err, docs) => {
+        if (err) {
+            res.status(500).send(err)
+            return
+        }
+        res.send(docs)
+    })
+})
 .get('/:id', (req, res) => {
     model.read({_id: req.params.id}).then((r) => {
         res.send(r)
@@ -34,6 +48,7 @@ router.post('/signup', (req, res) => {
     }
     model.create(req.body).then((user) => {
         BadgeFactory.create('custom', user.id, 'English')
+        SettingFactory.create(req.sesssion.user.id, {primaryLanguage: 'en', targetLanguages: []})
         req.session.user = user
         res.sendStatus(200)
     })
@@ -63,6 +78,22 @@ router.post('/signup', (req, res) => {
         console.log(e.message)
         res.statusMessage = e.message
         res.status(400).send(e)
+    })
+})
+.post('/setting', (req, res) => {
+    if (req.session.user === undefined) {
+        res.status(400).send('user not logged in')
+    }
+    SettingFactory.update(req.session.user.id, req.body, (err, docs) => {
+        if (err) {
+            console.error(err)
+            res.status(500).send(err)
+        } else if (docs == null) {
+            SettingFactory.create(req.session.user.id, req.body)
+        }
+        else {
+            res.send(docs)
+        }
     })
 })
 

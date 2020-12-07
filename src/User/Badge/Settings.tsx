@@ -166,10 +166,6 @@ export default function Settings() {
     return (
         <div style={{width: 500, maxWidth: '95%'}}>
             <h2>Set Language Flair</h2>
-            <div style={{marginBottom: 15}}>
-                <Author key={refresh}/>
-                <hr></hr>
-            </div>
             <div style={{color: 'spacegray', marginBottom: 5, marginTop: 5}}>
                 <Checkbox checked={lEnable} style={{marginRight: 5}} onChange={() => onUpdate('custom')}></Checkbox>
                 <Badge type="custom" custom={language} />
@@ -202,6 +198,10 @@ export default function Settings() {
             <div style={{color: 'spacegray', marginBottom: 5, marginTop: 5}}>
                 <Checkbox checked={cEnable} style={{marginRight: 5}}  onChange={() => onUpdate('contributor')}></Checkbox>
                 <Badge type="contributor" />
+            </div>
+            <div style={{marginTop: 15}}>
+                <p>Preview</p>
+                <Author key={refresh}/>
             </div>
         </div>
     )

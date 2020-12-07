@@ -5,7 +5,7 @@ import SubtitleViewer from '../Player/Components/SubtitleViewer'
 import InteractivePlayer from '../Player/YoutubePlayer'
 import IVidLango from '../VidLango'
 import PageToolbar from '../../../Nav/PageToolbar'
-import { IconRow, Like, User, Admin, Info } from '../../../Toolbar/Icons'
+import { IconRow, Like, User, EditOrAdmin, Info } from '../../../Toolbar/Icons'
 import { parseLanguageCode, parseLanguageFlag } from '../../../Util/functions'
 //import VideoPlayer from './VideoPlayer'
 
@@ -55,6 +55,11 @@ export default function View(props : {vidLango : IVidLango | undefined, preview?
         setVidLango(v)
     }
 
+    function editLango() {
+        window.localStorage.setItem('createLango', JSON.stringify(vidLango))
+        window.location.href = '/learn/vid/create'
+    }
+
 
     if (vidLango === undefined) return <Loading message="Loading VidLango..." />
 
@@ -82,7 +87,7 @@ export default function View(props : {vidLango : IVidLango | undefined, preview?
                     <PageToolbar title={vidLango.meta?.title} extra={
                         <IconRow>
                             <Info title="Details" description={descriptionJSX} />
-                            <Admin parent={vidLango._id} parentType='VidLango'/>
+                            <EditOrAdmin parent={vidLango._id} parentAuthor={vidLango.author} parentType='VidLango' handleEdit={editLango} />
                             <User author={vidLango.author} />
                             <Like parent_id={vidLango._id} />
                         </IconRow>

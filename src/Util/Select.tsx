@@ -6,7 +6,7 @@ const { Option } = Select
 const { Search } = Input
 
 type SelectProps = {
-    value? : string,
+    value? : string | string[],
     onChange : any,
     type? : string,
     placeholder?: string,
@@ -52,7 +52,7 @@ export function LanguageSelect(props : SelectProps) {
                     return (
                         <Option value={language.code} key={language.code}>
                             {language.title} 
-                            <span role="img" aria-label="China"> {language.flag}</span>
+                            <span role="img"> {language.flag}</span>
                         </Option>
                     )
                 })
@@ -118,5 +118,29 @@ export function SearchBar(props : SelectProps) {
                 style={{ minWidth: 200 }}
             />
         </div>
+    )
+}
+
+export function MultiLanguageSelect(props : SelectProps) {
+    return (
+        <Select
+            mode="multiple"
+            onChange={props.onChange}
+            style={{width: '100%', minWidth: 200}}
+            placeholder={(props.placeholder === undefined) ? "Select Language(s)" : props.placeholder}
+            value={props.value}
+        >
+             {
+                language.info.map(language => {
+                    return (
+                        <Option value={language.code} key={language.code}>
+                            {language.title} 
+                            <span role="img"> {language.flag}</span>
+                        </Option>
+                    )
+                })
+            }
+        </Select>
+
     )
 }

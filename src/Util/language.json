@@ -183,7 +183,7 @@
     "info" : [
         {
             "name" : "All / Other",
-            "title": "All Languages",
+            "title": "Any Language",
             "code": "all",
             "flag": "📚"
         },

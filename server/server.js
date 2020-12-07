@@ -40,7 +40,7 @@ const lVidRouter = require('./Learning/VidLango/controller')
 const comRouter = require('./Comment/controller')
 const sRouter = require('./Study/controller')
 const adminRouter = require('./Admin/controller')
-const badgeRouter = require('./Badge/controller')
+const badgeRouter = require('./User/Badge/controller')
 
 app.use('/c', cRouter)
 app.use('/p', pRouter)

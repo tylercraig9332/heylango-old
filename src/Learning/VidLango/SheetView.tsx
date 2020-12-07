@@ -102,7 +102,7 @@ export default function SheetView(props : {send? : any, recieve?: any}) {
             },
             method: "PUT"
         }
-        fetch('/l/vid/', reqHeaders).then(res => {
+        fetch('/l/vid/' + vidLango._id, reqHeaders).then(res => {
             if (res.status !== 200) {
                 message.error('An error has occured')
             }

@@ -64,7 +64,11 @@ export default function SubtitleViewer(props : {captions : Array<any>, onCaption
     }
 
     if (props.captions === undefined || props.captions.length === 0) {
-        return <div>No Captions Provided</div>
+        return (<div><p>There are currently no provided captions</p>
+                    <div>
+                        <AddCaption captions={props.captions} onChange={(captions : Array<any>, command : string) => props.onCaptionChange(captions)}/>
+                    </div>
+                </div>)
     }
     return (
         <div>

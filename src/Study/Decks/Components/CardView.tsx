@@ -33,7 +33,7 @@ export default function CardView(props : FlashCardProps) {
             <Card onClick={() => animate(true)} style={(!animated) ? cardStyle : flipStyle} hoverable>
                 <h1>{props.back}</h1>
             </Card>
-            {(props.sound) ? <audio key="back" src='/static/card_flip.mp3' autoPlay/> : null}
+            {(props.sound) ? <audio key={`${props.front}-${flipped}-${animated}`} src='/static/card_flip.mp3' autoPlay/> : null}
         </div> 
     )
 }
