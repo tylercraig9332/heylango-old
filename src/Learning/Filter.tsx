@@ -38,10 +38,10 @@ export default function Filter(props : {onChange : any, value: string}) {
 
     return (
         <div style={barStyle}>
-            <LanguageSelect key={'lang-' + language} value={language} onChange={setLanguage} style={{marginRight: '20px'}} placeholder="Audio Language"/>
-            <LanguageSelect key={'cap-' + caption} value={caption} onChange={setCap} style={{marginRight: '20px'}} placeholder="Caption Language"/>
-            <CategorySelect value={category} onChange={setCat} style={{marginRight: '20px'}} placeholder="Category"/>
-            <CEFRSelect value={cefr} onChange={setCefr} style={{marginRight: '20px'}}  placeholder="Difficulty" />
+            <LanguageSelect key={'lang-' + language} value={language} onChange={setLanguage} style={{marginRight: '5px'}} placeholder="Audio Language"/>
+            <LanguageSelect key={'cap-' + caption} value={caption} onChange={setCap} style={{marginRight: '5px'}} placeholder="Caption Language"/>
+            <CategorySelect value={category} onChange={setCat} style={{marginRight: '5px'}} placeholder="Category"/>
+            <CEFRSelect value={cefr} onChange={setCefr} style={{marginRight: '5px'}}  placeholder="Difficulty" />
             <SearchBar value={search} onChange={setSearch} placeholder="Search" />
         </div>
     )

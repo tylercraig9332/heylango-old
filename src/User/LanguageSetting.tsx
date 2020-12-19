@@ -43,15 +43,28 @@ export default function LanguageSetting() {
         })
     }
 
+    function languageChange(e : any) {
+        let userLang = e
+        if (e === 'all') {
+            message.info('Language set to browser default')
+            const lang_loc = navigator.language
+            userLang = lang_loc.split('-')[0]
+
+        }
+        setPrimary(userLang)
+    }
+
     return (
         <div style={{maxWidth: "500px"}}>
             <h2>Language Preferences</h2>
-            <p style={{margin: 0}}>Primary language (Translations will be tranlsated to this language)</p>
-            <LanguageSelect onChange={(v : any) => setPrimary(v)} value={primary} />
-            <p style={{margin: 0}}>Languages that I am learning or want to learn</p>
-            <MultiLanguageSelect onChange={(v : any) => setTarget(v)} value={targetLanguages} />
-            <div style={{marginTop: 5}}>
-                <Button type="primary" onClick={update}>Save Selection(s)</Button>
+            <div style={{marginLeft: '20px'}}>
+                <p style={{margin: 0}}>Primary language (Translations will be tranlsated to this language)</p>
+                <LanguageSelect onChange={languageChange} value={primary} />
+                <p style={{margin: 0}}>Languages that I am learning or want to learn</p>
+                <MultiLanguageSelect onChange={(v : any) => setTarget(v)} value={targetLanguages} />
+                <div style={{marginTop: 5}}>
+                    <Button type="primary" onClick={update}>Save Selection(s)</Button>
+                </div>
             </div>
         </div>
     )

@@ -165,43 +165,45 @@ export default function Settings() {
     if (!loaded) return <Loading message="Loading Flair Settings..." />
     return (
         <div style={{width: 500, maxWidth: '95%'}}>
-            <h2>Set Language Flair</h2>
-            <div style={{color: 'spacegray', marginBottom: 5, marginTop: 5}}>
-                <Checkbox checked={lEnable} style={{marginRight: 5}} onChange={() => onUpdate('custom')}></Checkbox>
-                <Badge type="custom" custom={language} />
-            </div>
-            <div style={inputWrap}>
-                <Input value={language} onChange={(e : any) => setLanguage(e.currentTarget.value)} />
-                <Button style={{marginLeft: 5}} type="primary" onClick={customUpdate}>Update</Button>
-            </div>
-            {/*<div style={{color: 'spacegray', marginBottom: 5, marginTop: 5}}>
-                <Checkbox checked={gEnable} style={{marginRight: 5}} onChange={() => onUpdate('supporterGold')}></Checkbox>
-                <Badge type="supporterGold" custom={gold} />
-            </div>
-            <div style={inputWrap}>
-                <Input value={gold} onChange={(e : any) => setGold(e.currentTarget.value)} />
-                <Button style={{marginLeft: 5}} type="primary" onClick={goldUpdate}>Update</Button>
-            </div>
-            <div style={{color: 'spacegray', marginBottom: 5, marginTop: 5}}>
-                <Checkbox  checked={dEnable} style={{marginRight: 5}}  onChange={() => onUpdate('supporterDiamond')}></Checkbox>
-                <Badge type="supporterDiamond" custom={diamond} />
-            </div>
-            <div style={inputWrap}>
-                <Input value={diamond} onChange={(e : any) => setDiamond(e.currentTarget.value)} />
-                <Button style={{marginLeft: 5}} type="primary" onClick={diamondUpdate}>Update</Button>
-            </div>
-            <div style={{color: 'spacegray', marginBottom: 5, marginTop: 5}}>
-                <Checkbox  checked={nEnable} style={{marginRight: 5}}  onChange={() => onUpdate('new')}></Checkbox>
-                <Badge type="new" />
-            </div>
-            */}
-            <div style={{color: 'spacegray', marginBottom: 5, marginTop: 5}}>
-                <Checkbox checked={cEnable} style={{marginRight: 5}}  onChange={() => onUpdate('contributor')}></Checkbox>
-                <Badge type="contributor" />
-            </div>
-            <div style={{marginTop: 15}}>
-                <p>Preview</p>
-                <Author key={refresh}/>
+            <h2>Profile Flair</h2>
+            <div style={{marginLeft: '20px'}}>
+                <div style={{color: 'spacegray', marginBottom: 5, marginTop: 5}}>
+                    <Checkbox checked={lEnable} style={{marginRight: 5}} onChange={() => onUpdate('custom')}></Checkbox>
+                    <Badge type="custom" custom={language} />
+                </div>
+                <div style={inputWrap}>
+                    <Input value={language} onChange={(e : any) => setLanguage(e.currentTarget.value)} />
+                    <Button style={{marginLeft: 5}} type="primary" onClick={customUpdate}>Update</Button>
+                </div>
+                {/*<div style={{color: 'spacegray', marginBottom: 5, marginTop: 5}}>
+                    <Checkbox checked={gEnable} style={{marginRight: 5}} onChange={() => onUpdate('supporterGold')}></Checkbox>
+                    <Badge type="supporterGold" custom={gold} />
+                </div>
+                <div style={inputWrap}>
+                    <Input value={gold} onChange={(e : any) => setGold(e.currentTarget.value)} />
+                    <Button style={{marginLeft: 5}} type="primary" onClick={goldUpdate}>Update</Button>
+                </div>
+                <div style={{color: 'spacegray', marginBottom: 5, marginTop: 5}}>
+                    <Checkbox  checked={dEnable} style={{marginRight: 5}}  onChange={() => onUpdate('supporterDiamond')}></Checkbox>
+                    <Badge type="supporterDiamond" custom={diamond} />
+                </div>
+                <div style={inputWrap}>
+                    <Input value={diamond} onChange={(e : any) => setDiamond(e.currentTarget.value)} />
+                    <Button style={{marginLeft: 5}} type="primary" onClick={diamondUpdate}>Update</Button>
+                </div>
+                <div style={{color: 'spacegray', marginBottom: 5, marginTop: 5}}>
+                    <Checkbox  checked={nEnable} style={{marginRight: 5}}  onChange={() => onUpdate('new')}></Checkbox>
+                    <Badge type="new" />
+                </div>
+                */}
+                <div style={{color: 'spacegray', marginBottom: 5, marginTop: 5}}>
+                    <Checkbox checked={cEnable} style={{marginRight: 5}}  onChange={() => onUpdate('contributor')}></Checkbox>
+                    <Badge type="contributor" />
+                </div>
+                <div style={{marginTop: 15}}>
+                    <p>Preview</p>
+                    <Author key={refresh}/>
+                </div>
             </div>
         </div>
     )
