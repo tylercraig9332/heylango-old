@@ -15,7 +15,7 @@ async function translateText(text, targetCode) {
     };
 
     let translations = []
-    try {
+    /*try {
         // Run request
         const [response] = await translationClient.translateText(request);
         
@@ -25,7 +25,7 @@ async function translateText(text, targetCode) {
         }
     } catch (error) {
         console.error(error);
-    }
+    }*/
     return translations
 }
 
