@@ -62,13 +62,11 @@ export default function Present(props : {deck?: ICard[]}) {
                     </Tooltip>
                 </div>
             </div>
-            <div className="srsRow">
-                {/* TODO: Add SRS banner here */}
-                <SRSBanner deck={deck} current={current} onChange={() => updateCurrent(current + 1)}/>
-            </div>
-            <div>
-                <Button onClick={() => speak(deck[current].value, deck[current].language, true)} type="primary">Listen</Button>
+            <div className="srsRow" style={srsRow}>
+                <br></br>
+                <Button  onClick={() => speak(deck[current].value, deck[current].language, true)} type="primary" block>Listen <Icon type="sound" /></Button>
                 {(tts) ? speak(deck[current].value, deck[current].language, false) : null}
+                <SRSBanner deck={deck} current={current} onChange={() => updateCurrent(current + 1)}/>
             </div>
         </div>
     )
@@ -92,4 +90,10 @@ const topRowView = {
     marginRight: 'auto',
     marginLeft: 'auto',
     maxWidth: '600px'
+}
+
+const srsRow = {
+    width: '500px',
+    marginRight: 'auto',
+    marginLeft: 'auto'
 }

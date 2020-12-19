@@ -1,5 +1,4 @@
-import { Console } from "console"
-
+import getBrowserInfo from './getBrowserInfo'
 export function speak(text : string, language : string, displayError : boolean) {
     let utterance = new SpeechSynthesisUtterance()
     utterance.text = text
@@ -12,17 +11,28 @@ export function speak(text : string, language : string, displayError : boolean) 
         if (v === language) {
             e = true
         }
-    })
-    if (e) {
+    }) 
+    const browser = getBrowserInfo()
+    if (browser.indexOf('Safari') != -1) { // User is using Safari
+        const lang = navigator.language 
+        if (lang != language) {
+            alert('Safari does not support Text-to-speach unless the system/MacOS language is the same, please visit https://osxdaily.com/2016/04/26/add-change-language-mac-os-x/')
+            return
+        }
+    }
+    if (e || browser.indexOf('Chrome') != -1) { // User has language downloaded or is using Chrome
         window.speechSynthesis.speak(utterance)
     } else {
         if (displayError) {
-            alert(`The language of this text (${language}) is not installed on your local machine.\n\nView console for more information`)
             console.log('---Text-to-speach Voice Error---')
-            console.log(`Text-to-speach attempted to translate "${text}" from the language "${language}," but installed languages on your machine for speechSynthesis do not support this language.`)
-            console.log(`If you are using Windows, please visit https://support.microsoft.com/en-us/office/how-to-download-text-to-speech-languages-for-windows-10-d5a6b612-b3ae-423f-afa5-4f6caf1ec5d3 to learn how to install new languages`)
+            console.log(`Text-to-speach attempted to translate "${text}" from the language "${language}," but installed languages on your browser for speechSynthesis do not support this language.`)
+            console.log(`Please add languages to your browser by following this guide https://www.wikihow.com/Change-Your-Browser%27s-Language`)
+            console.log('You can also add languages for your operating system and restarting the browser so the new languages will take affect in your browser. See guides below')
+            console.log(`If you are using Windows, please visit https://support.microsoft.com/en-us/office/how-to-download-text-to-speech-languages-for-windows-10-d5a6b612-b3ae-423f-afa5-4f6caf1ec5d3`)
+            console.log('If you are using Mac, please visit https://osxdaily.com/2016/04/26/add-change-language-mac-os-x/')
             console.log('Currently Installed Voices and Languages: ', voices)
             console.log('------')
+            alert(`The language of this text (${language}) is not installed on your browser.\n\nView console (F12) for more information`)
         }
     }   
 }
