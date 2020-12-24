@@ -59,7 +59,7 @@ export default function LanguageSetting() {
             <h2>Language Preferences</h2>
             <div style={{marginLeft: '20px'}}>
                 <p style={{margin: 0}}>Primary language (Translations will be tranlsated to this language)</p>
-                <LanguageSelect onChange={languageChange} value={primary} />
+                <LanguageSelect onChange={languageChange} value={primary} removeAny/>
                 <p style={{margin: 0}}>Languages that I am learning or want to learn</p>
                 <MultiLanguageSelect onChange={(v : any) => setTarget(v)} value={targetLanguages} />
                 <div style={{marginTop: 5}}>

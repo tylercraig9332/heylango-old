@@ -10,7 +10,8 @@ type SelectProps = {
     onChange : any,
     type? : string,
     placeholder?: string,
-    style?: React.CSSProperties
+    style?: React.CSSProperties,
+    removeAny?: boolean
 }
 
 export function CEFRSelect(props : SelectProps) {
@@ -50,7 +51,7 @@ export function LanguageSelect(props : SelectProps) {
             {
                 language.info.map(language => {
                     return (
-                        <Option value={language.code} key={language.code}>
+                        <Option value={language.code} key={language.code} disabled={(props.removeAny && language.code === 'all')}>
                             {language.title} 
                             <span role="img"> {language.flag}</span>
                         </Option>
