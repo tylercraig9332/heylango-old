@@ -3,6 +3,7 @@ import Expression from './Expression'
 import { message, Table, Button, Modal, Icon, Input, Popconfirm, Tooltip, Select, Cascader } from 'antd'
 import {parseLanguageCode} from '../../Util/functions'
 import DeckModal from './DeckModal'
+import AddModal from './AddModal'
 import Loading from '../../Util/Loading'
 
 const { Option } = Select
@@ -21,6 +22,7 @@ export default function List(props : {by? : string, type? : string, onRemove?: a
 
     const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([])
     const [deckModalView, setDeckModalView] = useState<boolean>(false)
+    const [addModalView, setAddModalView] = useState<boolean>(false)
 
     const [loading, setLoading] = useState<boolean>(true)
     const [sortBy, setSort] = useState<string>('weak')
@@ -51,7 +53,7 @@ export default function List(props : {by? : string, type? : string, onRemove?: a
                 }
                 tableData.push(p)
             }
-            console.log(tableData)
+            //console.log(tableData)
             setLoading(false)
             setExpressions(tableData)
             setExpressRefresh(false)
@@ -222,6 +224,9 @@ export default function List(props : {by? : string, type? : string, onRemove?: a
             <div id="actionToolbar" style={{display: 'flex', justifyContent: 'space-between'}}>
                 <div id="left" style={{display: 'flex', marginBottom: '10px'}}>
                     {addRemove}
+                    <div style={{marginLeft: '5px'}}>
+                        <Button onClick={() => setAddModalView(true)}>Add Expression</Button>
+                    </div>
                 </div>
                 <div id="right">
                     <Cascader placeholder='Sort By' style={{width: 200}} onChange={(e) => sort(e)} options={filterOptions} />
@@ -254,6 +259,15 @@ export default function List(props : {by? : string, type? : string, onRemove?: a
                     setSelectedRowKeys([])
                 }}
 
+            />
+            <AddModal
+                visible={addModalView}
+                onCancel={() => setAddModalView(false)}
+                afterSave={() => {
+                    setAddModalView(false)
+                }}
+                type={props.type}
+                by={props.by}
             />
         </div>
     )
