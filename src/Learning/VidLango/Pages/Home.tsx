@@ -37,7 +37,7 @@ export default function Home() {
                 <Link to="/learn/vid/create"><Button type="primary" size="large">Create New VidLango</Button></Link>
             </div>
             <hr style={{maxWidth: '1200px'}}></hr>
-            <Filter value={qString} onChange={setQString} />
+            <Filter value={qString} onChange={(q : string) => {setQString(q); setPage(1)}} />
             <div style={flexBody}>
             {
                 (langos.length > 0) ?
@@ -46,7 +46,9 @@ export default function Home() {
                 }) : (loaded) ?  <Contribute /> : <Loading message="Loading Langos" />
             }
             </div>
-            <Pagination total={(page * 7) + 7} current={page} onChange={(page, pageSize) => setPage(page)} defaultPageSize={7}/>
+            <div style={{marginLeft: '90px'}}>
+                <Pagination total={(page * 8) + langos.length} current={page} onChange={(page, pageSize) => setPage(page)} defaultPageSize={8}/>
+            </div>
         </div>
     )
 }

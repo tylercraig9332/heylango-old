@@ -7,8 +7,8 @@ function create(body) {
 
 function read(body, page, callback) {
     const options = {
-        skip: (page - 1) * 7,
-        limit: 7,
+        skip: (page - 1) * 8,
+        limit: 8,
         sort: {_id: 'desc'}
     }
     Resource.find(body, null, options, (err, res) => {

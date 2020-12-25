@@ -18,7 +18,7 @@ export default function Home() {
             <div style={appContainerStyle}>
                 <AppPreview title="Saved" description="Saved Words and Expressions" icon="file-done" path="/study/saved"/>
                 <AppPreview title="Decks" description="Flash Card Decks" icon="schedule" path="/study/decks"/>
-                <AppPreview title="Quiz" description="Custom Quizzes" icon="profile" path="/study/q" comingSoon/>
+                <AppPreview title="Quiz" description="Custom Quizzes" icon="profile" path="/learn/" comingSoon/>
             </div>
             <hr></hr>
         </div>

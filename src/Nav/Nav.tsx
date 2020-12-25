@@ -15,6 +15,7 @@ export default function Nav(props : any) {
         // TODO: Identify where we are and respond to a handler for the url
         //loadLocation()
         // Load user info
+        console.log(window.location.pathname)
         const reqHeaders = {
             headers: {
                 "Content-Type": "application/json"
@@ -77,7 +78,7 @@ export default function Nav(props : any) {
     )
 
     const learnTab = (
-        <SubMenu title={<Link to='/learn/lango/home' style={{color: 'inherit'}}>Learning Library</Link>}>
+        <SubMenu title={<Link to='/learn/' style={{color: 'inherit'}}>Learning Library</Link>}>
             <Item key='/learn/vid'><Link to="/learn/vid">Captioned Videos | VidLangos</Link></Item>
             <Item key="/learn/lango"><Link to="/learn/lango/home">Native Content | Langos</Link></Item>
             <Item key="/learn/bi"><Link to="/learn/bi">Bilingual Content | BiLangos</Link></Item>
