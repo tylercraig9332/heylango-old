@@ -42,7 +42,42 @@ export default function AddModal(props : {visible?: boolean, onCancel?: any, aft
             message.error('Unable to save: Please double check the form again to ensure everything is filled out')
             return
         }
-        props.afterSave()
+        // Helper function that builds post reqHeaders 
+        const postRequest = (body : any) =>  ({
+            body: JSON.stringify(body),
+            headers: {
+                "Content-Type": "application/json"
+            },
+            method: "POST"
+        })
+
+        const exp = {
+            value: expression,
+            translation: translation,
+            language: language
+        }
+        
+        fetch('/s/ex/', postRequest(exp)).then(res => {
+            if (res.status !== 200) {
+                message.error('Something went wrong with creating this expression')
+                console.error(res.statusText)
+                return
+            }
+            return res.json()
+        }).then((exp : IDeck) => {
+            let body = {
+                decks: deckSelected,
+                expressions: [exp._id]
+            }
+            fetch('/s/deck/ex', postRequest(body)).then(res => {
+                if (res.status !== 200) {
+                    message.error('Something went wrong saving your expression to decks')
+                    console.error(res.statusText)
+                }
+                else message.success(res.statusText)
+                props.afterSave()
+            })
+        })
     }
 
     function autoTranslate() {
