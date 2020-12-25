@@ -65,6 +65,8 @@ export default function AddModal(props : {visible?: boolean, onCancel?: any, aft
             }
             return res.json()
         }).then((exp : IDeck) => {
+            message.success("New Expression Saved!")
+            if (decks.length === 0) return
             let body = {
                 decks: deckSelected,
                 expressions: [exp._id]
@@ -74,7 +76,7 @@ export default function AddModal(props : {visible?: boolean, onCancel?: any, aft
                     message.error('Something went wrong saving your expression to decks')
                     console.error(res.statusText)
                 }
-                else message.success(res.statusText)
+                else message.success("Word/Expression Added to Deck(s)")
                 props.afterSave()
             })
         })
