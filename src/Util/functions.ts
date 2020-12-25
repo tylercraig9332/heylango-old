@@ -1,7 +1,7 @@
 import s from './language.json'
 export function parseLanguageCode(code : string) {
   // Language codes are often occompanied by their country eg. 'en-US' or 'en_UK' 
-    if (code.length > 2) {
+    if (code.length > 2 && code !== 'all') {
       code = code.slice(0, 2)
     }
     for (let c of s.info) {
