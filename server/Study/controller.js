@@ -91,7 +91,7 @@ router.post('/ex/', (req, res) => {
     }
     //req.body.author = req.session.user.id
     Deck.createDeckExp(req.body.decks, req.body.expressions, req.session.user.id).then(r => {
-        res.send('Word(s) Added to Deck')
+        res.send('Expression(s) Added to Deck(s)')
     }).catch(err => {
         console.log(err)
         res.status(400).send(err)

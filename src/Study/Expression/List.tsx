@@ -222,13 +222,13 @@ export default function List(props : {by? : string, type? : string, onRemove?: a
     return (
         <div>
             <div id="actionToolbar" style={{display: 'flex', justifyContent: 'space-between'}}>
-                <div id="left" style={{display: 'flex', marginBottom: '10px'}}>
+                <div id="left">
                     {addRemove}
-                    <div style={{marginLeft: '5px'}}>
-                        <Button onClick={() => setAddModalView(true)}>Add Expression</Button>
-                    </div>
                 </div>
-                <div id="right">
+                <div id="right" style={{display: 'flex', marginBottom: '10px'}}>
+                    <div style={{marginRight: '10px'}}>
+                        <Button type="primary" onClick={() => setAddModalView(true)}>Add Expression</Button>
+                    </div>
                     <Cascader placeholder='Sort By' style={{width: 200}} onChange={(e) => sort(e)} options={filterOptions} />
                 </div>
             </div>

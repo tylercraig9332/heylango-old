@@ -76,7 +76,9 @@ export default function AddModal(props : {visible?: boolean, onCancel?: any, aft
                     message.error('Something went wrong saving your expression to decks')
                     console.error(res.statusText)
                 }
-                else message.success("Word/Expression Added to Deck(s)")
+                else message.success("Expression Added to Deck(s)")
+                setExpression('')
+                setTranslation('')
                 props.afterSave()
             })
         })
