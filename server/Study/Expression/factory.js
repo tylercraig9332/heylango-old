@@ -20,13 +20,16 @@ async function readDeck(deck_id, callback) {
         const expPromiseArray = docs.map((doc) => {
             return Resource.findOne({_id: doc.expression}, (err, exp) => {
                 if (exp == null) {
-                    console.error('DeckExpression Corruption')
+                    console.error('DeckExpression Corruption, see DeckExpression/factory.js, line 23')
                     console.log(doc)
                 }
                 if (err) throw new Error(err)
             }).exec()
         })
         Promise.all(expPromiseArray).then(expressions => {
+            expressions = expressions.filter((expression) => {
+                return expression !== null && expression !== undefined
+            })
             callback(expressions)
         })
         if (err) throw new Error(err)
