@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import WordLearner from '../../../../Draft/WordLearner/WordLearner'
-import { Button, Checkbox, Modal, Tooltip } from 'antd'
+import { Button, Checkbox, Modal, Tooltip, message } from 'antd'
 import AddCaption from './AddCaption'
-import { parseLanguageCode, parseLanguageFlag } from '../../../../Util/functions'
+import { parseLanguageCode, parseLanguageFlag, getOtherLanguages, parseSimplifiedCode } from '../../../../Util/functions'
 
-export default function SubtitleViewer(props : {captions : Array<any>, onCaptionChange: any, currentTime: number}) {
+type itext = {value : string, language : string}
+
+export default function SubtitleViewer(props : {captions : Array<any>, onCaptionChange: any, currentTime: number, audioLanguage: string}) {
     
-    const [texts, setTexts] = useState<Array<string>>(['Waiting on next caption'])
+    const [texts, setTexts] = useState<Array<itext>>([{value: 'Waiting on next caption', language: 'all'}])
     const [settingShow, setSettingShow] = useState<boolean>(false)
     const [removedTexts, setRemoved] = useState<Array<string>>([])
 
@@ -28,21 +30,36 @@ export default function SubtitleViewer(props : {captions : Array<any>, onCaption
 
     }
 
-    /*useEffect(() => {
+    useEffect(() => {
         //TODO: initalize removetexts with the languages that the user has not selected as learning and that is not the audio language
         // so for example: if the user is learning every language except chinese and esperanto, and the video was esperanto, then the language disabled would be [chinese]
         // but if the video was in english then the languages disabled would be [chinese and esperanto]
-    }, [])*/
+        fetch('/u/setting').then(res => {
+            if (res.status !== 200) {
+                console.error(res)
+                message.error('Faild to load language preferences')
+                return
+            }
+            return res.json()
+        }).then(data => {
+            const target = data.targetLanguages
+            // Disable languages that are not our target, audio from the video, or primary languages from being enabled
+            let disabled = getOtherLanguages([props.audioLanguage, data.primaryLanguage, ...target])
+            setRemoved(disabled)
+        })
+    }, [])
 
     useEffect(() => {
         if (props.captions === undefined || props.captions.length < 1) return
         // props.captions is in seconds
-        props.captions.forEach((captionSet, i) => {
-            if (!removedTexts.includes(captionSet.lCode)) {
+        let i = 0
+        props.captions.forEach((captionSet) => {
+            if (!removedTexts.includes(parseSimplifiedCode(captionSet.lCode))) {
                 captionSet.captions.forEach((caption : any) => {
                     if (props.currentTime > captionTimeToSeconds(caption.start) && props.currentTime < captionTimeToSeconds(caption.end)) {
                         let t = texts
-                        t[i] = caption.content
+                        t[i] = {value: caption.content, language: captionSet.lCode}
+                        i++
                         setTexts(t)
                     }
                 })
@@ -50,8 +67,7 @@ export default function SubtitleViewer(props : {captions : Array<any>, onCaption
         })
     }, [props.currentTime, props.captions])
     
-    function disable(e : any) { // CheckboxChangeEvent from antd
-        const code = e.target.value
+    function disable(code : string) { // CheckboxChangeEvent from antd
         let rt = [...removedTexts]
         if (removedTexts.includes(code)) {
             const i = removedTexts.indexOf(code)
@@ -59,7 +75,7 @@ export default function SubtitleViewer(props : {captions : Array<any>, onCaption
         } else {
             rt.push(code)
         }
-        setTexts(['Waiting on next caption'])
+        setTexts([{value: 'Waiting on next caption', language: 'all'}])
         setRemoved(rt)
     }
 
@@ -75,8 +91,9 @@ export default function SubtitleViewer(props : {captions : Array<any>, onCaption
             {
                 (texts.length === 0) ? (<div style={{width: '250px'}}>Waiting for next caption</div> ) : (
                 texts.map((text, i) => {
+                    if (text === undefined) return null
                     return (
-                        <div key={text + i} style={{marginBottom: '20px'}}><WordLearner value={text} lineHeight={'40px'} fontSize={'24px'} simplified readOnly/></div>
+                        <div key={text.value + i} style={{marginBottom: '20px'}}><WordLearner value={text.value} lineHeight={'40px'} fontSize={'24px'} language={text.language} simplified readOnly/></div>
                     )
                 }))
             }
@@ -87,7 +104,7 @@ export default function SubtitleViewer(props : {captions : Array<any>, onCaption
                         props.captions.map((captionSet, i) => {
                             return (
                                 <div key={i} style={captionListing}><span style={{maxWidth: 225}}>{parseLanguageCode(captionSet.lCode)} - {parseLanguageFlag(captionSet.lCode)} - {captionSet.name}</span>
-                                    <Checkbox value={captionSet.lCode} checked={!removedTexts.includes(captionSet.lCode)} onChange={disable}/>
+                                    <Checkbox value={captionSet.lCode} checked={!removedTexts.includes(parseSimplifiedCode(captionSet.lCode))} onChange={(e : any) => {disable(e.target.value)}}/>
                                 </div>
                             )
                         })

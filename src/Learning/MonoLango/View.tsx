@@ -70,6 +70,7 @@ export default function View() {
                     wordsPerPage={25}
                     lineHeight={'60px'}
                     fontSize={'25px'}
+                    language={lango.language}
                 />
             </div>
             <br></br>

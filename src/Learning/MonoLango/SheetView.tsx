@@ -167,6 +167,7 @@ export default function SheetView(props :  {readOnly?: boolean, send? : any, id?
                         lineHeight={'60px'}
                         fontSize={'25px'}
                         autopause={!enablePreview}
+                        language={language}
                     />
                 
             </Row>

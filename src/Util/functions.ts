@@ -1,13 +1,17 @@
 import s from './language.json'
 export function parseLanguageCode(code : string) {
   // Language codes are often occompanied by their country eg. 'en-US' or 'en_UK' 
-    if (code.length > 2 && code !== 'all') {
+    if (code.length > 2 && code !== 'all' && code.toLowerCase() !== 'zh-hant' && code.toLowerCase() !== 'zh-hans') {
       code = code.slice(0, 2)
     }
     for (let c of s.info) {
         if (c.code === code) {
             return c.name
-        } 
+        } else if (code.toLowerCase() === 'zh-hant') {
+          return 'Chinese Traditional'
+        } else if (code.toLowerCase() === 'zh-hans') {
+          return 'Chinese Simplified'
+        }
     }
     // This will return whatever was passed if language code not found
     return code
@@ -24,6 +28,24 @@ export function parseLanguageFlag(code : string) {
           return c.flag
       } 
   }
+}
+
+export function parseSimplifiedCode(code : string) {
+  // Language codes are often occompanied by their country eg. 'en-US' or 'en_UK' 
+  if (code.length > 2 && code !== 'all' && code.toLowerCase() !== 'zh-hant' && code.toLowerCase() !== 'zh-hans') {
+    code = code.slice(0, 2)
+  }
+  for (let c of s.info) {
+      if (c.code === code) {
+          return c.code
+      } else if (code.toLowerCase() === 'zh-hant') {
+        return 'zh'
+      } else if (code.toLowerCase() === 'zh-hans') {
+        return 'zh'
+      }
+  }
+  // This will return whatever was passed if language code not found
+  return code
 }
 
 export function parseCategoryId(code : string) {
@@ -85,4 +107,28 @@ export function timeFormat(seconds : number) {
     let mform = (h > 0 && m < 10) ? `0${m}` : `${m}` // adds 0 before if there is an hour 1:04:55 vs 4:55
     let hform = (h > 0) ? `${h}:` : ''
     return `${hform}${mform}:${sform}`
+}
+
+/**
+ * Returns an array of languages from languages.info that are not a part of the selected languages passed
+ * getOtherLanguages([]) would return every language
+ * getOtherLanguages([Spanish]) would return every other language beside Spanish
+ * @param excludeLanguages Language codes to be excluded
+ * @returns all other languages that are not a part of the selectedLanguages array
+ */
+export function getOtherLanguages(excludedLanguages : string[]) {
+  // If programmer passed undefined
+  if (excludedLanguages === undefined) excludedLanguages = []
+  // Simplify exludedLanguages to ensure that there is compatability
+  excludedLanguages.forEach((l, i) => {
+    excludedLanguages[i] = parseSimplifiedCode(l)
+  })
+  let a : string[] = []
+  s.info.forEach(l => {
+    let c = (l.code === 'zh-c' || l.code === 'zh-m') ? 'zh' : l.code // Combines Chinese codes to just one code
+    if (excludedLanguages.length === 0 || excludedLanguages.indexOf(parseSimplifiedCode(c)) === -1) {
+      a.push(c)
+    }
+  })
+  return a
 }

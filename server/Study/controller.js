@@ -5,6 +5,7 @@ const Expression = require('./Expression/factory')
 const translateText = require('../Util/translate.js')
 const Deck = require('./Decks/factory')
 const DeckExpression = require('./Decks/DeckExpressionRelation')
+const InteractionFactory = require('../Interaction/factory')
 
 const sortFn = require('./Expression/expSortFn')
 

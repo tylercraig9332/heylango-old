@@ -111,6 +111,8 @@ export default function WordLearner(props : WordLearnerProps) {
 
     useEffect(() => {
         if (pausePlay && mouseupevent === undefined && props.readOnly && props.autopause) pausePlayVideo(highlight)
+        // When focus is applied overwrite the local language for the decorator to use
+        if (props.language !== undefined) window.sessionStorage.setItem('LangoLanguage', props.language)
     }, [highlight])
 
     /** Takes in text and seperated it into blocks based on wordsPerBlock */

@@ -73,7 +73,7 @@ export default function View(props : {vidLango : IVidLango | undefined, preview?
             <p>
             {
                 vidLango.tags.map((tag, i) => {
-                    return <span>{tag}{(i + 1 === vidLango.tags.length) ? '' : ', '}</span>
+                    return <span key={tag}>{tag}{(i + 1 === vidLango.tags.length) ? '' : ', '}</span>
                 }) 
             }
             </p>
@@ -96,7 +96,7 @@ export default function View(props : {vidLango : IVidLango | undefined, preview?
                 </div>
             }
             <div style={videoStyleWrap}>
-                <InteractivePlayer video_id={vidLango.video_id} captions={vidLango.captions} onCaptionChange={captionChange} preview={props.preview} />
+                <InteractivePlayer video_id={vidLango.video_id} captions={vidLango.captions} onCaptionChange={captionChange} preview={props.preview} audioLanguage={vidLango.language}/>
             </div>
         </div>
     )
