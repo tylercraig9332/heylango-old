@@ -19,7 +19,6 @@ export default function List(props : {by?: string, vidLangos?: IVidLango[]}) {
             setLangos(props.vidLangos)
             return
         }
-        console.log(props.by)
         if (props.by === 'u' || props.by === 'u-') return // parent has yet to finish loading, this may not be needed, need to do more testing
         setLoaded(false)
         setLangos([])
