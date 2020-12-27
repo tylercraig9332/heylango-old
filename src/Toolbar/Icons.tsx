@@ -103,6 +103,9 @@ export function Share(props: {parent_id?: string, parentType?: string}) {
         case 'Lango':
             link = `${window.location.host}/learn/lango/${props.parent_id}`
             break;
+        case 'VidLango':
+            link =`${window.location.host}/learn/vid/${props.parent_id}`
+            break;
     }
     const inputRef = useRef<any>()
     function info() {

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import IVidLango from './VidLango'
-import { Card, Tag } from 'antd'
+import { Card, message, Tag } from 'antd'
 import { parseCategoryId, parseLanguageCode, parseLanguageFlag } from '../../Util/functions'
-import { inherits } from 'util'
+import { Like, Share, Save } from '../../Toolbar/Icons'
 
 type PreviewProps = {
     vidLango : IVidLango
@@ -35,14 +35,19 @@ export default function Preview(props : PreviewProps) {
     return (
         <Card style={(hover) ? cardHover : notHover} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} hoverable>
             <Link style={{color: 'inherit'}} to={`/learn/vid/${props.vidLango._id}`}>
-            <h2 style={{marginTop: '-15px'}}>{props.vidLango.meta.title}</h2>
-            <div style={{marginRight: 'auto', marginLeft: 'auto', width: '320px'}}><img src={thumb} /></div>
+            <h2 style={{padding: '0px 15px 20px 15px'}}>{props.vidLango.meta.title}</h2>
+            <div style={{display: 'flex', width: '552px', justifyContent: 'center', alignItems: 'start'}}><img src={thumb} /></div>
             <div>
                 <Line><strong>Audio </strong>{parseLanguageCode(props.vidLango.language)} {parseLanguageFlag(props.vidLango.language)}</Line>
                 <Line><strong> Captions </strong> {captionMap}</Line>
                 <Line><strong> Category </strong> {parseCategoryId(props.vidLango.meta.categoryId)}</Line>
             </div>
         </Link>
+            <div style={toolbar}>
+                <Like parent_id={props.vidLango._id} />
+                <Save parent_id={props.vidLango._id} parentType='VidLango' />
+                <Share parent_id={props.vidLango._id} parentType="VidLango" />
+            </div>        
         </Card>
     )
 }
@@ -57,7 +62,9 @@ const cardWrapper = {
     margin: '20px',
     minHeight: '300px',
     width: '600px',
-    paddingTop: 0
+    paddingTop: 0,
+    alignItems: 'start',
+    paddingBottom: '65px'
 } as React.CSSProperties
 
 const notHover = {
@@ -71,4 +78,18 @@ const cardHover = {
     borderRadius: '8px',
     boxShadow: '0 2px 8px fade(#1890ff, 20%)',
     ...cardWrapper
+} as React.CSSProperties
+
+const toolbar = {
+    width: '552px',
+    height: '60px',
+    display: 'flex',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    backgroundColor: '#fafafa',
+    listStyle: 'none',
+    border: '1px solid #e8e8e8',
+    borderRadius: '5px',
+    zoom: 1,
+    position: 'absolute', bottom: 24 // Moves to bottom of card
 } as React.CSSProperties
