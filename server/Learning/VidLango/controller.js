@@ -3,6 +3,7 @@ const router = express.Router()
 const factory = require('./factory')
 const YouTube = require('./YouTube')
 const yt = new YouTube() 
+const InteractionFactory = require('../../Interaction/factory')
 
 // TODO: handle wrong YouTube id : right now it crashed the server
 router.get('/yt/:videoId', (req, res) => {
@@ -22,6 +23,7 @@ router.get('/yt/:videoId', (req, res) => {
             author: req.session.user.id
         }
         factory.create(vidLango).then(doc => {
+            InteractionFactory.increase_score(InteractionFactory.scores.LANGO, req.session.user.id, (err, doc) => {})
             res.send(doc)
         })
     })

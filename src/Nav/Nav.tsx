@@ -15,7 +15,6 @@ export default function Nav(props : any) {
         // TODO: Identify where we are and respond to a handler for the url
         //loadLocation()
         // Load user info
-        console.log(window.location.pathname)
         const reqHeaders = {
             headers: {
                 "Content-Type": "application/json"

@@ -70,6 +70,7 @@ router.post('/ex/', (req, res) => {
         return
     }
     req.body.author = req.session.user.id
+    InteractionFactory.increase_score(InteractionFactory.scores.EXPR, req.session.user.id, (err, doc) => {})
     Expression.create(req.body).then(r => res.send(r)).catch(err => res.status(400).send(err))
 }).post('/deck/', (req, res) => {
     if (req.session.user === undefined) {
@@ -78,6 +79,7 @@ router.post('/ex/', (req, res) => {
     }
     req.body.author = req.session.user.id
     Deck.create(req.body).then(d => {
+        InteractionFactory.increase_score(InteractionFactory.scores.DECK, req.session.user.id, (err, doc) => {})
         res.send(true)
     }).catch(err => {
         console.error(err)
@@ -107,6 +109,7 @@ router.patch('/ex/strength', (req, res) => {
     }
     Expression.adjustStrength(req.body, (err, response) => {
         if (err) res.status(400)
+        InteractionFactory.increase_score(InteractionFactory.scores.STREN, req.session.user.id, (err, doc) => {})
         res.send(response)
     })
 })

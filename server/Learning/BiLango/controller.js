@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const factory = require('./factory')
+const InteractionFactory = require('../../Interaction/factory')
 
 router.get('/', (req, res) => {
     factory.read(req.params.body).then(sheet => {
@@ -41,6 +42,7 @@ router.post('/', (req, res) => {
     factory.create(req.body).then((r) => {
         //console.log(r)
         BadgeFactory.create('contributor', req.session.user.id)
+        InteractionFactory.increase_score(InteractionFactory.scores.LANGO, req.session.user.id, (err, doc) => {})
         res.send(200)
     })
     .catch((err) => {

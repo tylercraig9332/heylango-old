@@ -34,6 +34,15 @@ router.get('/', (req, res) => {
         else res.send(false)
     })
 })
+.get('/score/:user', (req, res) => {
+    let u = req.params.user
+    if (req.params.user === undefined || req.params.user === 'me') {
+        u = req.session.user.id
+    }
+    factory.read_score({user: u}, (err, doc) => {
+        res.status((err === null) ? 200 : 500).send(doc[0])
+    })
+})
 // Determines if the current user has read the post given by the url
 .get('/:post', async (req, res) => {
     if (req.session.user === undefined) {
@@ -51,6 +60,7 @@ router.post('/', (req, res) => {
         return
     }
     req.body.user = req.session.user.id
+    factory.increase_score(factory.scores.LIKE, req.session.user.id, (err, doc) => {})
     factory.create_like(req.body)
     res.status(200).send('Liked!')
 })
@@ -70,6 +80,7 @@ router.delete('/', (req, res) => {
         return
     }
     req.body.user = req.session.user.id
+    factory.increase_score(factory.scores.LIKE * -1, req.session.user.id, (err, doc) => {})
     factory.delete(req.body)
     res.status(200).send('Unliked')
 })

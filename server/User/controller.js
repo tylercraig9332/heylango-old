@@ -3,6 +3,7 @@ const router = express.Router()
 const model = require('./factory.js')
 const BadgeFactory = require('./Badge/factory')
 const SettingFactory = require('./UserSettings/factory')
+const InteractionFactory = require('../Interaction/factory')
 const User = require('./User.js')
 
 router.get('/loggedIn', (req, res) => {
@@ -41,14 +42,15 @@ router.get('/loggedIn', (req, res) => {
 
 
 router.post('/signup', (req, res) => {
-    if (req.body.username === undefined && req.body.password === undefined) {
+    if (req.body.form.username === undefined && req.body.form.password === undefined) {
         console.log("Missing body...")
         res.send("Error: missing request body...")
         return
     }
-    model.create(req.body).then((user) => {
+    model.create(req.body.form).then((user) => {
         BadgeFactory.create('custom', user.id, 'English')
-        SettingFactory.create(req.sesssion.user.id, {primaryLanguage: 'en', targetLanguages: []})
+        SettingFactory.create(user.id, {primaryLanguage: 'en', targetLanguages: req.body.languages})
+        InteractionFactory.create_score({user: user.id, points: 0, lastUpdated: Date.now()})
         req.session.user = user
         res.sendStatus(200)
     })

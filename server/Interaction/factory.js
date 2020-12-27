@@ -1,6 +1,8 @@
 const Like = require('./Like')
 const Save = require('./Save')
+const Score = require('./Score')
 const Lango = require('../Learning/Lango/LangoResource')
+const Scores = require('./Scores.json')
 
 function create_like(body) {
     // New Like
@@ -12,6 +14,11 @@ function create_save(body) {
     // new Save
     let s = new Save(body)
     s.save()
+}
+
+function create_score(body) {
+    let ip = new Score(body)
+    ip.save()
 }
 
 async function read_like(body) {
@@ -32,11 +39,23 @@ async function read_save(body) {
     return s
 }
 
+function read_score(body, callback) {
+    Score.find(body, callback)
+}
+
 async function readOne(body) {
     let doc = await Like.findOne(body, (err, doc) => {
         if (err) console.log(err)
     })
     return (doc !== null) 
+}
+
+function update_score(body, by, callback) {
+    Score.updateOne(body, by, callback)
+}
+
+function increase_score(amount, user, callback) {
+    Score.findOneAndUpdate({user: user}, {$inc: {'points': amount}}, callback)
 }
 
 function _delete(body) {
@@ -55,8 +74,13 @@ function _delete(body) {
 module.exports = {
     create_save,
     create_like,
+    create_score,
     read_like,
     read_save,
+    read_score,
     readOne,
+    update_score,
+    increase_score,
+    scores: Scores,
     delete: _delete
 }

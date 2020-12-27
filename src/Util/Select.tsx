@@ -11,7 +11,8 @@ type SelectProps = {
     type? : string,
     placeholder?: string,
     style?: React.CSSProperties,
-    removeAny?: boolean
+    removeAny?: boolean,
+    large?: boolean
 }
 
 export function CEFRSelect(props : SelectProps) {
@@ -130,6 +131,7 @@ export function MultiLanguageSelect(props : SelectProps) {
             style={{width: '100%', minWidth: 200}}
             placeholder={(props.placeholder === undefined) ? "Select Language(s)" : props.placeholder}
             value={props.value}
+            size={(props.large) ? "large" : "default"}
         >
              {
                 language.info.map(language => {

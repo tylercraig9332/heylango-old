@@ -1,7 +1,8 @@
 const express = require('express')
 const router = express.Router()
 
-let model = require('./factory')
+const model = require('./factory')
+const Interactionfactory = require('../Interaction/factory')
 
 router.get('/id/:id', (req, res) => {
     // retrive post by id
@@ -57,6 +58,7 @@ router.post('/', (req, res) => {
     }
     req.body.author = req.session.user.id
     model.create(req.body).then(r => {
+        InteractionFactory.increase_score(InteractionFactory.scores.POST, req.session.user.id, (err, doc) => {})
         res.status(200).send(r)
     })
     .catch(err => {

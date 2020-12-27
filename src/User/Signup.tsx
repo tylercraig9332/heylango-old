@@ -6,6 +6,7 @@ import { Button, Col, Input, Row, Alert, Result, message } from 'antd';
 import 'antd/dist/antd.css';
 
 import formToJSON from './formToJSON'
+import { MultiLanguageSelect } from '../Util/Select'
 
 /* Begin Alerts */
 
@@ -61,6 +62,8 @@ export default function SignUp(props: any) {
 
     const [error, setError] = useState<boolean>(false)
 
+    const [languages, setLanguages] = useState<string[]>([])
+
     function handleSubmit(event : any) : void {
         event.preventDefault()
         let form: any = formToJSON(event.target)
@@ -77,14 +80,14 @@ export default function SignUp(props: any) {
         // All checks pass
         if (!incomp && !match && !length && !email) {
             const reqHeaders = {
-                body: JSON.stringify(form),
+                body: JSON.stringify({form: form, languages: languages}),
                 headers: {
                     "Content-Type": "application/json"
                 },
                 method: "POST"
             }
 
-            fetch('/u/signup', reqHeaders)
+            fetch('/u/signup/', reqHeaders)
             .then(res => {
                 setSuccess(res.status === 200)
                 if (res.status === 400) {
@@ -123,6 +126,9 @@ export default function SignUp(props: any) {
                   <Input name="email" placeholder="email" style={formStyle} size="large"/>
                   <Input.Password name="password" placeholder="new password" style={formStyle} size="large" />
                   <Input.Password name="match" placeholder="re-enter password" style={formStyle} size="large" />
+                  <div style={{margin: '10px 0px 10px 0px'}}>
+                    <MultiLanguageSelect value={languages} onChange={setLanguages} placeholder="language(s) I want to learn" large/>
+                  </div>
                   <Button type="primary" size="large" style={formStyle} block htmlType="submit" onClick={() => setSubmit(true)}>Go</Button>
                 </form>
                 <br></br>

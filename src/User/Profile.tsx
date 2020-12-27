@@ -6,6 +6,7 @@ import ListPost from '../Post/List'
 import ListLango from '../Learning/MonoLango/List'
 import IBadge from './Badge/IBadge'
 import BadgePanel from './Badge/Panel'
+import Score from '../User/Score'
 
 import { message, Descriptions, Tabs } from 'antd'
 
@@ -16,6 +17,7 @@ export default function Profile() {
     const [user, setUser] = useState<User>()
     const [loaded, setLoaded] = useState<boolean>(false)
     const [badges, setBadges] = useState<IBadge[]>()
+    const [score, setScore] = useState<string>('')
 
     useEffect(() => {
         //console.log(window.location.pathname.split('/')[2])
@@ -60,7 +62,7 @@ export default function Profile() {
             <hr></hr>
             <Descriptions bordered title="Profile Details">
                 <Descriptions.Item label="Username">{user.username}</Descriptions.Item>
-                <Descriptions.Item label="Interaction Points (ip)">{user.meta.ip} Comming Soon...</Descriptions.Item>
+                <Descriptions.Item label="Interaction Points">{user.meta.ip} <Score user={user.id} /></Descriptions.Item>
                 <Descriptions.Item label="Date Joined">{new Date(user.createdAt).toLocaleDateString()}</Descriptions.Item>
                 <Descriptions.Item label="Account Identifier">{user.id}</Descriptions.Item>
             </Descriptions>
