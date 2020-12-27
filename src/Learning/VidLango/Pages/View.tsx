@@ -1,7 +1,6 @@
-import { message } from 'antd'
+import { message, Result } from 'antd'
 import React, { useEffect, useState } from 'react'
 import Loading from '../../../Util/Loading'
-import SubtitleViewer from '../Player/Components/SubtitleViewer'
 import InteractivePlayer from '../Player/YoutubePlayer'
 import IVidLango from '../VidLango'
 import PageToolbar from '../../../Nav/PageToolbar'
@@ -12,6 +11,8 @@ import { parseLanguageCode, parseLanguageFlag } from '../../../Util/functions'
 export default function View(props : {vidLango : IVidLango | undefined, preview?: boolean}) {
 
     const [vidLango, setVidLango] = useState<IVidLango>()
+    const [error, setError] = useState<boolean>(false)
+    const [errorStatus, setErrorStatus] = useState<any>('info')
     
     useEffect(() => {
         if (props.vidLango === undefined) {
@@ -25,6 +26,17 @@ export default function View(props : {vidLango : IVidLango | undefined, preview?
                 }
                 return res.json()
             }).then(data => {
+                if (data === undefined) {
+                    message.error('Server Error 500: Something went wrong and failed to retrieve data from server :(')
+                    setError(true)
+                    setErrorStatus('500')
+                    return
+                } else if (data.length === 0) {
+                    message.error('Error 404: This VidLango does not exist. Please check the URL and try again.')
+                    setError(true)
+                    setErrorStatus('404')
+                    return
+                }
                 const v : IVidLango = data[0]
                 // Allows for the WordLearner to identify the language
                 window.sessionStorage.setItem('LangoLanguage', v.language)
@@ -60,9 +72,9 @@ export default function View(props : {vidLango : IVidLango | undefined, preview?
         window.location.href = '/learn/vid/create'
     }
 
-
-    if (vidLango === undefined) return <Loading message="Loading VidLango..." />
-
+    if (error && errorStatus === '404') return <Result status={errorStatus} title="404" subTitle="Sorry, the page you visited does not exist."/>
+    if (error && errorStatus === '500') return <Result status={errorStatus} title="500" subTitle="Sorry, the server is wrong." />
+    if (vidLango === undefined ) return <Loading message="Loading VidLango..." />
     const descriptionJSX = (
         <div style={{maxWidth: '400px'}}>
             <strong>Audio Language</strong>

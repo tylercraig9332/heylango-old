@@ -111,7 +111,7 @@ router.get('/yt/:videoId', (req, res) => {
     }
 })
 .get('/:id', (req, res) => {
-    factory.read({_id: req.params.id}, 1, (err, doc) => {
+    factory.read({_id: req.params.id}, null, (err, doc) => {
         if (err) {
             res.statusMessage(500).send('Database Error', err.codeName)
         }
