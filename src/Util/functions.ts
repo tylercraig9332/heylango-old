@@ -103,6 +103,7 @@ export function timeFormat(seconds : number) {
     let m = Math.floor(s / 60)
     s %= 60
     let h = Math.floor(m / 60)
+    m %= 60
     let sform = (s < 10) ? `0${s}` : `${s}` // adds 0 before second 4:06 
     let mform = (h > 0 && m < 10) ? `0${m}` : `${m}` // adds 0 before if there is an hour 1:04:55 vs 4:55
     let hform = (h > 0) ? `${h}:` : ''
