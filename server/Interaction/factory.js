@@ -2,6 +2,9 @@ const Like = require('./Like')
 const Save = require('./Save')
 const Score = require('./Score')
 const Lango = require('../Learning/Lango/LangoResource')
+const VidLango = require('../Learning/VidLango/VidLango')
+const Post = require('../Post/Post')
+
 const Scores = require('./Scores.json')
 
 function create_like(body) {
@@ -78,6 +81,55 @@ function delete_save(body) {
     })
 }
 
+/**
+ * Takes in an array of SaveResources and collects all the resources and returns it as one big object
+ * @deprecated
+ * @param {Array<SaveResource>} saves
+ * @returns {Object} formated as {vidlangos[], langos[], posts[]} 
+ */
+async function collect_saves(saves) {
+    let r = {
+        vidLangos: [],
+        langos: [],
+        posts: []
+    }
+    var proms = saves.map((save) => {
+        switch (save.parentType) {
+            case 'lango':
+                return new Promise((resolve, reject) => {
+                    Lango.findById(save.parent, (err, doc) => {
+                        if (err) reject()
+                        r.langos.push(doc)
+                        //console.log(doc.title)
+                        resolve(r.langos)
+                    })
+                })
+            case 'VidLango':
+                return new Promise((resolve, reject) => {
+                    VidLango.findById(save.parent, (err, doc) => {
+                        if (err) reject()
+                        r.vidLangos.push(doc)
+                        //console.log(doc.title)
+                        resolve(r.vidLangos)
+                    })
+                })
+            case 'post':
+                return new Promise((resolve, reject) => {
+                    Post.findById(save.parent, (err, doc) => {
+                        if (err) reject()
+                        r.posts.push(doc)
+                        //console.log(doc)
+                        resolve(r.posts)
+                    })
+                })
+            default:
+                break;
+        }
+    })
+    let p = await Promise.all(proms)
+    return r
+}
+
 module.exports = {
     create_save,
     create_like,
@@ -90,5 +142,6 @@ module.exports = {
     increase_score,
     scores: Scores,
     delete_like,
-    delete_save
+    delete_save,
+    collect_saves
 }

@@ -39,7 +39,11 @@ router.get('/', (req, res) => {
     if (req.params.user === undefined || req.params.user === 'me') {
         u = req.session.user.id
     }
-    factory.read_save({user: u}).then(saves => res.send(saves))
+    factory.read_save({user: u}).then(saves => {
+        factory.collect_saves(saves).then((saveData) => {
+            res.send(saveData)
+        })
+    })
 })
 .get('/score/:user', (req, res) => {
     let u = req.params.user

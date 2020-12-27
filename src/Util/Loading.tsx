@@ -33,6 +33,7 @@ const pageWrap = {
     flexWrap: 'wrap',
     height: '100%',
     width: '100%',
+    padding: '20px'
 } as React.CSSProperties
 
 const breakStyle = {

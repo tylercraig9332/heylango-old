@@ -3,42 +3,29 @@ import { Link } from 'react-router-dom'
 import { message, Tabs, Alert, Button } from 'antd'
 import Loading from '../../Util/Loading'
 import ExpressionList from '../../Study/Expression/List'
+import IVidLango from '../../Learning/VidLango/VidLango'
+import ILango from '../../Learning/MonoLango/Lango'
+import IPost from '../../Post/Post'
+import VidLangoList from '../../Learning/VidLango/Pages/List'
+import ListLangos from '../../Learning/MonoLango/List'
 
 const { TabPane } = Tabs
 
 export default function Saved() {
-
-    const [loaded, setLoaded] = useState<boolean>(false)
-    const [saved, setSaved] = useState<any>()
-
-    useEffect(() => {
-        fetch('/i/s/user/me').then(res => {
-            setLoaded(true)
-            if (res.status !== 200) {
-                message.error('Something went wrong')
-                return
-            }
-            return res.json()
-        }).then(data => {
-            console.log(data)
-        })
-    }, [])
-
-    if (!loaded) return <Loading message="Loading Saved!" />
     return (
         <div>
             <h1 style={{color: 'spacegray'}}>Saved</h1>
             <Tabs defaultActiveKey={'vidlango'}>
                 <TabPane tab="VidLangos" key="vidlangos">
                     <div>
-
+                        <VidLangoList by="saved" />
                     </div>
                 </TabPane>
                 <TabPane tab="Langos" key="langos">
-
+                    {/*<LangoList by="saved" />*/null}
                 </TabPane>
                 <TabPane tab="Posts" key="posts">
-
+                    {/*<PostList by="saved" />*/null}
                 </TabPane>
                 <TabPane tab="Words / Expressions" key="expressions">
                 <Alert

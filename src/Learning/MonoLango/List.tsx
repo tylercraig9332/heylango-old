@@ -5,12 +5,16 @@ import Loading from '../../Util/Loading'
 import LangoPreview from './LangoPreview'
 import Contribute from './Contribute'
 
-export default function List(props : {by? : string}) {
+export default function List(props : {by? : string, langos?: Lango[]}) {
     
     const [langos, setLangos] = useState<Lango[]>()
 
     useEffect(() => {
         let by = (props.by === undefined) ? '/all' : props.by
+        if (by === 'props') {
+            setLangos(props.langos)
+            return
+        }
         const reqHeaders = {
             headers: {
                 "Content-Type": "application/json"

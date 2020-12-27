@@ -28,13 +28,22 @@ router.get('/yt/:videoId', (req, res) => {
         })
     })
 })
-.get('/list/:page?/:query?', (req, res) => { //:var?
+.get('/list/:by?/:page?/:query?', (req, res) => { //:var?
+    // by -> unique string that I use to identify custom returns, eg. 'home', 'saved', 'popular', 'new', etc
+    // page -> the data page index, skips defualt fetch amount by that many
+    // query -> custom string that represents filters set by user such as Category, Language, Captions, Difficulty, etc 
     let qTerms = []
     let selecter = {}
     let page = 1
     if (req.params.page !== undefined) {
         page = req.params.page
     }
+    let options = {
+        skip: (page - 1) * 8, // 8 is number of items per page
+        limit: 8,
+        sort: {_id: 'desc'}
+    }
+    // Parse through query param
     if (req.params.query !== undefined) {
         qTerms = req.params.query.split('_')
         let c = {} // VidLango properties
@@ -68,16 +77,34 @@ router.get('/yt/:videoId', (req, res) => {
         let meta = (categoryId !== '') ? {'meta.categoryId': categoryId} : {}
         let tags = (t.length > 0) ? {tags : {$in: t}} : {}
         let search = (s !== '') ? {$text : {$search: s}} : {}
-        console.log(search)
+        //console.log(search)
         selecter = {...c, ...captions, ...meta, ...tags, ...search}
     }
-    factory.read(selecter, page, (err, docs) => {
-        if (err) {
-            res.status(500).send('MongoDB Error: ' + err.codeName)
-            return
+    // Parse through by param
+    if (req.params.by !== 'all') {
+        switch (req.params.by) {
+            case 'saved':
+                factory.read_saved(selecter, options, req.session.user.id, (err, docs) => {
+                    if (err) {
+                        res.status(500).send('MongoDB Error: ' + err.codeName)
+                        return
+                    }
+                    res.send(docs)
+                    return;
+                })
+                break;
+            default:
+                // Show same as all if by doesn't match
+                factory.read(selecter, options, (err, docs) => {
+                    if (err) {
+                        res.status(500).send('MongoDB Error: ' + err.codeName)
+                        return
+                    }
+                    res.send(docs)
+                })
+                break;
         }
-        res.send(docs)
-    })
+    }
 })
 .get('/:id', (req, res) => {
     factory.read({_id: req.params.id}, 1, (err, doc) => {
