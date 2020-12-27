@@ -41,6 +41,7 @@ import iLango from './pages/Info/Lango'
 import iInteraction from './pages/Info/Interaction'
 import iSRS from './pages/Info/SRS'
 import iCEFR from './pages/Info/CEFR'
+import iContent from './pages/Info/Content'
 
 import Test from './pages/Test'
 import Support from './pages/Support'
@@ -100,6 +101,7 @@ export default function Routes() {
                         <Route exact path='/info/ip' component={iInteraction} />
                         <Route exact path='/info/srs' component={iSRS} />
                         <Route exact path='/info/cefr' component={iCEFR} />
+                        <Route exact path='/info/content' component={iContent} />
                     </Switch>
                 </AppWrap>
             </div>
