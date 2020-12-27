@@ -62,6 +62,9 @@ export default function Nav(props : any) {
                 <Item key="/profile">
                     <Link to="/profile">Profile <Icon type="user" style={{ fontSize: '16px', position: 'relative'}}/></Link>
                 </Item>
+                <Item key="/saved">
+                    <Link to="/saved">Saved <Icon type="save" style={{ fontSize: '16px', position: 'relative'}}/></Link>
+                </Item>
                 <Item key="/settings">
                     <Link to="/settings">Settings <Icon type="setting" style={{ fontSize: '16px', position: 'relative'}}/></Link>
                 </Item>

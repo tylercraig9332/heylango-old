@@ -58,7 +58,7 @@ function increase_score(amount, user, callback) {
     Score.findOneAndUpdate({user: user}, {$inc: {'points': amount}}, callback)
 }
 
-function _delete(body) {
+function delete_like(body) {
     Like.findOneAndRemove(body, (err, doc) => {
         if (err) throw new Error(err)
         Lango.exists({_id: doc.parent}, (err, res) => {
@@ -68,6 +68,13 @@ function _delete(body) {
                 })
             }
         })
+        // TODO: Add VidLango Support 
+    })
+}
+
+function delete_save(body) {
+    Save.findOneAndRemove(body, (err, doc) => {
+        if (err) throw new Error(err)
     })
 }
 
@@ -82,5 +89,6 @@ module.exports = {
     update_score,
     increase_score,
     scores: Scores,
-    delete: _delete
+    delete_like,
+    delete_save
 }

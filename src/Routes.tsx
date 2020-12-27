@@ -44,6 +44,7 @@ import iCEFR from './pages/Info/CEFR'
 
 import Test from './pages/Test'
 import Support from './pages/Support'
+import Saved from './pages/Saved/Saved'
 
 import 'antd/dist/antd.css';
 import './styles/global.css'
@@ -67,6 +68,7 @@ export default function Routes() {
                         <Route path='/logout' component={Logout} />
                         <Route path='/profile' component={Profile} />
                         <Route exact path='/settings' component={Settings} />
+                        <Route exact path='/saved' component={Saved} />
 
                         <Route path='/test' component={Test} />
                         
