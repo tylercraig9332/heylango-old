@@ -4,6 +4,7 @@ import Avatar from './Avatar'
 import Loading from '../Util/Loading'
 import ListPost from '../Post/List'
 import ListLango from '../Learning/MonoLango/List'
+import ListVidLango from '../Learning/VidLango/Pages/List'
 import IBadge from './Badge/IBadge'
 import BadgePanel from './Badge/Panel'
 import Score from '../User/Score'
@@ -15,6 +16,7 @@ const { TabPane } = Tabs
 export default function Profile() {
 
     const [user, setUser] = useState<User>()
+    const [userID, setUserID] = useState<string>('me')
     const [loaded, setLoaded] = useState<boolean>(false)
     const [badges, setBadges] = useState<IBadge[]>()
     const [score, setScore] = useState<string>('')
@@ -37,6 +39,7 @@ export default function Profile() {
             let d = new Date(me.createdAt)
             me.createdAt = d.toUTCString()
             setUser(me)
+            setUserID(me.id)
             setLoaded(true)
         })
         .catch(e => {
@@ -70,11 +73,14 @@ export default function Profile() {
             <hr></hr>
             <h3><strong>Activity</strong></h3>
             <Tabs defaultActiveKey={'posts'}>
+                <TabPane tab="VidLangos" key="vidlangos">
+                    <ListVidLango by={`u-${userID}`} />
+                </TabPane>
                 <TabPane tab="Langos" key="langos">
-                    <ListLango by={`/u/${user.id}`} />
+                    <ListLango by={`/u/${userID}`} />
                 </TabPane>
                 <TabPane tab="Posts" key="posts">
-                    <ListPost by={`u/${user.id}`} />
+                    <ListPost by={`u/${userID}`} />
                 </TabPane>
             </Tabs>
             

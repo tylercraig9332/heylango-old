@@ -94,6 +94,10 @@ router.get('/yt/:videoId', (req, res) => {
                 })
                 break;
             default:
+                let split = req.params.by.split('-')
+                if (split[0] === 'u') {
+                    selecter = {author: split[1], ...selecter}
+                }
                 // Show same as all if by doesn't match
                 factory.read(selecter, options, (err, docs) => {
                     if (err) {
