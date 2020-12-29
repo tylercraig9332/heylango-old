@@ -7,4 +7,8 @@ const ScoreSchema = mongoose.Schema({
     lastUpdated: {type: Date}
 })
 
+ScoreSchema.pre('findOneAndUpdate', function() {
+    this.set({ lastUpdated: new Date() });
+});
+
 module.exports = mongoose.model('Score', ScoreSchema)

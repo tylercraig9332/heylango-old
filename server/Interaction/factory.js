@@ -53,9 +53,6 @@ async function readOne(body) {
     return (doc !== null) 
 }
 
-function update_score(body, by, callback) {
-    Score.updateOne(body, by, callback)
-}
 
 function increase_score(amount, user, callback) {
     Score.findOneAndUpdate({user: user}, {$inc: {'points': amount}}, callback)
@@ -71,7 +68,13 @@ function delete_like(body) {
                 })
             }
         })
-        // TODO: Add VidLango Support 
+        VidLango.exists({_id: doc.parent}, (err, res) => {
+            if (res) {
+                VidLango.updateOne({_id: doc.parent}, {$inc: {'likes': -1}}).exec((err, doc) => {
+                    if (err) console.error(err)
+                })
+            }
+        })
     })
 }
 
@@ -138,7 +141,6 @@ module.exports = {
     read_save,
     read_score,
     readOne,
-    update_score,
     increase_score,
     scores: Scores,
     delete_like,

@@ -44,7 +44,7 @@ export function Like(props : {parent_id? : string, onClick? : any, likes?: numbe
 
     return (
         <Tooltip title={(liked) ? "Liked!" : "Like"}>
-            <Icon type="heart" theme={(liked) ? "filled" : "outlined"} onClick={handleLike} style={(liked) ? likedStyle : iconStyle}/> {props.likes}
+            <Icon type="heart" theme={(liked) ? "filled" : "outlined"} onClick={handleLike} style={(liked) ? likedStyle : iconStyle}/> {(props.likes !== undefined && props.likes > 0) ? props.likes : null }
         </Tooltip>
     )
 }

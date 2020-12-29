@@ -51,7 +51,7 @@ export default function List(props : {by?: string, vidLangos?: IVidLango[]}) {
             }
             </div>
             <div style={{marginLeft: '90px'}}>
-                <Pagination total={(page * 8) + langos.length} current={page} onChange={(page, pageSize) => setPage(page)} defaultPageSize={8}/>
+                <Pagination total={(page * 4) + langos.length} current={page} onChange={(page, pageSize) => setPage(page)} defaultPageSize={4}/>
             </div>
         </div>
     )

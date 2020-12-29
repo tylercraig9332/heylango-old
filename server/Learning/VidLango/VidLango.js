@@ -11,10 +11,12 @@ const VidLangoScheme = mongoose.Schema({
         thumbnails: String
     },
     language: String,
-    tags: [],
+    tags: [String],
     captions: [],
     kind: String,
     author: {type: mongoose.Types.ObjectId, required: true},
+    likes: {type: Number, default: 0},
+    captionsAvaliable: [String]
 })
 
 VidLangoScheme.index({'$**': 'text'});

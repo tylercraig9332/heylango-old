@@ -23,9 +23,9 @@ export default function Preview(props : PreviewProps) {
     if (props.vidLango === undefined || props.vidLango.meta === undefined) return null
 
     let captionMap;
-    if (props.vidLango.captions.length > 0)  {
-        captionMap = props.vidLango.captions.map((cObj) => {
-            return <span key={cObj.lCode} style={{margin: '0px 5px 0xp 5px'}}><Tag color="blue">{parseLanguageCode(cObj.lCode)}</Tag></span>
+    if (props.vidLango.captionsAvaliable.length > 0)  {
+        captionMap = props.vidLango.captionsAvaliable.map((caption) => {
+            return <span key={caption} style={{margin: '0px 5px 0xp 5px'}}><Tag color="blue">{parseLanguageCode(caption)}</Tag></span>
         })
     } else {
         captionMap = <span key="nocap" style={{margin: '0px 5px 0xp 5px'}}><Tag color="red">No Captions :(</Tag></span>
@@ -44,7 +44,7 @@ export default function Preview(props : PreviewProps) {
             </div>
         </Link>
             <div style={toolbar}>
-                <Like parent_id={props.vidLango._id} />
+                <Like parent_id={props.vidLango._id} likes={props.vidLango.likes}/>
                 <Save parent_id={props.vidLango._id} parentType='VidLango' />
                 <Share parent_id={props.vidLango._id} parentType="VidLango" />
             </div>        

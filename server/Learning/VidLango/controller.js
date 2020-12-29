@@ -32,6 +32,7 @@ router.get('/yt/:videoId', (req, res) => {
     // by -> unique string that I use to identify custom returns, eg. 'home', 'saved', 'popular', 'new', etc
     // page -> the data page index, skips defualt fetch amount by that many
     // query -> custom string that represents filters set by user such as Category, Language, Captions, Difficulty, etc 
+    const ITEMS_PER_PAGE = 4
     let qTerms = []
     let selecter = {}
     let page = 1
@@ -39,9 +40,10 @@ router.get('/yt/:videoId', (req, res) => {
         page = req.params.page
     }
     let options = {
-        skip: (page - 1) * 8, // 8 is number of items per page
-        limit: 8,
-        sort: {_id: 'desc'}
+        skip: (page - 1) * ITEMS_PER_PAGE, // 8 is number of items per page
+        limit: ITEMS_PER_PAGE,
+        sort: (req.params.by === 'new') ? {_id: 'desc'} : {likes: "desc"},
+        "captions": 0
     }
     // Parse through query param
     if (req.params.query !== undefined) {

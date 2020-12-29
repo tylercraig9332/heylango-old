@@ -6,7 +6,9 @@ export default interface VidLango {
     language: string,
     captions : Array<any>,
     kind : string | 'yt',
-    _id : string
+    _id : string,
+    captionsAvaliable: Array<string>
+    likes?: number,
 }
 
 export type snippet = {

@@ -28,7 +28,7 @@ function read_saved(body, options, user, callback) {
         let data = docs.map(document => {
             if (document.parentType === 'VidLango') {
                 return new Promise((resolve, reject) => {
-                    Resource.findOne({_id: document.parent, ...body}, (err, doc) =>{
+                    Resource.findOne({_id: document.parent, ...body}, (err, doc) => {
                         if (err) reject(err)
                         resolve(doc)
                     })
@@ -47,7 +47,10 @@ function read_saved(body, options, user, callback) {
     })
 }
 
-function update(by, body, callback) {
+async function update(by, body, callback) {
+    if (body.captions !== undefined || body.captions.length > 0) {
+        body.captionsAvaliable = await body.captions.map((caption) => caption.lCode)
+    }
     Resource.updateOne(by, body, (err, doc) => {
         if (err) throw new Error(err)
         callback(err, doc)

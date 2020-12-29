@@ -1,23 +1,25 @@
 import s from './language.json'
 export function parseLanguageCode(code : string) {
-  // Language codes are often occompanied by their country eg. 'en-US' or 'en_UK' 
-    if (code.length > 2 && code !== 'all' && code.toLowerCase() !== 'zh-hant' && code.toLowerCase() !== 'zh-hans') {
-      code = code.slice(0, 2)
-    }
-    for (let c of s.info) {
-        if (c.code === code) {
-            return c.name
-        } else if (code.toLowerCase() === 'zh-hant') {
-          return 'Chinese Traditional'
-        } else if (code.toLowerCase() === 'zh-hans') {
-          return 'Chinese Simplified'
-        }
-    }
-    // This will return whatever was passed if language code not found
-    return code
+  // Language codes are often occompanied by their country eg. 'en-US' or 'en_UK'
+  if (code === undefined) return 'null'
+  if (code.length > 2 && code !== 'all' && code.toLowerCase() !== 'zh-hant' && code.toLowerCase() !== 'zh-hans') {
+    code = code.slice(0, 2)
+  }
+  for (let c of s.info) {
+      if (c.code === code) {
+          return c.name
+      } else if (code.toLowerCase() === 'zh-hant') {
+        return 'Chinese Traditional'
+      } else if (code.toLowerCase() === 'zh-hans') {
+        return 'Chinese Simplified'
+      }
+  }
+  // This will return whatever was passed if language code not found
+  return code
 }
 
 export function parseLanguageFlag(code : string) {
+  if (code === undefined) return 'null'
   // Language codes are often occompanied by their country eg. 'en-US' or 'en_UK' 
   // It would be nice in the future to parse countrycode and return their emoji, rather than the general one saved in the JSON
   if (code.length > 2) {
@@ -31,6 +33,7 @@ export function parseLanguageFlag(code : string) {
 }
 
 export function parseSimplifiedCode(code : string) {
+  if (code === undefined) return 'null'
   // Language codes are often occompanied by their country eg. 'en-US' or 'en_UK' 
   if (code.length > 2 && code !== 'all' && code.toLowerCase() !== 'zh-hant' && code.toLowerCase() !== 'zh-hans') {
     code = code.slice(0, 2)
