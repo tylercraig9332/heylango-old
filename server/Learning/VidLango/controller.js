@@ -42,7 +42,7 @@ router.get('/yt/:videoId', (req, res) => {
     let options = {
         skip: (page - 1) * ITEMS_PER_PAGE, // 8 is number of items per page
         limit: ITEMS_PER_PAGE,
-        sort: (req.params.by === 'new') ? {_id: 'desc'} : {likes: "desc"},
+        sort: (req.params.by === 'new' || req.params.by === 'saved') ? {_id: 'desc'} : {likes: "desc"},
         "captions": 0
     }
     // Parse through query param
@@ -98,7 +98,8 @@ router.get('/yt/:videoId', (req, res) => {
             default:
                 let split = req.params.by.split('-')
                 if (split[0] === 'u') {
-                    selecter = {author: split[1], ...selecter}
+                    let user = (split[1] === 'me') ? req.session.user.id : split[1]
+                    selecter = {author: user, ...selecter}
                 }
                 // Show same as all if by doesn't match
                 factory.read(selecter, options, (err, docs) => {

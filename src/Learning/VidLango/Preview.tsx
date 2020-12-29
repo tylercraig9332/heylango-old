@@ -68,15 +68,15 @@ const cardWrapper = {
 } as React.CSSProperties
 
 const notHover = {
-    border: '1px solid #d9d9d9',
+    border: '2px solid #d9d9d9',
     borderRadius: '8px',
     ...cardWrapper
 } as React.CSSProperties
 
 const cardHover = {
-    border: '1px solid #1890ff',
+    border: '2px solid #1890ff',
     borderRadius: '8px',
-    boxShadow: '0 2px 8px fade(#1890ff, 20%)',
+    boxShadow: '2px 8px 8px fade(#1890ff, 20%)',
     ...cardWrapper
 } as React.CSSProperties
 

@@ -19,11 +19,11 @@ export default function List(props : {by?: string, vidLangos?: IVidLango[]}) {
             setLangos(props.vidLangos)
             return
         }
-        if (props.by === 'u' || props.by === 'u-') return // parent has yet to finish loading, this may not be needed, need to do more testing
         setLoaded(false)
         setLangos([])
         // Default will be all
         let by = (props.by !== undefined) ? props.by : 'all' 
+        if (props.by === 'u' || props.by === 'u-') by = 'u-me'
         fetch(`/l/vid/list/${by}/${page}/${qString}`).then(res => {
             if (res.status !== 200) {
                 console.error(res.statusText)
