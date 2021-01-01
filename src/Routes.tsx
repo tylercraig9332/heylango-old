@@ -47,8 +47,9 @@ import Test from './pages/Test'
 import Support from './pages/Support'
 import Saved from './pages/Saved/Saved'
 
-import 'antd/dist/antd.css';
+//import 'antd/dist/antd.css';
 import './styles/global.css'
+import './styles/dark2.css'
 
 export default function Routes() {
     // TODO: Would love to export certain routes in subtree components
