@@ -5,7 +5,7 @@ export default function PageToolbar(props: {title?: string, extra?: React.ReactN
     return (
         <PageHeader
             style={{
-                border: '1px solid rgb(235, 237, 240)', background: 'white'
+                border: '1px solid rgb(235, 237, 240)'
             }}
             onBack={() => window.history.back()}
             title={props.title}
