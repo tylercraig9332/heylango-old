@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { Row, Col, Input, Button, message, Popconfirm, Icon } from 'antd'
+import { Row, Col, Input, Button, message, Popconfirm, Icon, Select } from 'antd'
 import View from './Pages/View'
 import AddCaption from './Player/Components/AddCaption'
+import IVidLango from './VidLango'
 
 export default function SheetView(props : {send? : any, recieve?: any}) {
 
@@ -9,16 +10,15 @@ export default function SheetView(props : {send? : any, recieve?: any}) {
     const [video_url, setVideo_url] = useState<string>('')
 
     const [showPreview, setShow] = useState<boolean>(false)
-    const [vidLango, setVidLango] = useState<any>()
-
-    const [render, setUpdate] = useState<boolean>(false)
+    const [vidLango, setVidLango] = useState<IVidLango>()
 
     useEffect(() => {
         // Refreshes data saved from local storage in case of refresh
         const l : any = window.localStorage.getItem('createLango')
         if (l !== null && l !== undefined && l.length > 0) {
             const lango = JSON.parse(l)
-            console.log(lango)
+            // for debug; note for copying lango please do let v = {...vidLango}, doesn't work right using object.assign or a shallow copy
+            //console.log(lango)
             setVidLango(lango)
             setVideo_id(lango.video_id)
             setShow(true)
@@ -26,8 +26,9 @@ export default function SheetView(props : {send? : any, recieve?: any}) {
     }, [])
 
     useEffect(() => {
-        setUpdate(false)
-    }, [render])
+        // Save to localStorage in case of refresh
+        window.localStorage.setItem('createLango', JSON.stringify(vidLango))
+    }, [vidLango])
 
     useEffect(() => {
         setVideo_id(parseVideoID(video_url))
@@ -51,8 +52,6 @@ export default function SheetView(props : {send? : any, recieve?: any}) {
             console.log(l)*/
             setVidLango(l)
             setShow(true)
-            // Save to localStorage in case of refresh
-            window.localStorage.setItem('createLango', JSON.stringify(l))
         })
     }
 
@@ -74,7 +73,8 @@ export default function SheetView(props : {send? : any, recieve?: any}) {
     }
 
     function updateCaptions(captions : any, updateType: string) {
-        let v = vidLango
+        if (vidLango === undefined) return
+        let v = {...vidLango}
         let c = [...v.captions]
         if (updateType === 'add') {
             c.push(captions)
@@ -85,8 +85,6 @@ export default function SheetView(props : {send? : any, recieve?: any}) {
         }
         v.captions = c
         setVidLango(v)
-        setUpdate(true)
-        window.localStorage.setItem('createLango', JSON.stringify(v))
     }
 
     function cancel() {
@@ -102,15 +100,34 @@ export default function SheetView(props : {send? : any, recieve?: any}) {
             },
             method: "PUT"
         }
-        fetch('/l/vid/' + vidLango._id, reqHeaders).then(res => {
+        fetch('/l/vid/' + vidLango?._id, reqHeaders).then(res => {
             if (res.status !== 200) {
                 message.error('An error has occured')
             }
             else {
                 window.localStorage.removeItem('createLango')
-                window.location.href = '/learn/vid/' + vidLango._id
+                window.location.href = '/learn/vid/' + vidLango?._id
             }
         })
+    }
+
+    function updateMeta(type: string, content: string) {
+        if (vidLango === undefined) return
+        let v = {...vidLango}
+        switch (type) {
+            case 'description':
+                let m = v.meta
+                if (m === undefined) m = {title: '', description: '', categoryId: '0', thumbnails: ''}
+                m.description = content
+                v.meta = m
+                break;
+            case 'tags':
+                let c = content.split(',')
+                v.tags = c
+                break;
+            default:
+        }
+        setVidLango(v)
     }
 
     const importFromYouTube = (
@@ -137,13 +154,20 @@ export default function SheetView(props : {send? : any, recieve?: any}) {
         </div>
     )
 
-    if (!showPreview) return importFromYouTube
+    if (!showPreview || vidLango === undefined) return importFromYouTube
     return (
         <div>
             <span style={{color: 'darkgray'}}>Preview</span>
-            <View key={`${render}view`} vidLango={vidLango} preview={true}/>
+            <View vidLango={vidLango} preview={true}/>
             <span style={{color: 'darkgray'}}>Captions</span>
-            <AddCaption key={`${render}addCap`} onChange={updateCaptions} captions={vidLango.captions} />
+            <AddCaption onChange={updateCaptions} captions={vidLango.captions} />
+            <p>Captions Added: {vidLango.captions.length}</p>
+            <div style={{margin: '0 0 20px 0'}}>
+                <span style={{color: 'darkgray'}}>Description</span>
+                <Input.TextArea value={vidLango?.meta?.description} onChange={(e)=> updateMeta('description', e.target.value)} rows={4} spellCheck={false}/>
+                <span style={{color: 'darkgray'}}>Tags</span>
+                <Select mode="tags" placeholder="Add Tags" value={vidLango.tags} onChange={(e : any) => updateMeta('tags', e.toString())} />
+            </div>
             <Button type="primary" onClick={save} block>Save VidLango</Button>
             <div style={{padding: 5}}></div>
             <Popconfirm title="Are you sure you want to cancel?" onConfirm={cancel} okText="Yes" cancelText="No" icon={<Icon type="exclamation-circle" style={{color: 'red'}}/>}>

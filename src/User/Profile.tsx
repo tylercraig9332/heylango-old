@@ -9,7 +9,7 @@ import IBadge from './Badge/IBadge'
 import BadgePanel from './Badge/Panel'
 import Score from '../User/Score'
 
-import { message, Descriptions, Tabs } from 'antd'
+import { message, Descriptions, Tabs, Icon } from 'antd'
 
 const { TabPane } = Tabs
 
@@ -61,7 +61,7 @@ export default function Profile() {
     if (user === undefined) return (<div><h1>Profile</h1></div>)
     return (
         <div>
-            <h1>{/*<Avatar user={user} />*/} {user.username} <span style={{padding: 5}}></span><BadgePanel user_id={user.id} /></h1>
+            <h1>{/*<Avatar user={user} />*/}<Icon type="user" /> {user.username} <span style={{padding: 5}}></span><BadgePanel user_id={user.id} /></h1>
             <hr></hr>
             <Descriptions bordered title="Profile Details">
                 <Descriptions.Item label="Username">{user.username}</Descriptions.Item>

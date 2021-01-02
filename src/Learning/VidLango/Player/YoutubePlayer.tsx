@@ -115,10 +115,7 @@ export default function InteractivePlayer(props : {video_id : string, captions :
         <div style={playerWrap}>
             <YouTube ref={player} videoId={props.video_id} opts={videoOptions} />
             <PlayerControls paused={paused} currentTime={currentTime} duration={duration} volume={volume} onChange={action} />
-            { (props.preview !== undefined && props.preview) ?
-                <div>Captions Avaliable: {props.captions.length}</div> :
-                <SubtitleViewer currentTime={currentTime} captions={props.captions} onCaptionChange={props.onCaptionChange} audioLanguage={props.audioLanguage}/>
-            }
+            <SubtitleViewer currentTime={currentTime} captions={props.captions} onCaptionChange={props.onCaptionChange} audioLanguage={props.audioLanguage}/>
         </div>
     )
 }

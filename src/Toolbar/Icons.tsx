@@ -247,6 +247,21 @@ export function Info(props : { title: string, description : string | React.React
     )
 }
 
+export function IconModal(props : {type: string, title: string, content: string | React.ReactNode, width?: string|number}) {
+    const [show, setShow] = useState<boolean>(false)
+
+    return (
+        <Tooltip title={props.title}>
+                <Icon type={props.type} style={iconStyle} onClick={() => setShow(!show)}/>
+                <Modal title={props.title} visible={show} onOk={() => setShow(false)} onCancel={() => setShow(false)} 
+                    width={(props.width === undefined) ? 416 : props.width}
+                >
+                    {props.content}
+                </Modal>
+        </Tooltip>
+    )
+}
+
 export function IconRow(props : {children : React.ReactElement[]}) {
 
     const rowStyle = {

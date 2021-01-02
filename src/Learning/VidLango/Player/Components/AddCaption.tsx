@@ -27,7 +27,7 @@ export default function AddCaption(props : {onChange : any, captions: Array<any>
     }
 
     return (
-        <div style={{padding: '0px 0 20px 0'}}>
+        <div style={{padding: '5px 0 5px 0'}}>
             <Button type="primary" onClick={() => setShow(true)}>Add Captions</Button>
             <Modal title="Add Captions" visible={showView} onOk={() => setShow(false)} onCancel={() => setShow(false)}>
                 <div style={displayList}>

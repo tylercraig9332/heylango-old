@@ -1,10 +1,10 @@
-import { message, Result } from 'antd'
+import { message, Result, Tag } from 'antd'
 import React, { useEffect, useState } from 'react'
 import Loading from '../../../Util/Loading'
 import InteractivePlayer from '../Player/YoutubePlayer'
 import IVidLango from '../VidLango'
 import PageToolbar from '../../../Nav/PageToolbar'
-import { IconRow, Like, User, EditOrAdmin, Info } from '../../../Toolbar/Icons'
+import { IconRow, Like, User, EditOrAdmin, IconModal } from '../../../Toolbar/Icons'
 import { parseLanguageCode, parseLanguageFlag } from '../../../Util/functions'
 //import VideoPlayer from './VideoPlayer'
 
@@ -76,16 +76,17 @@ export default function View(props : {vidLango : IVidLango | undefined, preview?
     if (error && errorStatus === '500') return <Result status={errorStatus} title="500" subTitle="Sorry, the server is wrong." />
     if (vidLango === undefined ) return <Loading message="Loading VidLango..." />
     const descriptionJSX = (
-        <div style={{maxWidth: '400px'}}>
+        <div style={{maxWidth: '1200px'}}>
             <strong>Audio Language</strong>
             <p>{parseLanguageCode(vidLango.language)} - {parseLanguageFlag(vidLango.language)}</p>
             <strong>Video Description</strong>
-            <p>{vidLango.meta?.description}</p>
+            <p style={{whiteSpace: 'pre-wrap'}}>{vidLango.meta?.description}</p>
             <strong>Video Tags</strong> 
             <p>
             {
                 vidLango.tags.map((tag, i) => {
-                    return <span key={tag}>{tag}{(i + 1 === vidLango.tags.length) ? '' : ', '}</span>
+                    return <div style={{ display: 'inline-block', margin: 2}}><Tag key={`tag-${i}`} color="#e52d27">{tag}</Tag></div>
+                    //return <span key={tag}>{tag}{(i + 1 === vidLango.tags.length) ? '' : ', '}</span>
                 }) 
             }
             </p>
@@ -98,7 +99,7 @@ export default function View(props : {vidLango : IVidLango | undefined, preview?
                 <div style={{maxWidth: '1200px', marginRight: 'auto', marginLeft: 'auto'}}>
                     <PageToolbar title={vidLango.meta?.title} extra={
                         <IconRow>
-                            <Info title="Details" description={descriptionJSX} />
+                            <IconModal type="info-circle" title="Description" content={descriptionJSX} width={1200}/>
                             <EditOrAdmin parent={vidLango._id} parentAuthor={vidLango.author} parentType='VidLango' handleEdit={editLango} />
                             <User author={vidLango.author} />
                             <Like parent_id={vidLango._id} />
