@@ -86,7 +86,6 @@ const toolbar = {
     display: 'flex',
     justifyContent: 'space-around',
     alignItems: 'center',
-    //backgroundColor: '#fafafa',
     listStyle: 'none',
     border: '1px solid #e8e8e8',
     borderRadius: '5px',
