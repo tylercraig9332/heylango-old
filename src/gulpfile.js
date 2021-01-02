@@ -24,5 +24,5 @@ gulp.task('less', function () {
         debug: true,
       }),
     )
-    .pipe(gulp.dest('./styles'))
+    .pipe(gulp.dest('../server/Static/styles')) // I save it to the server so the theme switcher can find it easy
 })

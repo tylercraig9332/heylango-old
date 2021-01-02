@@ -7,3 +7,11 @@
 #siteColor {
     color: #1890ff
 }
+
+.ant-menu-item-selected, .ant-menu-item-selected > a, .ant-menu-item-selected > a:hover {
+    color: #fff;
+}
+
+.ant-page-header {
+    background: none;
+}

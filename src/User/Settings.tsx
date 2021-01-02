@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import BadgeSettings from './Badge/Settings'
+import DarkModeSettings from './DarkModeSetting'
 import LanguageSettings from './LanguageSetting'
 
 export default function Settings() {
@@ -10,6 +11,8 @@ export default function Settings() {
             <LanguageSettings />
             <br></br>
             <BadgeSettings />
+            <br></br>
+            <DarkModeSettings />
         </div>
     )
 }

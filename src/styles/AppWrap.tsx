@@ -1,4 +1,6 @@
 import React from 'react'
+import LaunchContainer from './Containers/Launch'
+import DefaultContainer from './Containers/Default'
 
 /**
  * Removed the page wrap style if path is the home page, else it will wrap in pageContainer style
@@ -8,14 +10,16 @@ export default function AppWrap(props : {useLocation: any, children: any}) {
     if (props.useLocation === undefined) return null
     if (props.useLocation().pathname === '/') {
         return (
-            <div className="launch">
+            <LaunchContainer>
                 {props.children}
-            </div>
+            </LaunchContainer>
         )
     }
     else {
-        return <div className="pageContainer">
-            {props.children}
-        </div>
+        return (
+            <DefaultContainer>
+                {props.children}
+            </DefaultContainer>
+        )
     }
 }

@@ -27,6 +27,10 @@ Runs the front-end app in the development mode.<br />
 
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
+### `npx gulp less`
+
+Builds theme library to generate site themes
+
 ## Further Reading
 
 The community-side of the site was developed as Tyler's Senior Capstone project
