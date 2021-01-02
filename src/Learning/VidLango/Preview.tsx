@@ -43,7 +43,7 @@ export default function Preview(props : PreviewProps) {
                 <Line><strong> Category </strong> {parseCategoryId(props.vidLango.meta.categoryId)}</Line>
             </div>
         </Link>
-            <div style={toolbar}>
+            <div className="ant-card-actions" style={toolbar}>
                 <Like parent_id={props.vidLango._id} likes={props.vidLango.likes}/>
                 <Save parent_id={props.vidLango._id} parentType='VidLango' />
                 <Share parent_id={props.vidLango._id} parentType="VidLango" />
@@ -86,7 +86,6 @@ const toolbar = {
     display: 'flex',
     justifyContent: 'space-around',
     alignItems: 'center',
-    backgroundColor: '#fafafa',
     listStyle: 'none',
     border: '1px solid #e8e8e8',
     borderRadius: '5px',

@@ -1,5 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Route, Switch, useLocation } from 'react-router-dom'
+import { ThemeSwitcherProvider } from 'react-css-theme-switcher';
 import AppWrap from './styles/AppWrap'
 
 import Nav from './Nav/Nav'
@@ -47,14 +48,18 @@ import Test from './pages/Test'
 import Support from './pages/Support'
 import Saved from './pages/Saved/Saved'
 
-import 'antd/dist/antd.css';
 import './styles/global.css'
+const themes = {
+    dark: `/static/styles/dark2.css`,
+    light: `/static/styles/default.css`,
+  };
 
 export default function Routes() {
     // TODO: Would love to export certain routes in subtree components
     return (
         <BrowserRouter>
             <div>
+                <ThemeSwitcherProvider themeMap={themes} defaultTheme="light">
                 <Nav useLocation={useLocation}/>
                 <AppWrap useLocation={useLocation}>
                     <Switch>
@@ -104,6 +109,7 @@ export default function Routes() {
                         <Route exact path='/info/content' component={iContent} />
                     </Switch>
                 </AppWrap>
+                </ThemeSwitcherProvider>
             </div>
         </BrowserRouter>
     )

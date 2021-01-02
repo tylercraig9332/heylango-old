@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { Menu, Icon, Tag } from 'antd'
 import logo from './HeyLangoT1.png'
 import Badge from '../User/Badge/Badge'
+import { useThemeSwitcher } from "react-css-theme-switcher";
 
 const { Item, SubMenu, Divider } = Menu
 
@@ -100,8 +101,16 @@ export default function Nav(props : any) {
         </SubMenu>
     )
 
+    const themeStyle = (useThemeSwitcher().currentTheme === 'dark') ? {color: '#fff',} : {}
+    console.log()
+    const selectedNav = document.getElementsByClassName('ant-menu-item-selected')
+    if (selectedNav.length > 1) {
+        console.log(selectedNav)
+        //selectedNav[0].style.color="#fff;"
+    }
+
     return (
-        <div style={{zIndex: 5, position: 'relative'}}>
+        <div style={{zIndex: 5, position: 'relative', ...themeStyle}}>
         <Menu onClick={handleMenuChange} selectedKeys={[currentKey]} mode="horizontal" style={{borderTop: '2px solid #1890FF', zIndex: 5}}>
             <Item key="/"><Link to='/'><img src={logo} width="90" height={'auto'}/> <Tag color="blue">Beta</Tag></Link></Item>
             <Item key='/community/'><Link to='/community/'>Community</Link></Item>
