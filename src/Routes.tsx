@@ -56,16 +56,28 @@ const themes = {
 
 export default function Routes() {
     // TODO: Would love to export certain routes in subtree components
-    
-    const [theme, setTheme] = useState<string>('light')
+    let defaultTheme = localStorage.getItem('theme')
+    if (defaultTheme === null || defaultTheme === undefined) {
+        defaultTheme = 'light'
+    }
+    const [theme, setTheme] = useState<string>(defaultTheme)
     useEffect(() => {
         // Pull in theme for ThemeSwitcherProvider
-        fetch('/u/setting').then(r => r.json()).then((settings: any) => setTheme(settings.theme))
+        let d = localStorage.getItem('theme')
+        if (d !== null && d !== undefined) {
+            setTheme(d)
+            return
+        }
+        fetch('/u/setting').then(r => r.json()).then((settings: any) => {
+            localStorage.setItem('theme', settings.theme)
+            setTheme(settings.theme)
+        })
     }, [])
+    
     return (
         <BrowserRouter>
             <div>
-                <ThemeSwitcherProvider themeMap={themes} defaultTheme={theme}>
+                <ThemeSwitcherProvider themeMap={themes} defaultTheme={defaultTheme}>
                 <Nav useLocation={useLocation}/>
                 <AppWrap useLocation={useLocation}>
                     <Switch>

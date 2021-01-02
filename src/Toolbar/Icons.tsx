@@ -89,7 +89,7 @@ export function Save(props : {parent_id : string | undefined, parentType: string
 
     return (
         <Tooltip title={(saved) ? 'Unsave' : 'Save'}>
-            <Icon key={props.parent_id} type="save" style={iconStyle} theme={(saved) ? 'twoTone' : 'outlined'} onClick={handleSave}/>
+            <Icon key={props.parent_id} type="save" style={iconStyle} theme={(saved) ? 'filled' : 'outlined'} onClick={handleSave}/>
         </Tooltip>
     )
 }
