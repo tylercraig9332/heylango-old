@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { BrowserRouter, Route, Switch, useLocation } from 'react-router-dom'
 import { ThemeSwitcherProvider } from 'react-css-theme-switcher';
 import AppWrap from './styles/AppWrap'
@@ -56,10 +56,16 @@ const themes = {
 
 export default function Routes() {
     // TODO: Would love to export certain routes in subtree components
+    
+    const [theme, setTheme] = useState<string>('light')
+    useEffect(() => {
+        // Pull in theme for ThemeSwitcherProvider
+        fetch('/u/setting').then(r => r.json()).then((settings: any) => setTheme(settings.theme))
+    }, [])
     return (
         <BrowserRouter>
             <div>
-                <ThemeSwitcherProvider themeMap={themes} defaultTheme="light">
+                <ThemeSwitcherProvider themeMap={themes} defaultTheme={theme}>
                 <Nav useLocation={useLocation}/>
                 <AppWrap useLocation={useLocation}>
                     <Switch>

@@ -1,25 +1,15 @@
 import { Button, message } from 'antd'
 import React, { useEffect, useState } from 'react'
-import { LanguageSelect, MultiLanguageSelect } from '../Util/Select'
+import { LanguageSelect, MultiLanguageSelect } from '../../Util/Select'
 
-export default function LanguageSetting() {
+export default function LanguageSetting(props : {primary: string, target: string[]}) {
 
     const [primary, setPrimary] = useState<string>('en')
     const [targetLanguages, setTarget] = useState<Array<string>>([])
 
     useEffect(() => {
-        // TODO: Load in language settings from /u/setting
-        fetch('/u/setting').then(res => {
-            if (res.status !== 200) {
-                console.error(res)
-                message.error('Faild to load language preferences')
-                return
-            }
-            return res.json()
-        }).then(data => {
-            setTarget(data.targetLanguages)
-            setPrimary(data.primaryLanguage)
-        })
+        if (props.primary !== undefined) setPrimary(props.primary)
+        if (props.target !== undefined) setTarget(props.target)
     }, [])
 
     function update() {
