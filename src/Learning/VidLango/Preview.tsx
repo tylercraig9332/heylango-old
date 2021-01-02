@@ -64,7 +64,7 @@ export default function Preview(props : PreviewProps) {
         justifyContent: 'space-around',
         alignItems: 'center',
         listStyle: 'none',
-        border: '1px solid #e8e8e8',
+        border: `1px solid ${currentTheme === 'light' ? '#e8e8e8' : '#191C1E'}`,
         borderRadius: '5px',
         zoom: 1,
         position: 'absolute', bottom: 24 // Moves to bottom of card

@@ -3,10 +3,12 @@ import React, { useEffect, useState } from 'react'
 import {Button, Result} from 'antd'
 
 import {Link} from 'react-router-dom'
+import { useThemeSwitcher } from "react-css-theme-switcher";
 
 export default function Logout() {
     const [success, setSuccess] = useState<boolean>(false)
     const [error, setError] = useState<boolean>(false)
+    const { switcher } = useThemeSwitcher()
 
     useEffect(() => {
         // TODO: make request to logout
@@ -23,6 +25,7 @@ export default function Logout() {
             window.sessionStorage.removeItem('logged')
             setSuccess(res.status === 200)
             setError(res.status === 400)
+            switcher({theme: 'light'})
         })
     }, [])
 
