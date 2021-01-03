@@ -32,6 +32,7 @@ export default function Nav(props : any) {
                 window.sessionStorage.setItem('userId', '')
                 window.sessionStorage.setItem('logged', 'false')
                 window.sessionStorage.setItem('username', '')
+                window.sessionStorage.setItem('theme', 'light')
             }
             setLogged(l)
         })

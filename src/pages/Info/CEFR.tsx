@@ -7,7 +7,7 @@ const { Paragraph, Title } = Typography
 
 export default function CEFR() {
     return (
-        <InfoWrap>
+        <InfoWrap backgroundUrl="/static/info/patrick-tomasso-lango.jpg">
             <Title>What does A1/A2/B1/B2/C1/C2 mean?</Title>
             <Paragraph>
                 These are reference levels that are commonly used to determine ones ability and achievement in language learning.
