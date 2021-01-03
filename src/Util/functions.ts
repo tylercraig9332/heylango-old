@@ -1,7 +1,7 @@
 import s from './language.json'
 export function parseLanguageCode(code : string) {
   // Language codes are often occompanied by their country eg. 'en-US' or 'en_UK'
-  if (code === undefined) return 'null'
+  if (code === undefined || code === null) return 'all'
   if (code.length > 2 && code !== 'all' && code.toLowerCase() !== 'zh-hant' && code.toLowerCase() !== 'zh-hans') {
     code = code.slice(0, 2)
   }
