@@ -1,9 +1,10 @@
 const fetch = require('node-fetch')
+const YouTubeAPI = require('../../Util/youtube.json')
 
 class YouTube {
     constructor() {
         //this.getVideoDetails = getVideoDetails
-        this.apiKey = 'AIzaSyCy4XOULjfMoUZFEKoTaCmKG_ZKwVpkt_c' //TODO: Don't push this up to GitHub
+        this.apiKey = YouTubeAPI.apiKey 
     }
 
     getVideoDetails(videoID, callback) {
