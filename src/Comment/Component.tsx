@@ -33,7 +33,7 @@ export default function Component(props : CommentComponentProps) {
                 "Content-Type": "application/json"
             }
         }
-        fetch('/u/' + props.comment.author, headers).then((res) => res.json()).then((user : User) => {
+        fetch('/api/u/' + props.comment.author, headers).then((res) => res.json()).then((user : User) => {
             setUsername(user.username)
         })
     }, [])

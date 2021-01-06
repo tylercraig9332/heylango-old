@@ -16,7 +16,7 @@ export default function Home() {
             },
             method: "GET"
         }
-        fetch('/l/bi/all', reqHeaders).then(res => res.json()).then(sheets => {
+        fetch('/api/l/bi/all', reqHeaders).then(res => res.json()).then(sheets => {
             setSheets(sheets)
         })
     }, [])

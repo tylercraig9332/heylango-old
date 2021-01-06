@@ -7,7 +7,7 @@ export default function Score(props : {user : string}) {
     useEffect(() => {
         let u = props.user
         if (props.user === undefined || props.user.length === 0) u = 'me'
-        fetch('/i/score/' + props.user).then(res => {
+        fetch('/api/i/score/' + props.user).then(res => {
             if (res.status !== 200) return
             return res.json()
         }).then(scoreData => {

@@ -50,8 +50,8 @@ import Saved from './pages/Saved/Saved'
 
 import './styles/global.css'
 const themes = {
-    dark: `/static/styles/dark2.css`,
-    light: `/static/styles/default.css`,
+    dark: `/api/static/styles/dark2.css`,
+    light: `/api/static/styles/default.css`,
   };
 
 export default function Routes() {
@@ -68,7 +68,7 @@ export default function Routes() {
             setTheme(d)
             return
         }
-        fetch('/u/setting').then(r => r.json()).then((settings: any) => {
+        fetch('/api/u/setting').then(r => r.json()).then((settings: any) => {
             localStorage.setItem('theme', settings.theme)
             setTheme(settings.theme)
         })

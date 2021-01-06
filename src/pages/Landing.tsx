@@ -14,9 +14,9 @@ export default function Landing() {
                 </div>
                 <div className="heroImgContainer">
                     <div className="logoContainer">
-                        <img className="logoImg" src="/static/HeyLangoT1.png"/>
+                        <img className="logoImg" src="/api/static/HeyLangoT1.png"/>
                     </div>
-                    <img className="heroImg" src="/static/land/priscilla-du-preez.jpg"  loading="eager"/>
+                    <img className="heroImg" src="/api/static/land/priscilla-du-preez.jpg"  loading="eager"/>
                     <h3 className="mobileHeader">HeyLango is currently only avaliable for desktop</h3>
                 </div>
                 <div className="headText">

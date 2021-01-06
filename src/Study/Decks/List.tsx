@@ -28,7 +28,7 @@ export default function List(props : {refresh?: boolean, setRefresh?: any}) {
             },
             method: "GET"
         }
-        fetch('/s/decks/', reqHeaders).then(res => {
+        fetch('/api/s/decks/', reqHeaders).then(res => {
             if (res.status === 400) message.error('An Error Occured with Loading Deck')
             return res.json()
         }).then(decks => {

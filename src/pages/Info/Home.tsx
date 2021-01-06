@@ -7,7 +7,7 @@ const { Title, Paragraph, Text } = Typography;
 
 export default function Home() {
     return (
-        <InfoWrap backgroundUrl="/static/info/patrick-tomasso-lango.jpg" disableReturn>
+        <InfoWrap backgroundUrl="/api/static/info/patrick-tomasso-lango.jpg" disableReturn>
             <Title>Frequently Asked Questions</Title>
             <Paragraph>
                 <ul>

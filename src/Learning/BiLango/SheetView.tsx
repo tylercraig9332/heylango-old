@@ -31,7 +31,7 @@ export default function SheetView(props : {readOnly?: boolean, id?: string, send
             method: "GET"
         }
         
-        fetch('/l/bi/' + props.id, reqHeaders).then(r => r.json())
+        fetch('/api/l/bi/' + props.id, reqHeaders).then(r => r.json())
         .then(data => {
             //console.log(data)
             setLoaded(true)

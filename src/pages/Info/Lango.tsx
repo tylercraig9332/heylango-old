@@ -6,7 +6,7 @@ const { Title, Paragraph, Text } = Typography;
 
 export default function Lango() {
     return (
-        <InfoWrap backgroundUrl="/static/info/patrick-tomasso-lango.jpg">
+        <InfoWrap backgroundUrl="/api/static/info/patrick-tomasso-lango.jpg">
             <Title className="what">What are Langos?</Title>
             <Paragraph>
                 Langos provide language material that can be easily read, studied, or consumed in a manner that supports learning. 

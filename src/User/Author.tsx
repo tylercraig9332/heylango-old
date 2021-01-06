@@ -18,7 +18,7 @@ export default function Author(props : {user_id?: string}) {
                 "Content-Type": "application/json"
             }
         }
-        fetch('/u/' + u_id, headers).then((res) => res.json()).then((user : User) => {
+        fetch('/api/u/' + u_id, headers).then((res) => res.json()).then((user : User) => {
             setUser(user)
         })
     }, [])

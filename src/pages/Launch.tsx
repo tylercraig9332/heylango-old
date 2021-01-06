@@ -25,7 +25,7 @@ export default function Launch() {
             <div style={page1Style}>
                 <Row style={rowStyle}>
                     <Col span={6} offset={6} style={{width: '600px', marginBottom: '15%', ...colStyle}}>
-                        <h1><img src="/static/HeyLangoT1.png" style={{maxWidth:'90%', width: 400, height: 'auto'}}/></h1>
+                        <h1><img src="/api/static/HeyLangoT1.png" style={{maxWidth:'90%', width: 400, height: 'auto'}}/></h1>
                         <h1>It's Time to Get Fluent</h1>
                         {loggedIn ? null : portalButtons}
                     </Col>
@@ -33,19 +33,19 @@ export default function Launch() {
                 <Row style={rowStyle}>
                     <Col span={6} offset={6} style={{width: '900px', ...colStyle}}>
                         <h1>Discover yourself in a new world of language</h1>
-                        <img src="/static/demo3.png" style={{maxWidth: '90%', width: 600, height: 'auto'}} />
+                        <img src="/api/static/demo3.png" style={{maxWidth: '90%', width: 600, height: 'auto'}} />
                     </Col>
                 </Row>
                 <Row style={rowStyle}>
                     <Col span={6} offset={6} style={{width: '900px', ...colStyle}}>
                         <h1 style={{marginTop: 20}}>Real content, not from a scripted course</h1>
-                        <img src="/static/demo.png" style={{maxWidth: '90%', width: 600, height: 'auto'}}/>
+                        <img src="/api/static/demo.png" style={{maxWidth: '90%', width: 600, height: 'auto'}}/>
                     </Col>
                 </Row>
                 <Row style={rowStyle}>
                     <Col span={6} offset={6} style={{width: '900px', ...colStyle}}>
                         <h1>Review what matters</h1>
-                        <img src="/static/demo2.png" height={'auto'} style={{maxWidth: '90%', width: 800, height: 'auto'}}/>
+                        <img src="/api/static/demo2.png" height={'auto'} style={{maxWidth: '90%', width: 800, height: 'auto'}}/>
                     </Col>
                 </Row>
                 <Row style={rowStyle}>
@@ -66,7 +66,7 @@ export default function Launch() {
 }
 
 const page1Style = {
-    backgroundImage: 'url(/static/louis-pellissier-unsplash.jpg)',
+    backgroundImage: 'url(/api/static/louis-pellissier-unsplash.jpg)',
     top: 0,
     left: 0,
     position: 'fixed',

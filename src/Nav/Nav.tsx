@@ -22,7 +22,7 @@ export default function Nav(props : any) {
             },
             method: "GET"
         }
-        fetch('/u/loggedIn', reqHeaders)
+        fetch('/api/u/loggedIn', reqHeaders)
         .then(res => {
             return res.json()
         }).then(logged => {

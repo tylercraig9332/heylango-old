@@ -18,7 +18,7 @@ export default function UserAvatar(props : {fetch_author? : string | Object, use
                 "Content-Type": "application/json"
             }
         }
-        fetch('/u/' + f, headers).then((res) => res.json()).then((user : User) => {
+        fetch('/api/u/' + f, headers).then((res) => res.json()).then((user : User) => {
             //console.log(user)
             setData(user.username.charAt(0))
             setUsername(user.username)

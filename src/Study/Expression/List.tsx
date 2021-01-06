@@ -37,7 +37,7 @@ export default function List(props : {by? : string, type? : string, onRemove?: a
             },
             method: "GET"
         }
-        fetch(by + `/${sortBy}`, reqHeaders).then(res => {
+        fetch('/api' + by + `/${sortBy}`, reqHeaders).then(res => {
             if (res.status !== 200) message.error(res.statusText) 
             return res.json()
         }).then(exp => {
@@ -72,7 +72,7 @@ export default function List(props : {by? : string, type? : string, onRemove?: a
                 translation: editTranslation
             })
         }
-        fetch('/s/ex/' + edit_id, reqHeader).then(r => {
+        fetch('/api/s/ex/' + edit_id, reqHeader).then(r => {
             if (r.status === 200) message.success('Saved!')
             else if (r.status === 400) message.error('An error has occurred')
             setEditModal(false)
@@ -97,7 +97,7 @@ export default function List(props : {by? : string, type? : string, onRemove?: a
                 _id: edit_id
             })
         }
-        fetch('/s/ex/' + edit_id, reqHeader).then(r => {
+        fetch('/api/s/ex/' + edit_id, reqHeader).then(r => {
             if (r.status === 200) message.success('Deleted')
             else if (r.status === 400) message.error('An error has occurred')
             setEditModal(false)

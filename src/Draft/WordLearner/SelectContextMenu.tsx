@@ -43,7 +43,7 @@ export default function SelectContextMenu(props : {event : any, clearEvent: any}
             },
             method: "GET"
         }
-        fetch('/s/ex/t/' + encodeURI(s) + '/to/' + lCode, reqHeaders).then(r => r.json()).then(t => {
+        fetch('/api/s/ex/t/' + encodeURI(s) + '/to/' + lCode, reqHeaders).then(r => r.json()).then(t => {
             setTranslations(t)
         })
 
@@ -76,7 +76,7 @@ export default function SelectContextMenu(props : {event : any, clearEvent: any}
             },
             method: "POST"
         }
-        fetch('/s/ex/', reqHeaders).then(res => {
+        fetch('/api/s/ex/', reqHeaders).then(res => {
             // todo: get it from res and set it so result button can use it.
             message.success('Expression Saved!')
             props.clearEvent()

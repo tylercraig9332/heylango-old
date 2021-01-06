@@ -24,7 +24,7 @@ export default function List(props : {by?: string, vidLangos?: IVidLango[]}) {
         // Default will be all
         let by = (props.by !== undefined) ? props.by : 'all' 
         if (props.by === 'u' || props.by === 'u-') by = 'u-me'
-        fetch(`/l/vid/list/${by}/${page}/${qString}`).then(res => {
+        fetch(`/api/l/vid/list/${by}/${page}/${qString}`).then(res => {
             if (res.status !== 200) {
                 console.error(res.statusText)
                 message.error(res.statusText)

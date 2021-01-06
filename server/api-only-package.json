@@ -13,8 +13,7 @@
     "express-session": "^1.17.0",
     "mongodb": "^3.5.2",
     "mongoose": "^5.8.10",
-    "node-fetch": "^2.6.1",
-    "subsrt": "^1.1.1"
+    "node-fetch": "^2.6.1"
   },
   "scripts": {
     "deploy": "npm i && node server.js"

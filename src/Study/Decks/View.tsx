@@ -32,7 +32,7 @@ export default function View(props : {deck_id? : string}) {
             },
             method: "GET"
         }
-        fetch('/s/deck/' + p_id).then(res => {
+        fetch('/api/s/deck/' + p_id).then(res => {
             if (res.status === 400) message.error('Error Loading Deck Info')
             return res.json()
         }).then((deck : IDeck) => {
@@ -49,7 +49,7 @@ export default function View(props : {deck_id? : string}) {
             },
             method: "DELETE"
         }
-        fetch('/s/deck/ex', reqHeaders).then(res => {
+        fetch('/api/s/deck/ex', reqHeaders).then(res => {
             if (res.status === 400) message.error(res.statusText)
             else {
                 setRefresh(true)

@@ -21,7 +21,7 @@ export default function List(props : {by? : string, langos?: Lango[]}) {
             },
             method: "GET"
         }
-        fetch('/l/m/list' + by, reqHeaders).then((res : Response) => {
+        fetch('/api/l/m/list' + by, reqHeaders).then((res : Response) => {
             if (res.status === 400) message.error(res.statusText)
             return res.json()
         }).then(l => {

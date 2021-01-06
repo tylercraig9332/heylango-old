@@ -6,7 +6,7 @@ const { Title, Paragraph, Text } = Typography;
 
 export default function Content() {
     return (
-        <InfoWrap backgroundUrl="/static/info/patrick-tomasso-lango.jpg">
+        <InfoWrap backgroundUrl="/api/static/info/patrick-tomasso-lango.jpg">
             <Title className="what">What's the difference between a VidLango, BiLango and a Lango?</Title>
             <Paragraph>
                 All types of "langos" are forms of consumable language content. Each have their own unique tools that help enable that focus. All types of "langos" have the WordViewer tool that allows for one to save words for later review. 

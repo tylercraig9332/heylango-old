@@ -16,7 +16,7 @@ export default function Panel(props : {user_id?: string}) {
             },
             method: "GET"
         }
-        fetch(`/b/${p}`, reqHeaders).then(res => {
+        fetch(`/api/b/${p}`, reqHeaders).then(res => {
             return res.json()
         }).then(b => {
             setBadges(b.reverse())

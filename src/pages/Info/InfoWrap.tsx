@@ -11,7 +11,7 @@ export default function InfoWrap(props: {children: any, backgroundUrl: string, w
     const { currentTheme } = useThemeSwitcher();
 
     const pageStyle = {
-        backgroundImage: `url(${props.backgroundUrl})`, // /static/louis-pellissier-unsplash.jpg || /static/info/patrick-tomasso-lango.jpg
+        backgroundImage: `url(${props.backgroundUrl})`, // /api/static/louis-pellissier-unsplash.jpg || /api/static/info/patrick-tomasso-lango.jpg
         top: 0,
         left: 0,
         position: 'fixed',

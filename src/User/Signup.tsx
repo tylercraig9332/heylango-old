@@ -87,7 +87,7 @@ export default function SignUp(props: any) {
                 method: "POST"
             }
 
-            fetch('/u/signup/', reqHeaders)
+            fetch('/api/u/signup/', reqHeaders)
             .then(res => {
                 setSuccess(res.status === 200)
                 if (res.status === 400) {
@@ -147,7 +147,7 @@ export default function SignUp(props: any) {
 // Component Style
 
 const pageStyle = {
-    backgroundImage: 'url(static/louis-pellissier-unsplash.jpg)',
+    backgroundImage: 'url(/api/static/louis-pellissier-unsplash.jpg)',
     top: 0,
     left: 0,
     position: 'fixed',

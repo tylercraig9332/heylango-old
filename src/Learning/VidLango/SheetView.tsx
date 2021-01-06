@@ -41,7 +41,7 @@ export default function SheetView(props : {send? : any, recieve?: any}) {
                 "Content-Type": "application/json"
             }
         }
-        fetch('/l/vid/yt/' + video_id, reqHeader).then(res => {
+        fetch('/api/l/vid/yt/' + video_id, reqHeader).then(res => {
             if (res.status !== 200) message.error(res.statusText)
             else return res.json()
         }).then(l => {
@@ -100,7 +100,7 @@ export default function SheetView(props : {send? : any, recieve?: any}) {
             },
             method: "PUT"
         }
-        fetch('/l/vid/' + vidLango?._id, reqHeaders).then(res => {
+        fetch('/api/l/vid/' + vidLango?._id, reqHeaders).then(res => {
             if (res.status !== 200) {
                 message.error('An error has occured')
             }

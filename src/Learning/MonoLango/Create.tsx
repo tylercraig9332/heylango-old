@@ -20,7 +20,7 @@ export default function Create() {
             },
             method: "POST"
         }
-        fetch('/l/m/', reqHeaders).then(res => {
+        fetch('/api/l/m/', reqHeaders).then(res => {
             setSuccess(res.status === 200)
             if (res.status !== 200) {
                 message.error('Something went wrong: please check all fields and try again')

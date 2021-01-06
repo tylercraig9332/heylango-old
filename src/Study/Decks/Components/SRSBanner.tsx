@@ -19,7 +19,7 @@ export default function SRSBanner(props : {deck : ICard[], current : number, onC
             },
             method: "PATCH"
         }
-        fetch('/s/ex/strength', reqHeaders).then(res => {
+        fetch('/api/s/ex/strength', reqHeaders).then(res => {
             console.log(res)
             if (res.status != 200) {
                 message.info('Something went wrong: ' + res.statusText) 

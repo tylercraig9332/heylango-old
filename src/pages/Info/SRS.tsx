@@ -6,7 +6,7 @@ const { Title, Paragraph, Text } = Typography;
 
 export default function SRS() {
     return (
-        <InfoWrap backgroundUrl="/static/info/patrick-tomasso-lango.jpg">
+        <InfoWrap backgroundUrl="/api/static/info/patrick-tomasso-lango.jpg">
             <Title>What is SRS?</Title>
             <Paragraph>
             SRS stands for Spaced Repetion Software/System. 

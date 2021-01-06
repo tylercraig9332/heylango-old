@@ -34,7 +34,7 @@ export default function SubtitleViewer(props : {captions : Array<any>, onCaption
         //TODO: initalize removetexts with the languages that the user has not selected as learning and that is not the audio language
         // so for example: if the user is learning every language except chinese and esperanto, and the video was esperanto, then the language disabled would be [chinese]
         // but if the video was in english then the languages disabled would be [chinese and esperanto]
-        fetch('/u/setting').then(res => {
+        fetch('/api/u/setting').then(res => {
             if (res.status !== 200) {
                 console.error(res)
                 message.error('Faild to load language preferences')

@@ -31,7 +31,7 @@ export default function Profile() {
           },
           method: "GET"
         }
-        fetch('/u/' + p, reqHeaders).then((res : Response) => {
+        fetch('/api/u/' + p, reqHeaders).then((res : Response) => {
             if (res.status === 400) throw new Error("User not logged in")
             return res.json()
         })
@@ -47,7 +47,7 @@ export default function Profile() {
             message.error(e.toString())
             setLoaded(true)
         })
-        /*fetch('/b/' + p, reqHeaders).then(res => {
+        /*fetch('/api/b/' + p, reqHeaders).then(res => {
             if (res.status === 400) console.log(res)
             return res.json()
         }).then(b => {

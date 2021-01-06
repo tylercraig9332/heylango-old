@@ -18,7 +18,7 @@ export default function Create() {
             },
             method: "POST"
         }
-        fetch('/l/bi/', reqHeaders).then(res => {
+        fetch('/api/l/bi/', reqHeaders).then(res => {
             // todo: get it from res and set it so result button can use it.
             setSuccess(res.status === 200)
         })

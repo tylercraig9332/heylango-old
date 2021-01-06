@@ -26,7 +26,7 @@ export default function View() {
             message.error('Something is wrong: The Lango that you may be trying to view may not exist.')
             return
         }
-        fetch('/l/m/' + l_id, reqHeader).then((res : Response) => (res.status === 200) ? res.json() : '')
+        fetch('/api/l/m/' + l_id, reqHeader).then((res : Response) => (res.status === 200) ? res.json() : '')
         .then((langoSheet : Lango) => {
             setLango(langoSheet)
             window.sessionStorage.setItem('LangoLanguage', langoSheet.language)

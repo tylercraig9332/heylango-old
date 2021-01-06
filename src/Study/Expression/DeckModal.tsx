@@ -18,7 +18,7 @@ export default function DeckModal(props : {visible?: boolean, onCancel?: any, se
             },
             method: "GET"
         }
-        fetch('/s/decks/', reqHeaders).then(res => {
+        fetch('/api/s/decks/', reqHeaders).then(res => {
             if (res.status === 400) message.error('An Error Occured with Loading Deck')
             return res.json()
         }).then(decks => {
@@ -45,7 +45,7 @@ export default function DeckModal(props : {visible?: boolean, onCancel?: any, se
             },
             method: "POST"
         }
-        fetch('/s/deck/ex/', reqHeaders).then(res => {
+        fetch('/api/s/deck/ex/', reqHeaders).then(res => {
             if (res.status === 400) {
                 message.error('Failed to Save Expressions to Deck')
                 return

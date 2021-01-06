@@ -24,7 +24,7 @@ export default function Home() {
             },
             method: "POST"
         }
-        fetch('/s/deck/', reqHeaders).then((res : Response) => {
+        fetch('/api/s/deck/', reqHeaders).then((res : Response) => {
             if (res.status === 400) message.error('Something went wrong')
             return res.json()
         }).then(deck => {

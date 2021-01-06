@@ -27,7 +27,7 @@ export default function Edit() {
             return
         }
         setId(l_id)
-        fetch('/l/m/' + l_id, reqHeader).then((res : Response) => (res.status === 200) ? res.json() : '')
+        fetch('/api/l/m/' + l_id, reqHeader).then((res : Response) => (res.status === 200) ? res.json() : '')
         .then((langoSheet : ILango) => {
             setLango(langoSheet)
             window.sessionStorage.setItem('LangoLanguage', langoSheet.language)
@@ -53,7 +53,7 @@ export default function Edit() {
             },
             method: "PUT"
         }
-        fetch('/l/m/' + id, reqHeaders).then(res => {
+        fetch('/api/l/m/' + id, reqHeaders).then(res => {
             // todo: get it from res and set it so result button can use it
             setSuccess(res.status === 200)
             setSuccessLink(`/learn/lango/${id}`)

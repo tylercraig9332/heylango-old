@@ -32,7 +32,7 @@ export default function Settings() {
             },
             method: "GET"
         }
-        fetch(`/b/all/${user}`, reqHeaders).then(res => {
+        fetch(`/api/b/all/${user}`, reqHeaders).then(res => {
             return res.json()
         }).then(b => {
             b.forEach((badge : IBadge) => {
@@ -71,7 +71,7 @@ export default function Settings() {
             },
             method: "PATCH"
         }
-        fetch('/b/', reqHeaders).then(res => {
+        fetch('/api/b/', reqHeaders).then(res => {
             setRefresh(refresh + 1)
         })
     }

@@ -36,7 +36,7 @@ export default function Create() {
             },
             method: "POST"
         }
-        fetch('/p/', reqHeaders).then(async (res) => {
+        fetch('/api/p/', reqHeaders).then(async (res) => {
             if (res.status == 200) {
                 console.log("Success!")
                 let obj = await res.json()

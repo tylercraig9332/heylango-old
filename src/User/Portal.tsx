@@ -27,7 +27,7 @@ export default function Portal(props: any) {
           },
           method: "POST"
       }
-      fetch('/u/login/', reqHeaders)
+      fetch('/api/u/login/', reqHeaders)
       .then(async (res)  => {
           //window.sessionStorage.setItem('username', res.)
            setSuccess(res.status === 200) 
@@ -38,7 +38,7 @@ export default function Portal(props: any) {
                 window.sessionStorage.setItem('userId', user.id)
                 window.sessionStorage.setItem('userRole', user.meta.role)
               })
-               window.location.href = '/learn/vid'
+              window.location.href = '/learn/vid'
            }
            else {
             message.error(res.statusText)
@@ -69,7 +69,7 @@ export default function Portal(props: any) {
 }
 
 const pageStyle = {
-    backgroundImage: 'url(static/louis-pellissier-unsplash.jpg)',
+    backgroundImage: 'url(/api/static/louis-pellissier-unsplash.jpg)',
     top: 0,
     left: 0,
     position: 'fixed',

@@ -19,7 +19,7 @@ export default function Engine(props : {parent_id : string}) {
             },
             method: "GET"
         }
-        fetch('/com/post/' + props.parent_id, reqHeaders).then((res : Response) => {
+        fetch('/api/com/post/' + props.parent_id, reqHeaders).then((res : Response) => {
             if (res.status === 200) {
                 //console.log('loaded comments')
                 return res.json()
@@ -54,7 +54,7 @@ export default function Engine(props : {parent_id : string}) {
             method: "PATCH"
         }
 
-        fetch('/com/' + comment_id, reqHeaders).then( res => console.log(res.statusText))
+        fetch('/api/com/' + comment_id, reqHeaders).then( res => console.log(res.statusText))
     }
 
     function handleReply(parent? : string, content?: string) {
@@ -93,7 +93,7 @@ export default function Engine(props : {parent_id : string}) {
             method: "POST"
         }
         //console.log(newComment)
-        fetch('/com/', reqHeaders).then((res : Response) => {
+        fetch('/api/com/', reqHeaders).then((res : Response) => {
             if (res.status === 200) return res.json()
             else  {
                 console.log('comment failed to send', res)

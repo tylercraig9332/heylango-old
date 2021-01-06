@@ -1,5 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const path = require('path')
 const bodyParser = require('body-parser')
 const session = require('express-session')
 const mongodb = require('./mongodb.json')
@@ -9,8 +10,9 @@ const fileUpload = require('express-fileupload')
 const cors = require('cors')
 
 const app = new express()
-const port = process.env.PORT || 8080
+const port = process.env.PORT || 4000
 
+app.use(cors())
 app.use(express.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({extended: true}))
 
@@ -26,33 +28,42 @@ app.use(session({
     saveUninitialized: true,
     store: new MongoStore({mongooseConnection: mongoose.connection, collection: 'sessions'}),
 }))
-app.use('/static', express.static('./Static'));
+/* Front End Static Files*/
+app.use(express.static(path.join(__dirname, 'build')));
+
+app.use('/api/static', express.static('./server/Static'));
 app.use(cookieParser('development'))
 app.use(fileUpload())
 
-const cRouter = require('./Community/controller')
-const pRouter = require('./Post/controller')
-const uRouter = require('./User/controller')
-const iRouter = require('./Interaction/controller')
-const lBiRouter = require('./Learning/BiLango/controller')
-const lMRouter = require('./Learning/Lango/controller')
-const lVidRouter = require('./Learning/VidLango/controller')
-const comRouter = require('./Comment/controller')
-const sRouter = require('./Study/controller')
-const adminRouter = require('./Admin/controller')
-const badgeRouter = require('./User/Badge/controller')
+/* Routers & Routes */
+const cRouter = require('./server/Community/controller')
+const pRouter = require('./server/Post/controller')
+const uRouter = require('./server/User/controller')
+const iRouter = require('./server/Interaction/controller')
+const lBiRouter = require('./server/Learning/BiLango/controller')
+const lMRouter = require('./server/Learning/Lango/controller')
+const lVidRouter = require('./server/Learning/VidLango/controller')
+const comRouter = require('./server/Comment/controller')
+const sRouter = require('./server/Study/controller')
+const adminRouter = require('./server/Admin/controller')
+const badgeRouter = require('./server/User/Badge/controller')
 
-app.use('/c', cRouter)
-app.use('/p', pRouter)
-app.use('/u', uRouter)
-app.use('/i', iRouter)
-app.use('/l/bi', lBiRouter)
-app.use('/l/m', lMRouter)
-app.use('/l/vid', lVidRouter)
-app.use('/com', comRouter)
-app.use('/s', sRouter)
-app.use('/admin', adminRouter)
-app.use('/b', badgeRouter)
+app.use('/api/c', cRouter)
+app.use('/api/p', pRouter)
+app.use('/api/u', uRouter)
+app.use('/api/i', iRouter)
+app.use('/api/l/bi', lBiRouter)
+app.use('/api/l/m', lMRouter)
+app.use('/api/l/vid', lVidRouter)
+app.use('/api/com', comRouter)
+app.use('/api/s', sRouter)
+app.use('/api/admin', adminRouter)
+app.use('/api/b', badgeRouter)
+
+/* Front End Router */
+app.get('*', function (req, res) {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  });
 
 /* Logs when a user is undefined */
 const userAuthMiddleware = (req, res, next) => {

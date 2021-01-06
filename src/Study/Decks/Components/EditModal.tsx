@@ -19,7 +19,7 @@ export default function EditModal(props : {deck: IDeck, visible: boolean, onClos
             },
             method: "PATCH"
         }
-        fetch('/s/deck/' + props.deck._id, reqHeaders).then(res => {
+        fetch('/api/s/deck/' + props.deck._id, reqHeaders).then(res => {
             if (res.status === 400) message.error('Something went wrong :(')
             props.onClose()
         })
@@ -32,11 +32,11 @@ export default function EditModal(props : {deck: IDeck, visible: boolean, onClos
             },
             method: "DELETE"
         }
-        fetch('/s/deck/' + props.deck._id, reqHeaders).then(res => {
+        fetch('/api/s/deck/' + props.deck._id, reqHeaders).then(res => {
             if (res.status === 400) message.error('Something went wrong') 
             else if (res.status === 200) {
                 message.success('Deck deleted')
-                window.location.href = "/study/"
+                window.location.href = '/study/'
             }
         })
     }

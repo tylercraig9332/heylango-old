@@ -28,7 +28,7 @@ export default function DarkMode(props : {theme : string}) {
             },
             method: "POST"
         }
-        fetch('/u/setting', reqHeaders).then(res => {
+        fetch('/api/u/setting', reqHeaders).then(res => {
             if (res.status !== 200) {
                 console.error(res.statusText)
             }

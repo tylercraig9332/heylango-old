@@ -31,7 +31,7 @@ export default function AdminPanel(props : {show: boolean, setShow: any, parent:
             },
             method: "POST"
         }
-        fetch('/admin/report', reqHeaders).then(res => {
+        fetch('/api/admin/report', reqHeaders).then(res => {
             if (res.status === 200) message.success(`Successfully reported ${props.parentType}! Thank you`)
             else message.error('Something went wrong')
         })

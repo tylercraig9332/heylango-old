@@ -20,7 +20,7 @@ export function Like(props : {parent_id? : string, onClick? : any, likes?: numbe
             },
             method: "GET"
         }
-        fetch(`/i/${props.parent_id}`, reqHeaders).then(r => r.json()).then(l => {
+        fetch(`/api/i/${props.parent_id}`, reqHeaders).then(r => r.json()).then(l => {
             like(l)
         })  
     }, [])
@@ -38,7 +38,7 @@ export function Like(props : {parent_id? : string, onClick? : any, likes?: numbe
             },
             method: (!liked) ? "POST" : "DELETE"
         }
-        fetch('/i/', reqHeaders).catch(err => console.error(err))
+        fetch('/api/i/', reqHeaders).catch(err => console.error(err))
         like(!liked)
     }
 
@@ -69,7 +69,7 @@ export function Save(props : {parent_id : string | undefined, parentType: string
             },
             method: "GET"
         }
-        fetch(`/i/s/${props.parent_id}`, reqHeaders).then(r => r.json()).then((s : boolean) => {
+        fetch(`/api/i/s/${props.parent_id}`, reqHeaders).then(r => r.json()).then((s : boolean) => {
             setSaved(s)
         })  
     }, [])
@@ -83,7 +83,7 @@ export function Save(props : {parent_id : string | undefined, parentType: string
             },
             method: (!saved) ? "POST" : "DELETE"
         }
-        fetch('/i/s/', reqHeaders).catch(err => console.error(err))
+        fetch('/api/i/s/', reqHeaders).catch(err => console.error(err))
         setSaved(!saved)
     }
 
@@ -186,7 +186,7 @@ export function EditOrUser(props: {handleEdit: any, postID?: string, editView?: 
             method: "GET"
         }
         // TODO: adapt to parent_id and parentType
-        fetch(`/p/belongs/${props.postID}`, reqHeaders).then(r => r.json()).then(res => {
+        fetch(`/api/p/belongs/${props.postID}`, reqHeaders).then(r => r.json()).then(res => {
             setBelongs(res.belongs)
             setAuthor(res.author)
         })  

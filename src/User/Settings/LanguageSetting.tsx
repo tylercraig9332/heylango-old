@@ -24,7 +24,7 @@ export default function LanguageSetting(props : {primary: string, target: string
             },
             method: "POST"
         }
-        fetch('/u/setting', reqHeaders).then(res => {
+        fetch('/api/u/setting', reqHeaders).then(res => {
             if (res.status !== 200) {
                 message.error(res.statusText)
             } else {

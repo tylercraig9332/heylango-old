@@ -7,7 +7,7 @@ const { Title } = Typography
 
 export default function Support() {
     return (
-        <InfoWrap backgroundUrl={'/static/louis-pellissier-unsplash.jpg'} width={'400px'} disableReturn>
+        <InfoWrap backgroundUrl={'/api/static/louis-pellissier-unsplash.jpg'} width={'400px'} disableReturn>
             <div style={{marginLeft: 'auto', marginRight: 'auto', display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
                 <Title>Enjoy the site?</Title>
                 <p>Please help keep it free</p>

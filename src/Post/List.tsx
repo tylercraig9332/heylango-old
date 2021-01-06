@@ -21,7 +21,7 @@ export default function List(props : ListProps) {
             },
             method: "GET"
         }
-        fetch(`/p/${props.by}`, reqHeaders).then(res => {
+        fetch(`/api/p/${props.by}`, reqHeaders).then(res => {
             setLoaded(true)
             if (res.status === 400) message.error(res.statusText)
             else return res.json()

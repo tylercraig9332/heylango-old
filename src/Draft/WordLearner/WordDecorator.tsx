@@ -40,7 +40,7 @@ function PopoverContent(props: any) {
             },
             method: "GET"
         }
-        fetch('/s/ex/t/' + word + '/to/' + lCode, reqHeaders).then(r => r.json()).then(t => {
+        fetch('/api/s/ex/t/' + word + '/to/' + lCode, reqHeaders).then(r => r.json()).then(t => {
             setTranslations(t)
         })
     }, [])
@@ -68,7 +68,7 @@ function PopoverContent(props: any) {
             },
             method: "POST"
         }
-        fetch('/s/ex/', reqHeaders).then(res => {
+        fetch('/api/s/ex/', reqHeaders).then(res => {
             // todo: get it from res and set it so result button can use it.
             setSuccess(res.status === 200)
             message.success('Word Saved!')

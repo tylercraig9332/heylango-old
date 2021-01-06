@@ -103,80 +103,80 @@
     "communities": [
         {
             "name": "All / General",
-            "imageUrl": "/static/comm/all_ri",
+            "imageUrl": "/api/static/comm/all_ri",
             "code": "all",
             "flag": "📚"
         },
         {
             "name" : "English",
-            "imageUrl" : "/static/comm/hofstra.jpg",
+            "imageUrl" : "/api/static/comm/hofstra.jpg",
             "code" : "en",
             "flag" : "🇺🇸"
         },
         {
             "name": "Spanish",
-            "imageUrl": "/static/comm/madrid_jg",
+            "imageUrl": "/api/static/comm/madrid_jg",
             "code": "es",
             "flag": "🇪🇸"
         },
         {
             "name": "French",
             "code": "fr",
-            "imageUrl": "/static/comm/paris_cm",
+            "imageUrl": "/api/static/comm/paris_cm",
             "flag": "🇫🇷"
         },
         {
             "name": "German",
             "code": "de",
-            "imageUrl": "/static/comm/german_em",
+            "imageUrl": "/api/static/comm/german_em",
             "flag": "🇩🇪"
         },
         {
             "name": "Portuguese",
             "code": "pt",
-            "imageUrl": "/static/comm/redeem_al.jpg",
+            "imageUrl": "/api/static/comm/redeem_al.jpg",
             "flag": "🇧🇷"
         },
         {
             "name": "Italian",
             "code": "it",
-            "imageUrl": "/static/comm/it_jw",
+            "imageUrl": "/api/static/comm/it_jw",
             "flag": "🇮🇹"
         },
         {
             "name": "Russian",
             "code": "ru",
-            "imageUrl": "/static/comm/russia_nk",
+            "imageUrl": "/api/static/comm/russia_nk",
             "flag": "🇷🇺"
         },
         {
             "name": "Japanese",
             "code": "ja",
-            "imageUrl": "/static/comm/jp_b",
+            "imageUrl": "/api/static/comm/jp_b",
             "flag": "🇯🇵"
         },
         {
             "name": "Arabic",
             "code": "ar",
-            "imageUrl": "/static/comm/taj_th",
+            "imageUrl": "/api/static/comm/taj_th",
             "flag": "🇦🇪"
         },
         {
             "name": "Mandarin",
             "code": "zh-m",
-            "imageUrl": "/static/comm/redTassel_as",
+            "imageUrl": "/api/static/comm/redTassel_as",
             "flag": "🇨🇳"
         },
         {
             "name": "Cantonese",
             "code": "zh-c",
-            "imageUrl": "/static/comm/law.jpg",
+            "imageUrl": "/api/static/comm/law.jpg",
             "flag": "🇭🇰"
         },
         {
             "name": "Esperanto",
             "code": "eo",
-            "imageUrl": "/static/comm/green_wz",
+            "imageUrl": "/api/static/comm/green_wz",
             "flag": "💚"
         }
     ],
@@ -192,91 +192,91 @@
             "title" : "English",
             "code" : "en",
             "flag": "🇺🇸",
-            "flagImg": "/static/flag/us.png"
+            "flagImg": "/api/static/flag/us.png"
         },
         {
             "name": "Spanish",
             "title" : "Español",
             "code": "es",
             "flag": "🇪🇸",
-            "flagImg": "/static/flag/es.png"
+            "flagImg": "/api/static/flag/es.png"
         },
         {
             "name": "French",
             "title" : "Français",
             "code": "fr",
             "flag": "🇫🇷",
-            "flagImg": "/static/flag/fr.png"
+            "flagImg": "/api/static/flag/fr.png"
         },
         {
             "name": "German",
             "title" : "Deutsch",
             "code": "de",
             "flag": "🇩🇪",
-            "flagImg": "/static/flag/de.png"
+            "flagImg": "/api/static/flag/de.png"
         },
         {
             "name": "Japanese",
             "title" : "日本語",
             "code": "ja",
             "flag": "🇯🇵",
-            "flagImg": "/static/flag/jp.png"
+            "flagImg": "/api/static/flag/jp.png"
         },
         {
             "name": "Korean",
             "title": "한국어",
             "code": "ko",
             "flag": "🇰🇷",
-            "flagImg": "/static/flag/ko.png"
+            "flagImg": "/api/static/flag/ko.png"
         },
         {
             "name": "Italian",
             "title" : "Italiano",
             "code": "it",
             "flag": "🇮🇹",
-            "flagImg": "/static/flag/it.png"
+            "flagImg": "/api/static/flag/it.png"
         },
         {
             "name": "Portuguese",
             "title": "Português",
             "code": "pt",
             "flag": "🇧🇷",
-            "flagImg": "/static/flag/pt-br.png"
+            "flagImg": "/api/static/flag/pt-br.png"
         },
         {
             "name": "Russian",
             "title" : "Русский",
             "code": "ru",
             "flag": "🇷🇺",
-            "flagImg": "/static/flag/ru.png"
+            "flagImg": "/api/static/flag/ru.png"
         },
         {
             "name": "Arabic",
             "title": "العربية",
             "code": "ar",
             "flag": "🇦🇪",
-            "flagImg": "/static/flag/ar.png"
+            "flagImg": "/api/static/flag/ar.png"
         },
         {
             "name": "Mandarin",
             "title": "國語",
             "code": "zh-m",
             "flag": "🇨🇳",
-            "flagImg": "/static/flag/zh-m.png"
+            "flagImg": "/api/static/flag/zh-m.png"
         },
         {
             "name" : "Cantonese",
             "title": "廣東話",
             "code" : "zh-c",
             "flag" : "🇭🇰",
-            "flagImg": "/static/flag/zh-c.png"
+            "flagImg": "/api/static/flag/zh-c.png"
         },
         {
             "name": "Esperanto",
             "title": "Esperantaj",
             "code": "eo",
             "flag": "💚",
-            "flagImg": "/static/flag/eo.png"
+            "flagImg": "/api/static/flag/eo.png"
         }
     ],
     "CEFR" : [

@@ -25,7 +25,7 @@ export default function View(props : {post_id: string}) {
                 "Content-Type": "application/json"
             }
         }
-        fetch('/p/id/' + p_id, reqHeader).then((res : Response) => (res.status === 200) ? res.json() : '')
+        fetch('/api/p/id/' + p_id, reqHeader).then((res : Response) => (res.status === 200) ? res.json() : '')
         .then((post : Post) => {
             setPost(post)
         })
@@ -43,7 +43,7 @@ export default function View(props : {post_id: string}) {
                 },
                 body: JSON.stringify({content: editContent})
             }
-            fetch('/p/id/' + post.id, reqHeader).then((res : Response) => {
+            fetch('/api/p/id/' + post.id, reqHeader).then((res : Response) => {
                 if (res.status === 200) {
                     message.loading({content: 'Saving', key: 'save'})
                     setTimeout(() => {

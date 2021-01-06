@@ -20,7 +20,7 @@ export default function AddModal(props : {visible?: boolean, onCancel?: any, aft
             },
             method: "GET"
         }
-        fetch('/s/decks/', reqHeaders).then(res => {
+        fetch('/api/s/decks/', reqHeaders).then(res => {
             if (res.status === 400) message.error('An Error Occured with Loading Deck')
             return res.json()
         }).then((decks : IDeck[]) => {
@@ -57,7 +57,7 @@ export default function AddModal(props : {visible?: boolean, onCancel?: any, aft
             language: language
         }
         
-        fetch('/s/ex/', postRequest(exp)).then(res => {
+        fetch('/api/s/ex/', postRequest(exp)).then(res => {
             if (res.status !== 200) {
                 message.error('Something went wrong with creating this expression')
                 console.error(res.statusText)
@@ -71,7 +71,7 @@ export default function AddModal(props : {visible?: boolean, onCancel?: any, aft
                 decks: deckSelected,
                 expressions: [exp._id]
             }
-            fetch('/s/deck/ex', postRequest(body)).then(res => {
+            fetch('/api/s/deck/ex', postRequest(body)).then(res => {
                 if (res.status !== 200) {
                     message.error('Something went wrong saving your expression to decks')
                     console.error(res.statusText)

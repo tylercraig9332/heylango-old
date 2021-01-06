@@ -19,7 +19,7 @@ export default function View(props : {vidLango : IVidLango | undefined, preview?
             // TODO: handle error or load from url
             const urls = window.location.pathname.split('/')
             const id = urls[3]
-            fetch('/l/vid/' + id).then(res => {
+            fetch('/api/l/vid/' + id).then(res => {
                 if (res.status !== 200) {
                     message.error(res.statusText)
                     return
@@ -61,7 +61,7 @@ export default function View(props : {vidLango : IVidLango | undefined, preview?
             },
             method: "PUT"
         }
-        fetch('/l/vid/' + vidLango._id, reqHeaders).then(res => {
+        fetch('/api/l/vid/' + vidLango._id, reqHeaders).then(res => {
             if (res.status === 200) message.success('VidLango Updated!')
         })
         setVidLango(v)

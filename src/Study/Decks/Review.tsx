@@ -20,14 +20,14 @@ export default function Review(props : {deck_id? : string}) {
         else {
             p_id = props.deck_id
         }
-        fetch('/s/deck/ex/' + p_id).then(res => {
+        fetch('/api/s/deck/ex/' + p_id).then(res => {
             if (res.status === 400) message.error('Error Loading Cards')
             return res.json()
         }).then(cards => {
             setCards(cards)
             setLoaded(true)
         })
-        fetch('/s/deck/' + p_id).then(res => {
+        fetch('/api/s/deck/' + p_id).then(res => {
             if (res.status === 400) message.error('Error Loading Deck Info')
             return res.json()
         }).then(deck => {

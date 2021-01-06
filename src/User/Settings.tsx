@@ -9,7 +9,7 @@ export default function Settings() {
     const [settings, setSettings] = useState<any>()
 
     useEffect(() => {
-        fetch('/u/setting').then(res => {
+        fetch('/api/u/setting').then(res => {
             if (res.status !== 200) {
                 console.error(res)
                 return
