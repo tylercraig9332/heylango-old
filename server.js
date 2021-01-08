@@ -11,6 +11,7 @@ const cors = require('cors')
 
 const app = new express()
 const port = process.env.PORT || 4000
+const secret = 'development'
 
 app.use(cors())
 app.use(express.json({limit: '50mb'}));
@@ -23,16 +24,17 @@ mongoose.connect(mongodb.authString, { useNewUrlParser: true, useUnifiedTopology
 })
 
 app.use(session({
-    secret: 'development', // Note I will change this in production environments
+    secret: secret, // Note I will change this in production environments
     resave: true,
     saveUninitialized: true,
     store: new MongoStore({mongooseConnection: mongoose.connection, collection: 'sessions'}),
+    cookie: {maxAge: 1000 * 60 * 12} // 12 hours
 }))
 /* Front End Static Files*/
 app.use(express.static(path.join(__dirname, 'build')));
 
 app.use('/api/static', express.static('./server/Static'));
-app.use(cookieParser('development'))
+app.use(cookieParser(secret))
 app.use(fileUpload())
 
 /* Routers & Routes */
