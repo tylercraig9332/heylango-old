@@ -62,7 +62,7 @@ router.post('/signup', (req, res) => {
             res.send('Username already in use.')
         }
         else {
-            res.send(error)
+            res.status(500).send(e)
         }
     })
 })

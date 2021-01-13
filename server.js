@@ -3,37 +3,40 @@ const mongoose = require('mongoose')
 const path = require('path')
 const bodyParser = require('body-parser')
 const session = require('express-session')
-const mongodb = require('./mongodb.json')
+const mongodb = require('./server/mongodb.json')
 const MongoStore = require('connect-mongo')(session)
 const cookieParser = require('cookie-parser')
 const fileUpload = require('express-fileupload')
 const cors = require('cors')
 
 const app = new express()
-const port = process.env.PORT || 4000
+const port = process.env.PORT || 8080
 const secret = 'development'
 
-app.use(cors())
+// For Production
+// app.use(cors())
 app.use(express.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({extended: true}))
 
+
 mongoose.connect(mongodb.authString, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true }).then(() => {
     console.log('mongodb connection established')
-}).catch(() => {
+}).catch((e) => {
+    console.error(e)
     console.log('Mongodb connection failed.')
 })
 
 app.use(session({
-    secret: secret, // Note I will change this in production environments
+    secret: secret,
     resave: true,
-    saveUninitialized: true,
+    saveUninitialized: false,
     store: new MongoStore({mongooseConnection: mongoose.connection, collection: 'sessions'}),
     cookie: {maxAge: 1000 * 60 * 12} // 12 hours
 }))
 /* Front End Static Files*/
-app.use(express.static(path.join(__dirname, 'build')));
-
+//app.use(express.static(path.join(__dirname, 'build')));
 app.use('/api/static', express.static('./server/Static'));
+
 app.use(cookieParser(secret))
 app.use(fileUpload())
 
@@ -63,9 +66,11 @@ app.use('/api/admin', adminRouter)
 app.use('/api/b', badgeRouter)
 
 /* Front End Router */
+/* Uncomment for Production
 app.get('*', function (req, res) {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
   });
+*/
 
 /* Logs when a user is undefined */
 const userAuthMiddleware = (req, res, next) => {
