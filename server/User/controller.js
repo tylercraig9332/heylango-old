@@ -25,6 +25,7 @@ router.get('/loggedIn', (req, res) => {
 .get('/setting', (req, res) => {
     if (req.session.user === undefined) {
         res.status(400).send('user not logged in')
+        return
     }
     SettingFactory.read(req.session.user.id, (err, docs) => {
         if (err) {
