@@ -6,7 +6,7 @@ const BadgeFactory = require('./factory')
 router.get('/:user_id',(req, res) => {
     let author_id = req.params.user_id
     if (author_id === 'me') {
-        author_id = req.session.user.id
+        author_id = req.session.user._id
     } 
     BadgeFactory.read({enabled: true, author: author_id}).then(r => {
         res.send(r)
@@ -17,7 +17,7 @@ router.get('/:user_id',(req, res) => {
 }).get('/all/:user_id',(req, res) => {
     let author_id = req.params.user_id
     if (author_id === 'me') {
-        author_id = req.session.user.id
+        author_id = req.session.user._id
     } 
     BadgeFactory.read({author: author_id}).then(r => {
         res.send(r)
@@ -32,7 +32,7 @@ router.patch('/', (req, res) => {
         res.status(403).send('User must be logged in to perform this action.')
         return 
     }
-    req.body.by.author = req.session.user.id
+    req.body.by.author = req.session.user._id
     BadgeFactory.update(req.body.by, req.body.update, (r) => {
         res.send(`${r.nModified} Updated`)
     })
@@ -42,7 +42,7 @@ router.patch('/', (req, res) => {
         res.status(403).send('User must be logged in to perform this action.')
         return 
     }
-    req.body.author = req.session.user.id 
+    req.body.author = req.session.user._id 
     BadgeFactory.updateById(req.params.id, req.body)
 })
 

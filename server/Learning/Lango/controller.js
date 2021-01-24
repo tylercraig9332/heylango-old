@@ -27,7 +27,7 @@ router.get('/', (req, res) => {
             // TODO:
             break
         case 'u':
-            body = {author: req.session.user.id}
+            body = {author: req.session.user._id}
             break
         case 'all':
         default:
@@ -77,10 +77,10 @@ router.post('/', (req, res) => {
         res.status(400).send('User need to be logged in to perform this action')
         return
     }
-    req.body.author = req.session.user.id
+    req.body.author = req.session.user._id
     factory.create(req.body).then(response => {
-        BadgeFactory.create('contributor', req.session.user.id)
-        InteractionFactory.increase_score(InteractionFactory.scores.LANGO, req.session.user.id, (err, doc) => {})
+        BadgeFactory.create('contributor', req.session.user._id)
+        InteractionFactory.increase_score(InteractionFactory.scores.LANGO, req.session.user._id, (err, doc) => {})
         res.status(200).send(response)
     })
     .catch(err => res.status(400).send(err))
@@ -91,7 +91,7 @@ router.put('/:id', (req, res) => {
         res.status(400).send('User need to be logged in to perform this action')
         return
     }
-    factory.update({_id: req.params.id, author: req.session.user.id}, req.body, (err, r) => {
+    factory.update({_id: req.params.id, author: req.session.user._id}, req.body, (err, r) => {
         if (err) res.status(400).send(err)
         else {
             res.send(req.params.id)

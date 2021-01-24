@@ -20,10 +20,10 @@ router.get('/yt/:videoId', (req, res) => {
             language: s.defaultAudioLanguage,
             tags: s.tags,
             captions: [],
-            author: req.session.user.id
+            author: req.session.user._id
         }
         factory.create(vidLango).then(doc => {
-            InteractionFactory.increase_score(InteractionFactory.scores.LANGO, req.session.user.id, (err, doc) => {})
+            InteractionFactory.increase_score(InteractionFactory.scores.LANGO, req.session.user._id, (err, doc) => {})
             res.send(doc)
         })
     })
@@ -86,7 +86,7 @@ router.get('/yt/:videoId', (req, res) => {
     if (req.params.by !== 'all') {
         switch (req.params.by) {
             case 'saved':
-                factory.read_saved(selecter, options, req.session.user.id, (err, docs) => {
+                factory.read_saved(selecter, options, req.session.user._id, (err, docs) => {
                     if (err) {
                         res.status(500).send('MongoDB Error: ' + err.codeName)
                         return
@@ -98,7 +98,7 @@ router.get('/yt/:videoId', (req, res) => {
             default:
                 let split = req.params.by.split('-')
                 if (split[0] === 'u') {
-                    let user = (split[1] === 'me') ? req.session.user.id : split[1]
+                    let user = (split[1] === 'me') ? req.session.user._id : split[1]
                     selecter = {author: user, ...selecter}
                 }
                 // Show same as all if by doesn't match

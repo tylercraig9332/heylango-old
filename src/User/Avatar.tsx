@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Avatar, Tooltip } from 'antd'
-import User from './User'
+import User from '../../typings/User'
 
 export default function UserAvatar(props : {fetch_author? : string | Object, user?: User}) {
 

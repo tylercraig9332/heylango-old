@@ -14,7 +14,7 @@ router.get('/ex/:sort?', (req, res) => {
         res.status(400).send('User need to be logged in to perform this action')
         return
     }
-    Expression.read({author: req.session.user.id}).then(exps => {
+    Expression.read({author: req.session.user._id}).then(exps => {
         s = req.params.sort
         if (s === undefined) s = 'language'
         exps.sort(sortFn.sort(s))
@@ -41,7 +41,7 @@ router.get('/ex/:sort?', (req, res) => {
         res.status(400).send('User need to be logged in to perform this action')
         return
     }
-    Deck.read({author: req.session.user.id}).then(docs => res.send(docs))
+    Deck.read({author: req.session.user._id}).then(docs => res.send(docs))
     .catch(err => {
         console.log(err)
         res.status(400).send(err)
@@ -70,17 +70,17 @@ router.post('/ex/', (req, res) => {
         res.status(400).send('User need to be logged in to perform this action')
         return
     }
-    req.body.author = req.session.user.id
-    InteractionFactory.increase_score(InteractionFactory.scores.EXPR, req.session.user.id, (err, doc) => {})
+    req.body.author = req.session.user._id
+    InteractionFactory.increase_score(InteractionFactory.scores.EXPR, req.session.user._id, (err, doc) => {})
     Expression.create(req.body).then(r => res.send(r)).catch(err => res.status(400).send(err))
 }).post('/deck/', (req, res) => {
     if (req.session.user === undefined) {
         res.status(400).send('User need to be logged in to perform this action')
         return
     }
-    req.body.author = req.session.user.id
+    req.body.author = req.session.user._id
     Deck.create(req.body).then(d => {
-        InteractionFactory.increase_score(InteractionFactory.scores.DECK, req.session.user.id, (err, doc) => {})
+        InteractionFactory.increase_score(InteractionFactory.scores.DECK, req.session.user._id, (err, doc) => {})
         res.send(true)
     }).catch(err => {
         console.error(err)
@@ -92,8 +92,8 @@ router.post('/ex/', (req, res) => {
         res.status(400).send('User need to be logged in to perform this action')
         return
     }
-    //req.body.author = req.session.user.id
-    Deck.createDeckExp(req.body.decks, req.body.expressions, req.session.user.id).then(r => {
+    //req.body.author = req.session.user._id
+    Deck.createDeckExp(req.body.decks, req.body.expressions, req.session.user._id).then(r => {
         res.send('Expression(s) Added to Deck(s)')
     }).catch(err => {
         console.log(err)
@@ -110,7 +110,7 @@ router.patch('/ex/strength', (req, res) => {
     }
     Expression.adjustStrength(req.body, (err, response) => {
         if (err) res.status(400)
-        InteractionFactory.increase_score(InteractionFactory.scores.STREN, req.session.user.id, (err, doc) => {})
+        InteractionFactory.increase_score(InteractionFactory.scores.STREN, req.session.user._id, (err, doc) => {})
         res.send(response)
     })
 })
@@ -119,7 +119,7 @@ router.patch('/ex/strength', (req, res) => {
         res.status(400).send('User need to be logged in to perform this action')
         return
     }
-    req.body.author = req.session.user.id
+    req.body.author = req.session.user._id
     //console.log(req.body)
     Expression.update({_id: req.params.id}, req.body).then((d) => {
         res.status(200).send('Saved!')
@@ -135,7 +135,7 @@ router.patch('/ex/strength', (req, res) => {
         res.status(400).send('User need to be logged in to perform this action')
         return
     }
-    req.body.author = req.session.user.id
+    req.body.author = req.session.user._id
     Deck.update(req.params.id, req.body).catch(err => {console.log(err); res.status(400).send(err)})
     res.send(true)
 })
@@ -163,7 +163,7 @@ router.delete('/ex/:id', (req, res) => {
         res.status(400).send('User need to be logged in to perform this action')
         return
     }
-    Deck.delete({_id: req.params.id, author: req.session.user.id}).then(r => res.send(true)).catch(err =>{ console.error(err); res.status(400).send(err)})
+    Deck.delete({_id: req.params.id, author: req.session.user._id}).then(r => res.send(true)).catch(err =>{ console.error(err); res.status(400).send(err)})
 })
 
 

@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
         res.status(200).send(false)
         return
     }
-    req.body.user = user.id
+    req.body.user = user._id
     factory.read_like(req.body).then(l => {
         if (l.length > 0) res.send(true)
         else res.send(false)
@@ -28,7 +28,7 @@ router.get('/', (req, res) => {
         res.status(200).send(false)
         return
     }
-    req.body.user = req.session.user.id
+    req.body.user = req.session.user._id
     factory.read_save({parent: req.params.id}).then(s => {
         if (s.length > 0) res.send(true)
         else res.send(false)
@@ -37,7 +37,7 @@ router.get('/', (req, res) => {
 .get('/s/user/:user', (req, res) => {
     let u = req.params.user
     if (req.params.user === undefined || req.params.user === 'me') {
-        u = req.session.user.id
+        u = req.session.user._id
     }
     factory.read_save({user: u}).then(saves => {
         factory.collect_saves(saves).then((saveData) => {
@@ -48,7 +48,7 @@ router.get('/', (req, res) => {
 .get('/score/:user', (req, res) => {
     let u = req.params.user
     if (req.params.user === undefined || req.params.user === 'me') {
-        u = req.session.user.id
+        u = req.session.user._id
     }
     factory.read_score({user: u}, (err, doc) => {
         res.status((err === null) ? 200 : 500).send(doc[0])
@@ -61,7 +61,7 @@ router.get('/', (req, res) => {
         res.status(200).send(false)
         return
     }
-    let l = await factory.readOne({parent: req.params.post, user: req.session.user.id})
+    let l = await factory.readOne({parent: req.params.post, user: req.session.user._id})
     res.send(l)
 })
 
@@ -70,8 +70,8 @@ router.post('/', (req, res) => {
         res.status(400).send('Must be logged in to preform this action')
         return
     }
-    req.body.user = req.session.user.id
-    factory.increase_score(factory.scores.LIKE, req.session.user.id, (err, doc) => {})
+    req.body.user = req.session.user._id
+    factory.increase_score(factory.scores.LIKE, req.session.user._id, (err, doc) => {})
     factory.create_like(req.body)
     res.status(200).send('Liked!')
 })
@@ -80,7 +80,7 @@ router.post('/', (req, res) => {
         res.status(400).send('Must be logged in to preform this action')
         return
     }
-    req.body.user = req.session.user.id
+    req.body.user = req.session.user._id
     factory.create_save(req.body)
     res.status(200).send('Saved!')
 })
@@ -90,8 +90,8 @@ router.delete('/', (req, res) => {
         res.status(400).send('Must be logged in to preform this action')
         return
     }
-    req.body.user = req.session.user.id
-    factory.increase_score(factory.scores.LIKE * -1, req.session.user.id, (err, doc) => {})
+    req.body.user = req.session.user._id
+    factory.increase_score(factory.scores.LIKE * -1, req.session.user._id, (err, doc) => {})
     factory.delete_like(req.body)
     res.status(200).send('Unliked')
 })
@@ -100,7 +100,7 @@ router.delete('/', (req, res) => {
         res.status(400).send('Must be logged in to preform this action')
         return
     }
-    req.body.user = req.session.user.id
+    req.body.user = req.session.user._id
     factory.delete_save(req.body)
     res.status(200).send('Unsaved')
 })

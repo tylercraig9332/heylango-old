@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 //import Avatar from './Avatar'
 import { Avatar, Tooltip } from 'antd'
 import BadgePanel from './Badge/Panel'
-import User from './User'
+import User from '../../typings/User'
 
 export default function Author(props : {user_id?: string}) {
 
@@ -34,9 +34,9 @@ export default function Author(props : {user_id?: string}) {
             </div>
             <div style={{marginLeft: '5px'}}>
                 <h3 style={{marginBottom: 0}}><Tooltip title="View Profile">
-                        <Link to={`/profile/${user.id}`}>{user?.username}</Link>
+                        <Link to={`/profile/${user._id}`}>{user?.username}</Link>
                 </Tooltip></h3>
-                <BadgePanel user_id={user.id}/>
+                <BadgePanel user_id={user._id}/>
             </div>
         </div>
     )

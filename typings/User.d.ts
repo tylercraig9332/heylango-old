@@ -1,5 +1,5 @@
 interface User {
-    id: string,
+    _id: string,
     username: string,
     meta: UserMeta,
     email: string,

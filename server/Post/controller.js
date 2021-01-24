@@ -35,7 +35,7 @@ router.get('/id/:id', (req, res) => {
     model.readById(req.params.id).then((post) => {
         let b = false 
         // true if the author is the same and is not undefined
-        b = (req.session.user !== undefined && req.session.user.id == post.author)
+        b = (req.session.user !== undefined && req.session.user._id == post.author)
         const r = {
             author: post.author,
             belongs: b
@@ -56,9 +56,9 @@ router.post('/', (req, res) => {
     if (req.session.user === undefined) {
         res.status(400).send('You need to be logged in to make a post.')
     }
-    req.body.author = req.session.user.id
+    req.body.author = req.session.user._id
     model.create(req.body).then(r => {
-        InteractionFactory.increase_score(InteractionFactory.scores.POST, req.session.user.id, (err, doc) => {})
+        InteractionFactory.increase_score(InteractionFactory.scores.POST, req.session.user._id, (err, doc) => {})
         res.status(200).send(r)
     })
     .catch(err => {

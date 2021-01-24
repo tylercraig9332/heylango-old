@@ -38,11 +38,11 @@ router.post('/', (req, res) => {
         res.status(400).send('User need to be logged in to perform this action')
         return
     }
-    req.body.author = req.session.user.id
+    req.body.author = req.session.user._id
     factory.create(req.body).then((r) => {
         //console.log(r)
-        BadgeFactory.create('contributor', req.session.user.id)
-        InteractionFactory.increase_score(InteractionFactory.scores.LANGO, req.session.user.id, (err, doc) => {})
+        BadgeFactory.create('contributor', req.session.user._id)
+        InteractionFactory.increase_score(InteractionFactory.scores.LANGO, req.session.user._id, (err, doc) => {})
         res.send(200)
     })
     .catch((err) => {

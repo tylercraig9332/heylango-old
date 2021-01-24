@@ -35,7 +35,7 @@ export default function Portal(props: any) {
               await res.json().then((user) => {
                 window.sessionStorage.setItem('logged', 'true')
                 window.sessionStorage.setItem('username', user.username)
-                window.sessionStorage.setItem('userId', user.id)
+                window.sessionStorage.setItem('userId', user._id)
                 window.sessionStorage.setItem('userRole', user.meta.role)
               })
               window.location.href = '/learn/vid'

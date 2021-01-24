@@ -18,7 +18,7 @@ router.post('/', (req, res) => {
         return
     }
     model.create(req.body).then(r => {
-        InteractionFactory.increase_score(InteractionFactory.scores.COMMENT, req.session.user.id, (err, doc) => {})
+        InteractionFactory.increase_score(InteractionFactory.scores.COMMENT, req.session.user._id, (err, doc) => {})
         res.status(200).send(r)
     })
     .catch(err => {

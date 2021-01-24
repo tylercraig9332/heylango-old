@@ -6,7 +6,7 @@ import { Like, EditOrAdmin, Comment as Reply} from '../Toolbar/Icons'
 import Avatar from '../User/Avatar'
 import IComment from './Comment'
 import { timeSince } from '../Util/functions'
-import User from '../User/User'
+import User from '../../typings/User'
 import BadgePanel from '../User/Badge/Panel'
 
 type CommentComponentProps = {
