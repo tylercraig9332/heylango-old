@@ -1,6 +1,7 @@
 import IUser from '../../typings/User'
 import MongoDriver from '../MongoDriver'
 import crypto from 'crypto'
+import { MongoError } from 'mongodb'
 
 export default class UserFactory {
 
@@ -46,17 +47,12 @@ export default class UserFactory {
     static async validate(body : any, callback : any) {
         const db = await MongoDriver.run()
         const users = db.collection('users', (err) => {
-            if (err) {
-                let e = {MongoError: err, message: 'Failed to get collection'}
-                callback(e, null)
-            }
+            if (err) callback(err.message, null)
         })
         users.findOne(body, (err, user) => {
-            if (user === null) {
-                let e = {
-                    MongoError: err, message: 'User does not exist'
-                }
-                callback(e, null)
+            if (err || user === null) {
+                console.error(err.toString(), user)
+                callback(err.message, null)
                 return
             }
             const hash = crypto.pbkdf2Sync(body.password, user.salt, 10000, 512, 'sha512').toString('hex');
@@ -70,7 +66,7 @@ export default class UserFactory {
                 })
             } else {
                 let m = 'incorrect password'
-                callback({MongoError: err, message: m}, null)
+                callback('Incorrect Password', null)
                 return
             }
         })

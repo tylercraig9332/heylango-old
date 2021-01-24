@@ -2,7 +2,7 @@ const { data } = require("autoprefixer");
 const { MongoClient } = require("mongodb");
 const mongodb = require('./mongodb.json')
 
-const client = new MongoClient(mongodb.local);
+const client = new MongoClient(mongodb.local, { useUnifiedTopology: true });
 
 async function run() {
     try {

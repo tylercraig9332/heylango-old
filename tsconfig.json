@@ -4,7 +4,8 @@
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext"
+      "esnext",
+      "ES6"
     ],
     "allowJs": true,
     "skipLibCheck": true,
@@ -12,14 +13,14 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "module": "esnext",
+    "module": "commonJS",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
+    //"noEmit": true,
     "jsx": "react",
     "typeRoots": ["./typings", "./node_modules/@types"],
-    "outDir": "/dist"
+    "outDir": "./build"
   },
   "include": [
     "src",

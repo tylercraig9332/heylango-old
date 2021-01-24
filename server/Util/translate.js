@@ -1,9 +1,9 @@
-const {TranslationServiceClient} = require('@google-cloud/translate');
+//const {TranslationServiceClient} = require('@google-cloud/translate');
 const gcloud = require('./gcloud.json')
-const translationClient = new TranslationServiceClient({keyFile: './Util/gcloud.json'});
+//const translationClient = new TranslationServiceClient({keyFile: './Util/gcloud.json'});
 
 async function translateText(text, targetCode) {
-    const p_id = gcloud.project_id
+    /*const p_id = gcloud.project_id
     const location = 'global'
     // Construct request
     const request = {
@@ -26,7 +26,8 @@ async function translateText(text, targetCode) {
     } catch (error) {
         console.error(error);
     }
-    return translations
+    return translations*/
+    return "HeyLango translate needs to be updated"
 }
 
 module.exports = translateText

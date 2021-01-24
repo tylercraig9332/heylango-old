@@ -79,10 +79,10 @@ router.post('/login', (req, res) => {
         res.send("Error: missing request body...")
         return
     }
-    UserFactory.validate(req.body, (err : any, user : IUser) => {
+    UserFactory.validate(req.body, (err : string, user : IUser) => {
         if (err || user === null) {
-            console.error('Validation failed', err.message)
-            res.statusMessage = (err.message === undefined) ? 'Something went wrong: Validation Failed' : err.message
+            console.error('Validation failed:', err)
+            res.statusMessage = (err === undefined) ? 'Something went wrong: Validation Failed' : err
             res.status(500).send(err)
         } else {
             req.session.user = user
