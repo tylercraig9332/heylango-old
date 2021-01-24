@@ -3,7 +3,6 @@
   "version": "1.0.1",
   "private": true,
   "dependencies": {
-    "@ant-design/dark-theme": "^2.0.2",
     "@google-cloud/translate": "^6.0.2",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -27,7 +26,7 @@
     "express-fileupload": "^1.2.0",
     "express-session": "^1.17.0",
     "mongodb": "^3.5.2",
-    "mongoose": "^5.8.10",
+    "mongoose": "^5.11.12",
     "node-fetch": "^2.6.1",
     "react": "^16.12.0",
     "react-css-theme-switcher": "^0.2.2",
@@ -58,7 +57,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:8080",
+  "proxy": "http://localhost:4000",
   "devDependencies": {
     "autoprefixer": "^10.1.0",
     "gulp": "^4.0.2",

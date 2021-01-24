@@ -24,15 +24,15 @@ router.get('/loggedIn', (req, res) => {
 })
 .get('/setting', (req, res) => {
     if (req.session.user === undefined) {
-        res.status(400).send('user not logged in')
+        res.status(200).send('user not logged in')
         return
     }
     SettingFactory.read(req.session.user.id, (err, docs) => {
         if (err) {
             res.status(500).send(err)
-            return
+        } else {
+            res.send(docs)
         }
-        res.send(docs)
     })
 })
 .get('/:id', (req, res) => {
@@ -68,19 +68,21 @@ router.post('/signup', (req, res) => {
     })
 })
 .post('/login', (req, res) => {
+    console.log('logging in...')
     if (req.body.username === undefined && req.body.password === undefined) {
         console.log("Missing body...")
         res.send("Error: missing request body...")
         return
     }
-    model.validate(req.body).then((user) => {
-        req.session.user = user
+    model.validate(req.body, (err, user) => {
+        if (err) {
+            console.log(e.message)
+            res.statusMessage = e.message
+            res.status(400).send(e)
+        } else {
+            req.session.user = user
         res.status(200).send(user)
-    })
-    .catch(e => {
-        console.log(e.message)
-        res.statusMessage = e.message
-        res.status(400).send(e)
+        }
     })
 })
 .post('/setting', (req, res) => {

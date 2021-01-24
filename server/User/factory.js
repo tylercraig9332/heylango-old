@@ -56,25 +56,25 @@ async function _delete() {
 
 }
 
-async function validate(data) {
-    //let ret = "awaiting response..."
-    let user = await User.findOne({username: data.username})
-    if (user === null) throw Error('User does not exist')
-
-    const hash = crypto.pbkdf2Sync(data.password, user.salt, 10000, 512, 'sha512').toString('hex');
-    if (user.password === hash) {
-        return {
-            username: user.username,
-            id: user._id,
-            email: user.email,
-            meta: user.meta,
-            createdAt: user._id.getTimestamp()
-
+function validate(data, callback) {
+    User.findOne({username: data.username}, (err, user) => {
+        if (err) console.error(err)
+        console.log('USER: ', user)
+        if (user === null) throw Error('User does not exist')
+        const hash = crypto.pbkdf2Sync(data.password, user.salt, 10000, 512, 'sha512').toString('hex');
+        if (user.password === hash) {
+            callback(null, {
+                username: user.username,
+                id: user._id,
+                email: user.email,
+                meta: user.meta,
+                createdAt: user._id.getTimestamp()
+            })
+        } else {
+            console.log('incorrect password')
+            throw new Error('Incorrect Password')
         }
-    } else {
-        console.log('incorrect password')
-        throw new Error('Incorrect Password')
-    }
+    })
 }
 
 module.exports = {

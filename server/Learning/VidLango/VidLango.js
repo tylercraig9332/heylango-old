@@ -19,6 +19,4 @@ const VidLangoScheme = mongoose.Schema({
     captionsAvaliable: [String]
 })
 
-VidLangoScheme.index({'$**': 'text'});
-
 module.exports = mongoose.model('VidLango', VidLangoScheme)
