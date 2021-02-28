@@ -85,7 +85,7 @@ export default function View(props : {vidLango : IVidLango | undefined, preview?
             <p>
             {
                 vidLango.tags.map((tag, i) => {
-                    return <div style={{ display: 'inline-block', margin: 2}}><Tag key={`tag-${i}`} color="#e52d27">{tag}</Tag></div>
+                    return <div key={`divtag-${i}`} style={{ display: 'inline-block', margin: 2}}><Tag key={`tag-${i}`} color="#e52d27">{tag}</Tag></div>
                     //return <span key={tag}>{tag}{(i + 1 === vidLango.tags.length) ? '' : ', '}</span>
                 }) 
             }

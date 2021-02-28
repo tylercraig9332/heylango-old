@@ -17,13 +17,13 @@ router.get('/loggedIn', (req, res) => {
 })
 .get('/me', (req, res) => {
     if (req.session.user === undefined) {
-        res.status(400).send('user not logged in')
+        res.status(401).send('user not logged in')
     }
     res.send(req.session.user)
 })
 .get('/setting', (req, res) => {
     if (req.session.user === undefined) {
-        res.status(400).send('user not logged in')
+        res.status(401).send('user not logged in')
         return
     }
     SettingFactory.read(req.session.user.id, (err, docs) => {
@@ -84,7 +84,7 @@ router.post('/signup', (req, res) => {
 })
 .post('/setting', (req, res) => {
     if (req.session.user === undefined) {
-        res.status(400).send('user not logged in')
+        res.status(401).send('user not logged in')
     }
     SettingFactory.update(req.session.user.id, req.body, (err, docs) => {
         if (err) {

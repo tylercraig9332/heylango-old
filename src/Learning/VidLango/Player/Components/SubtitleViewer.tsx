@@ -35,13 +35,17 @@ export default function SubtitleViewer(props : {captions : Array<any>, onCaption
         // so for example: if the user is learning every language except chinese and esperanto, and the video was esperanto, then the language disabled would be [chinese]
         // but if the video was in english then the languages disabled would be [chinese and esperanto]
         fetch('/api/u/setting').then(res => {
-            if (res.status !== 200) {
+            if (res.status !== 200 && res.status !== 401) {
                 console.error(res)
-                message.error('Faild to load language preferences')
+                console.log(res.body)
+                message.error('Failed to load language preferences')
                 return
             }
             return res.json()
         }).then(data => {
+            if (data === undefined) {
+                data = {primaryLanguage: 'en', targetLanguages: []}
+            }
             const target = data.targetLanguages
             // Disable languages that are not our target, audio from the video, or primary languages from being enabled
             let disabled = getOtherLanguages([props.audioLanguage, data.primaryLanguage, ...target])
