@@ -4,7 +4,6 @@ const model = require('./factory.js')
 const BadgeFactory = require('./Badge/factory')
 const SettingFactory = require('./UserSettings/factory')
 const InteractionFactory = require('../Interaction/factory')
-const User = require('./User.js')
 
 router.get('/loggedIn', (req, res) => {
     const logged = req.session.user !== undefined

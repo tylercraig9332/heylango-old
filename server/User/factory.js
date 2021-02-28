@@ -1,7 +1,10 @@
 const User = require('./User')
 const crypto = require('crypto')
+const mongoose = require('mongoose');
+const { checkConnection } = require('../mongoose');
 
 async function create(body) {
+    checkConnection()
     body.salt = crypto.randomBytes(16).toString('hex')
     body.password = crypto.pbkdf2Sync(body.password, body.salt, 10000, 512, 'sha512').toString('hex');
     let newUser = new User(body)
@@ -10,6 +13,7 @@ async function create(body) {
 }
 
 async function read(body) {
+    checkConnection()
     let user = await User.findOne(body, (err, user) => {
         if (err) console.log(err)
     })
@@ -57,10 +61,9 @@ async function _delete() {
 }
 
 async function validate(data) {
-    //let ret = "awaiting response..."
+    checkConnection()
     let user = await User.findOne({username: data.username})
     if (user === null) throw Error('User does not exist')
-
     const hash = crypto.pbkdf2Sync(data.password, user.salt, 10000, 512, 'sha512').toString('hex');
     if (user.password === hash) {
         return {

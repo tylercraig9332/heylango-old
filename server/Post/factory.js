@@ -1,4 +1,5 @@
 const Post = require('./Post')
+const { checkConnection } = require('../mongoose')
 
 async function create(post) {
     let p = new Post(post)
@@ -23,7 +24,7 @@ async function read(body) {
         })
         return posts
     }
-
+    await checkConnection()
     let docs = await Post.find(body, null, {sort: '-_id', limit: 25}, async (err, d) => {
         if (err) throw new Error(err)
         //console.log(d)

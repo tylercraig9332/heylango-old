@@ -1,5 +1,6 @@
 const Resource = require('./VidLango')
 const SavedResource = require('../../Interaction/Save')
+const { checkConnection } = require('../../mongoose');
 
 function create(body) {
     let v = new Resource(body)
@@ -7,6 +8,7 @@ function create(body) {
 }
 
 function read(body, options, callback) {
+    checkConnection()
     /*const options = {
         skip: (page - 1) * 8,
         limit: 8,
@@ -23,6 +25,7 @@ function read(body, options, callback) {
 }
 
 function read_saved(body, options, user, callback) {
+    checkConnection()
     SavedResource.find({user: user}, null, options, (err, docs) => {
         if (err || docs === undefined) callback(err, [])
         let data = docs.map(document => {
@@ -48,6 +51,7 @@ function read_saved(body, options, user, callback) {
 }
 
 async function update(by, body, callback) {
+    await checkConnection()
     if (body.captions !== undefined || body.captions.length > 0) {
         body.captionsAvaliable = await body.captions.map((caption) => caption.lCode)
     }

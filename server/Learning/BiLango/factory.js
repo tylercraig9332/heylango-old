@@ -6,6 +6,7 @@ function create(body) {
 }
 
 async function read(body) {
+    await checkConnection()
     let doc = await BiSheet.find(body, (err, docs) => {
         console.log(docs)
         if (err) throw new Error(err)

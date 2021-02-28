@@ -1,5 +1,6 @@
 const Resource = require('./LangoResource')
 const Like = require('../../Interaction/Like')
+const { checkConnection } = require('../../mongoose')
 
 function create(body) {
     let sheetObj = new Resource(body)
@@ -11,6 +12,7 @@ function create(body) {
 
 async function read(body) {
     // Resource.count({_id: this})
+    await checkConnection()
     let docs = await Resource.find(body, (err, docs) => {
         if (err) throw new Error(err)
         return docs
@@ -25,6 +27,7 @@ async function readMany(body, page, callback) {
         limit: 7, 
         sort: {likes: 'desc'}
     }
+    await checkConnection()
     let d = await Resource.find(body, null, options, async (err, langos) => {
         /*let proms = langos.map(async (doc) => {
             let counts = await Like.countDocuments({parent: doc._id}, (err, doc) => {
@@ -38,6 +41,7 @@ async function readMany(body, page, callback) {
 }
 
 async function readOne(body) {
+    await checkConnection()
     let doc = await Resource.findOne(body, (err, doc) => {
         if (err) throw new Error(err)
     })

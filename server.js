@@ -4,7 +4,7 @@ const path = require('path')
 const bodyParser = require('body-parser')
 const session = require('express-session')
 const mongodb = require('./server/mongodb.json')
-const MongoStore = require('connect-mongo')(session)
+const MongoStore = require('connect-mongo').default;
 const cookieParser = require('cookie-parser')
 const fileUpload = require('express-fileupload')
 const cors = require('cors')
@@ -19,7 +19,15 @@ app.use(express.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({extended: true}))
 
 
-mongoose.connect(mongodb.authString, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true }).then(() => {
+const mongooseOptions = {
+    useNewUrlParser: true, 
+    useUnifiedTopology: true, 
+    serverSelectionTimeoutMS: 5000, 
+    useCreateIndex: true, 
+    useFindAndModify: false,
+    keepAlive: true,
+}
+mongoose.connect(mongodb.authString, mongooseOptions).then((t) => {
     console.log('mongodb connection established')
 }).catch((e) => {
     console.error(e)
@@ -30,9 +38,14 @@ app.use(session({
     secret: secret,
     resave: true,
     saveUninitialized: false,
-    store: new MongoStore({mongooseConnection: mongoose.connection, collection: 'sessions'}),
-    cookie: {maxAge: 1000 * 60 * 12} // 12 hours
+    store: MongoStore.create({mongoUrl: mongodb.authString, collectionName: 'sessions'}),
+    //cookie: {maxAge: 1000 * 60 * 60 * 12} // 12 hours (removing for now)
 }))
+
+if (app.get('env') === 'production') {
+    app.set('trust proxy', 1) // trust first proxy
+    session.cookie.secure = true // serve secure cookies
+}
 /* Front End Static Files*/
 //app.use(express.static(path.join(__dirname, 'build')));
 app.use('/api/static', express.static('./server/Static'));
@@ -83,7 +96,7 @@ const userAuthMiddleware = (req, res, next) => {
 }
 
 /* Logs all request urls made to the server */
-const loggerMiddleware = (req, res, next) => {
+const loggerMiddleware = async (req, res, next) => {
     console.log(req.originalUrl)
     next()
 }
