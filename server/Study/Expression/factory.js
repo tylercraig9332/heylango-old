@@ -1,12 +1,15 @@
 const Resource = require('./ExpressionResource')
 const DeckExpression = require('../Decks/DeckExpressionRelation')
+const { checkConnection } = require('../../mongoose')
 
-function create(body) {
+async function create(body) {
+    await checkConnection()
     let expressionObject = new Resource(body)
     return expressionObject.save()
 }
 
 async function read(body) {
+    await checkConnection()
     let docs = await Resource.find(body, (err, docs) => {
         if (err) throw new Error(err)
         return docs
@@ -16,6 +19,7 @@ async function read(body) {
 }
 
 async function readDeck(deck_id, callback) {
+    await checkConnection()
     await DeckExpression.find({deck: deck_id}, async (err, docs) => {
         const expPromiseArray = docs.map((doc) => {
             return Resource.findOne({_id: doc.expression}, (err, exp) => {
@@ -37,6 +41,7 @@ async function readDeck(deck_id, callback) {
 }
 
 async function update(from, body) {
+    await checkConnection()
     let d = Resource.findOneAndUpdate(from, body, (err, doc) => {
         if (err) throw new Error(err)
         return doc
@@ -52,6 +57,7 @@ function _delete(_id, callback) {
 }
 
 function adjustStrength(body, callback) {
+    checkConnection()
     console.log('adjusting strength', body)
     Resource.findById(body._id).exec((err, sex) => {
         if (err || sex === null) {
