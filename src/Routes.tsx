@@ -48,6 +48,8 @@ import Test from './pages/Test'
 import Support from './pages/Support'
 import Saved from './pages/Saved/Saved'
 
+import Walkthrough from './Walkthrough/index'
+
 import './styles/global.css'
 const themes = {
     dark: `/api/static/styles/dark2.css`,
@@ -125,6 +127,8 @@ export default function Routes() {
                         <Route exact path='/info/srs' component={iSRS} />
                         <Route exact path='/info/cefr' component={iCEFR} />
                         <Route exact path='/info/content' component={iContent} />
+
+                        <Route exact path='/walkthrough' component={Walkthrough} />
                     </Switch>
                 </AppWrap>
                 </ThemeSwitcherProvider>
