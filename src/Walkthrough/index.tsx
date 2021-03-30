@@ -1,13 +1,16 @@
 import React, { useState } from 'react'
 import Container from './Container'
+/* Pages */
 import Welcome from './pages/Welcome'
 import Objective from './pages/Objective'
+import Input from './pages/Input'
 
 export default function Walkthrough() {
-    const [page, setPage] = useState<number>(0)
+    const [page, setPage] = useState<number>(2)
     const pages = [
         <Welcome />,
-        <Objective />
+        <Objective />,
+        <Input />
     ]
 
     function nextPage() {
