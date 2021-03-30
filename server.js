@@ -14,7 +14,7 @@ const port = process.env.PORT || 8080
 const secret = 'development'
 
 // For Production
-// app.use(cors())
+app.use(cors())
 app.use(express.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({extended: true}))
 
@@ -24,7 +24,7 @@ const mongooseOptions = {
     useUnifiedTopology: true, 
     serverSelectionTimeoutMS: 5000, 
     useCreateIndex: true, 
-    useFindAndModify: false,
+    useFindAndModify: true,
     keepAlive: true,
 }
 mongoose.connect(mongodb.authString, mongooseOptions).then((t) => {
@@ -47,7 +47,7 @@ if (app.get('env') === 'production') {
     session.cookie.secure = true // serve secure cookies
 }
 /* Front End Static Files*/
-//app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.join(__dirname, 'build')));
 app.use('/api/static', express.static('./server/Static'));
 
 app.use(cookieParser(secret))
@@ -79,11 +79,11 @@ app.use('/api/admin', adminRouter)
 app.use('/api/b', badgeRouter)
 
 /* Front End Router */
-/* Uncomment for Production
+
 app.get('*', function (req, res) {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
   });
-*/
+
 
 /* Logs when a user is undefined */
 const userAuthMiddleware = (req, res, next) => {
