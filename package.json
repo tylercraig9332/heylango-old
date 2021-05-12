@@ -67,6 +67,6 @@
     "gulp-less": "^4.0.1",
     "gulp-postcss": "^9.0.0",
     "less-plugin-npm-import": "^2.1.0",
-    "postcss": "^8.2.2"
+    "postcss": "^8.2.10"
   }
 }
