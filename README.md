@@ -1,4 +1,4 @@
-
+Note: I have started working on a v2 for HeyLango! I have started from scratch on this new effort- so I am abondoning this repo and starting a new one with fresh history.
 #  HeyLango!
 
 Online language learning platform and community
